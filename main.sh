@@ -1,0 +1,1 @@
+python3 bib.py --bib examples/WEPO/wepo.bib examples/SMITH/iclr2026_conference.bib examples/CogniWeb/references.bib --out outputs/refs.json --sort year --dedup

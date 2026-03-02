@@ -1,0 +1,1 @@
+tex2docx convert --input-texfile a.tex --output-docxfile a.docx

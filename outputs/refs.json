@@ -1,0 +1,550 @@
+{
+  "2025mirothinker": {
+    "id": 1,
+    "citation": "MiroMind AI Team. MiroFlow: An Open-Source Agentic Framework for Deep Research[EB/OL]. 2025. Available: https://github.com/MiroMindAI/MiroFlow."
+  },
+  "chai2025scimaster": {
+    "id": 2,
+    "citation": "Chai Jingyi, Tang Shuo, Ye Rui, et al.. SciMaster: Towards General-Purpose Scientific AI Agents, Part I. X-Master as Foundation: Can We Lead on Humanity's Last Exam?[EB/OL]. arXiv preprint arXiv:2507.05241, 2025."
+  },
+  "chen2025sets": {
+    "id": 3,
+    "citation": "Chen Jiefeng, Ren Jie, Chen Xinyun, et al.. Sets: Leveraging self-verification and self-correction for improved test-time scaling[EB/OL]. arXiv preprint arXiv:2501.19306, 2025."
+  },
+  "chhikara2025mem0": {
+    "id": 4,
+    "citation": "Chhikara Prateek, Khant Dev, Aryan Saket, et al.. Mem0: Building production-ready ai agents with scalable long-term memory[EB/OL]. arXiv preprint arXiv:2504.19413, 2025."
+  },
+  "cua2025": {
+    "id": 5,
+    "citation": "OpenAI. Computer-Using Agent: Introducing a universal interface for AI to interact with the digital world[J]. 2025."
+  },
+  "hou2025model": {
+    "id": 6,
+    "citation": "Hou Xinyi, Zhao Yanjie, Wang Shenao, et al.. Model context protocol (mcp): Landscape, security threats, and future research directions[EB/OL]. arXiv preprint arXiv:2503.23278, 2025."
+  },
+  "hu2025owl": {
+    "id": 7,
+    "citation": "Hu Mengkang, Zhou Yuhang, Fan Wendong, et al.. Owl: Optimized workforce learning for general multi-agent assistance in real-world task automation[EB/OL]. arXiv preprint arXiv:2505.23885, 2025."
+  },
+  "kalai2025language": {
+    "id": 8,
+    "citation": "Kalai Adam Tauman, Nachum Ofir, Vempala Santosh S, et al.. Why Language Models Hallucinate[EB/OL]. arXiv preprint arXiv:2509.04664, 2025."
+  },
+  "li2025cross": {
+    "id": 9,
+    "citation": "Li Yilong, Qian Chen, Xia Yu, et al.. Cross-Task Experiential Learning on LLM-based Multi-Agent Collaboration[EB/OL]. arXiv preprint arXiv:2505.23187, 2025."
+  },
+  "openmanus2025": {
+    "id": 10,
+    "citation": "Xinbin Liang, Jinyu Xiang, Zhaoyang Yu, et al.. OpenManus: An Open-Source Framework for Building General AI Agents[EB/OL]. 2025. Available: https://doi.org/10.5281/zenodo.15186407."
+  },
+  "qi2025webrltrainingllmweb": {
+    "id": 11,
+    "citation": "Zehan Qi, Xiao Liu, Iat Long Iong, et al.. WebRL: Training LLM Web Agents via Self-Evolving Online Curriculum Reinforcement Learning[EB/OL]. 2025. Available: https://arxiv.org/abs/2411.02337."
+  },
+  "qiu2025alita": {
+    "id": 12,
+    "citation": "Qiu Jiahao, Qi Xuan, Zhang Tongcheng, et al.. Alita: Generalist agent enabling scalable agentic reasoning with minimal predefinition and maximal self-evolution[EB/OL]. arXiv preprint arXiv:2505.20286, 2025."
+  },
+  "smolagents": {
+    "id": 13,
+    "citation": "Aymeric Roucher, Albert Villanova del Moral, Thomas Wolf, et al.. `smolagents`: a smol library to build great agentic systems.[EB/OL]. 2025. Available: https://github.com/huggingface/smolagents."
+  },
+  "su2025learn": {
+    "id": 14,
+    "citation": "Su Hongjin, Sun Ruoxi, Yoon Jinsung, et al.. Learn-by-interact: A Data-Centric Framework for Self-Adaptive Agents in Realistic Environments[EB/OL]. arXiv preprint arXiv:2501.10893, 2025."
+  },
+  "sun2025fastslowthinkingcomplextasksolving": {
+    "id": 15,
+    "citation": "Yiliu Sun, Yanfang Zhang, Zicheng Zhao, et al.. Fast-Slow-Thinking: Complex Task Solving with Large Language Models[EB/OL]. 2025. Available: https://arxiv.org/abs/2504.08690."
+  },
+  "tang2025autoagent": {
+    "id": 16,
+    "citation": "Tang Jiabin, Fan Tianyu, Huang Chao. AutoAgent: A Fully-Automated and Zero-Code Framework for LLM Agents[EB/OL]. arXiv preprint arXiv:2502.05957, 2025."
+  },
+  "tao2025webshaper": {
+    "id": 17,
+    "citation": "Tao Zhengwei, Wu Jialong, Yin Wenbiao, et al.. Webshaper: Agentically data synthesizing via information-seeking formalization[EB/OL]. arXiv preprint arXiv:2507.15061, 2025."
+  },
+  "wolflein2025llm": {
+    "id": 18,
+    "citation": "W\"olflein Georg, Ferber Dyke, Truhn Daniel, et al.. Llm agents making agent tools[EB/OL]. arXiv preprint arXiv:2502.11705, 2025."
+  },
+  "yu2025aworld": {
+    "id": 19,
+    "citation": "Yu Chengyue, Lu Siyuan, Zhuang Chenyi, et al.. AWorld: Orchestrating the Training Recipe for Agentic AI[EB/OL]. arXiv preprint arXiv:2508.20404, 2025."
+  },
+  "zhang2025symbiotic": {
+    "id": 20,
+    "citation": "Zhang Ruichen, Qiu Mufan, Tan Zhen, et al.. Symbiotic Cooperation for Web Agents: Harnessing Complementary Strengths of Large and Small LLMs[EB/OL]. arXiv preprint arXiv:2502.07942, 2025."
+  },
+  "zhang2025webpilot": {
+    "id": 21,
+    "citation": "Zhang Yao, Ma Zijian, Ma Yunpu, et al.. Webpilot: A versatile and autonomous multi-agent system for web task execution with strategic exploration[C]//Proceedings of the AAAI Conference on Artificial Intelligence. 2025: 23378-23386."
+  },
+  "zhou2025memento": {
+    "id": 22,
+    "citation": "Zhou Huichi, Chen Yihang, Guo Siyuan, et al.. Memento: Fine-tuning llm agents without fine-tuning llms[EB/OL]. Preprint, 2025."
+  },
+  "zhu2025oagents": {
+    "id": 23,
+    "citation": "Zhu He, Qin Tianrui, Zhu King, et al.. Oagents: An empirical study of building effective agents[EB/OL]. arXiv preprint arXiv:2506.15741, 2025."
+  },
+  "Qi_2024_CVPR": {
+    "id": 24,
+    "citation": "Qi Biqing, Chen Xinquan, Gao Junqi, et al.. Interactive Continual Learning: Fast and Slow Thinking[C]//Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR). 2024: 12882-12892."
+  },
+  "abdin2024phi": {
+    "id": 25,
+    "citation": "Abdin Marah, Jacobs Sam Ade, Awan Ammar Ahmad, et al.. Phi-3 technical report: A highly capable language model locally on your phone[EB/OL]. arXiv preprint arXiv:2404.14219, 2024."
+  },
+  "amini2024direct": {
+    "id": 26,
+    "citation": "Amini Afra, Vieira Tim, Cotterell Ryan. Direct Preference Optimization with an Offset[EB/OL]. arXiv preprint arXiv:2402.10571, 2024."
+  },
+  "baechler2024screenai": {
+    "id": 27,
+    "citation": "Baechler Gilles, Sunkara Srinivas, Wang Maria, et al.. ScreenAI: A Vision-Language Model for UI and Infographics Understanding[EB/OL]. arXiv preprint arXiv:2402.04615, 2024."
+  },
+  "bahdanau2024tapeagents": {
+    "id": 28,
+    "citation": "Bahdanau Dzmitry, Gontier Nicolas, Huang Gabriel, et al.. Tapeagents: a holistic framework for agent development and optimization[EB/OL]. arXiv preprint arXiv:2412.08445, 2024."
+  },
+  "cai2024toolmakers": {
+    "id": 29,
+    "citation": "Cai Tianle, Wang Xuezhi, Ma Tengyu, et al.. Large Language Models as Tool Makers[EB/OL]. arXiv preprint arXiv:2305.17126, 2024."
+  },
+  "chen2024webvln": {
+    "id": 30,
+    "citation": "Chen Qi, Pitawela Dileepa, Zhao Chongyang, et al.. Webvln: Vision-and-language navigation on websites[C]//Proceedings of the AAAI Conference on Artificial Intelligence. 2024: 1165-1173."
+  },
+  "cheng2024seeclick": {
+    "id": 31,
+    "citation": "Cheng Kanzhi, Sun Qiushi, Chu Yougang, et al.. Seeclick: Harnessing gui grounding for advanced visual gui agents[EB/OL]. arXiv preprint arXiv:2401.10935, 2024."
+  },
+  "chung2024scaling": {
+    "id": 32,
+    "citation": "Chung Hyung Won, Hou Le, Longpre Shayne, et al.. Scaling instruction-finetuned language models[J]. Journal of Machine Learning Research, 2024, 25(70): 1-53."
+  },
+  "damodaran2024splade": {
+    "id": 33,
+    "citation": "Damodaran P.. Splade_PP_en_v2: Independent Implementation of SPLADE++ Model (a.k.a splade-cocondenser* and family) for the Industry setting[EB/OL]. 2024. Available: https://huggingface.co/prithivida/Splade_PP_en_v2."
+  },
+  "deng2024mind2web": {
+    "id": 34,
+    "citation": "Deng Xiang, Gu Yu, Zheng Boyuan, et al.. Mind2web: Towards a generalist agent for the web[J]. Advances in Neural Information Processing Systems, 2024, 36."
+  },
+  "deng2023mind2web": {
+    "id": 34,
+    "citation": "Deng Xiang, Gu Yu, Zheng Boyuan, et al.. Mind2web: Towards a generalist agent for the web[J]. Advances in Neural Information Processing Systems, 2024, 36."
+  },
+  "drouin2024workarena": {
+    "id": 35,
+    "citation": "Drouin Alexandre, Gasse Maxime, Caccia Massimo, et al.. Workarena: How capable are web agents at solving common knowledge work tasks?[EB/OL]. arXiv preprint arXiv:2403.07718, 2024."
+  },
+  "duan2024negating": {
+    "id": 36,
+    "citation": "Duan Shitong, Yi Xiaoyuan, Zhang Peng, et al.. Negating Negatives: Alignment without Human Positive Samples via Distributional Dispreference Optimization[EB/OL]. arXiv preprint arXiv:2403.03419, 2024."
+  },
+  "he2024webvoyager": {
+    "id": 37,
+    "citation": "He Hongliang, Yao Wenlin, Ma Kaixin, et al.. WebVoyager: Building an End-to-End Web Agent with Large Multimodal Models[EB/OL]. arXiv preprint arXiv:2401.13919, 2024."
+  },
+  "hong2024orpo": {
+    "id": 38,
+    "citation": "Hong Jiwoo, Lee Noah, Thorne James. ORPO: Monolithic preference optimization without reference model[EB/OL]. arXiv preprint arXiv:2403.07691, 2024, 2(4): 5."
+  },
+  "kim2024language": {
+    "id": 39,
+    "citation": "Kim Geunwoo, Baldi Pierre, McAleer Stephen. Language models can solve computer tasks[J]. Advances in Neural Information Processing Systems, 2024, 36."
+  },
+  "lai2024autowebglm": {
+    "id": 40,
+    "citation": "Lai Hanyu, Liu Xiao, Iong Iat Long, et al.. AutoWebGLM: A Large Language Model-based Web Navigating Agent[C]//Proceedings of the 30th ACM SIGKDD Conference on Knowledge Discovery and Data Mining. 2024: 5295-5306."
+  },
+  "liu2024wepowebelementpreference": {
+    "id": 41,
+    "citation": "Jiarun Liu, Jia Hao, Chunhong Zhang, et al.. WEPO: Web Element Preference Optimization for LLM-based Web Navigation[EB/OL]. 2024. Available: https://arxiv.org/abs/2412.10742."
+  },
+  "lu2024weblinx": {
+    "id": 42,
+    "citation": "L`u Xing Han, Kasner Zdenvek, Reddy Siva. Weblinx: Real-world website navigation with multi-turn dialogue[EB/OL]. arXiv preprint arXiv:2402.05930, 2024."
+  },
+  "madaan2024self": {
+    "id": 43,
+    "citation": "Madaan Aman, Tandon Niket, Gupta Prakhar, et al.. Self-refine: Iterative refinement with self-feedback[J]. Advances in Neural Information Processing Systems, 2024, 36."
+  },
+  "meng2024simpo": {
+    "id": 44,
+    "citation": "Meng Yu, Xia Mengzhou, Chen Danqi. SimPO: Simple Preference Optimization with a Reference-Free Reward[EB/OL]. arXiv preprint arXiv:2405.14734, 2024."
+  },
+  "morimura2024filtered": {
+    "id": 45,
+    "citation": "Morimura Tetsuro, Sakamoto Mitsuki, Jinnai Yuu, et al.. Filtered Direct Preference Optimization[EB/OL]. arXiv preprint arXiv:2404.13846, 2024."
+  },
+  "muldrew2024active": {
+    "id": 46,
+    "citation": "Muldrew William, Hayes Peter, Zhang Mingtian, et al.. Active Preference Learning for Large Language Models[EB/OL]. arXiv preprint arXiv:2402.08114, 2024."
+  },
+  "niu2024screenagent": {
+    "id": 47,
+    "citation": "Niu Runliang, Li Jindong, Wang Shiqi, et al.. ScreenAgent: A Vision Language Model-driven Computer Control Agent[EB/OL]. arXiv preprint arXiv:2402.07945, 2024."
+  },
+  "openai2024gpt4": {
+    "id": 48,
+    "citation": "OpenAI. GPT-4 Technical Report[R]. OpenAI, 2024. Technical Report."
+  },
+  "opendeepresearch": {
+    "id": 49,
+    "citation": "LangChain AI. Open Deep Research[EB/OL]. 2024. Available: https://github.com/langchain-ai/open_deep_research."
+  },
+  "pan2024dynathinkfastslowdynamic": {
+    "id": 50,
+    "citation": "Jiabao Pan, Yan Zhang, Chen Zhang, et al.. DynaThink: Fast or Slow? A Dynamic Decision-Making Framework for Large Language Models[EB/OL]. 2024. Available: https://arxiv.org/abs/2407.01009."
+  },
+  "prasad2024adaptasneededdecompositionplanning": {
+    "id": 51,
+    "citation": "Archiki Prasad, Alexander Koller, Mareike Hartmann, et al.. ADaPT: As-Needed Decomposition and Planning with Language Models[EB/OL]. 2024. Available: https://arxiv.org/abs/2311.05772."
+  },
+  "qin2024o1": {
+    "id": 52,
+    "citation": "Qin Yiwei, Li Xuefeng, Zou Haoyang, et al.. O1 Replication Journey: A Strategic Progress Report–Part 1[EB/OL]. arXiv preprint arXiv:2410.18982, 2024."
+  },
+  "rafailov2024direct": {
+    "id": 53,
+    "citation": "Rafailov Rafael, Sharma Archit, Mitchell Eric, et al.. Direct preference optimization: Your language model is secretly a reward model[J]. Advances in Neural Information Processing Systems, 2024, 36."
+  },
+  "rafailov2023direct": {
+    "id": 53,
+    "citation": "Rafailov Rafael, Sharma Archit, Mitchell Eric, et al.. Direct preference optimization: Your language model is secretly a reward model[J]. Advances in Neural Information Processing Systems, 2024, 36."
+  },
+  "shao2024deepseekmath": {
+    "id": 54,
+    "citation": "Shao Zhihong, Wang Peiyi, Zhu Qihao, et al.. Deepseekmath: Pushing the limits of mathematical reasoning in open language models[EB/OL]. arXiv preprint arXiv:2402.03300, 2024."
+  },
+  "snell2024scalingllmtesttimecompute": {
+    "id": 55,
+    "citation": "Charlie Snell, Jaehoon Lee, Kelvin Xu, et al.. Scaling LLM Test-Time Compute Optimally can be More Effective than Scaling Model Parameters[EB/OL]. 2024. Available: https://arxiv.org/abs/2408.03314."
+  },
+  "team2024gemma": {
+    "id": 56,
+    "citation": "Team Gemma, Mesnard Thomas, Hardin Cassidy, et al.. Gemma: Open models based on gemini research and technology[EB/OL]. arXiv preprint arXiv:2403.08295, 2024."
+  },
+  "wang2024mobile": {
+    "id": 57,
+    "citation": "Wang Junyang, Xu Haiyang, Ye Jiabo, et al.. Mobile-Agent: Autonomous multi-modal mobile device agent with visual perception[EB/OL]. arXiv preprint arXiv:2401.16158, 2024."
+  },
+  "wang2024survey": {
+    "id": 58,
+    "citation": "Wang Lei, Ma Chen, Feng Xueyang, et al.. A survey on large language model based autonomous agents[J]. Frontiers of Computer Science, 2024, 18(6): 1-26."
+  },
+  "wang2024trove": {
+    "id": 59,
+    "citation": "Wang Zhiruo, Thornton Graham, Bisk Yonatan, et al.. TroVE: Inducing Verifiable and Efficient Toolboxes for Solving Programmatic Tasks[EB/OL]. arXiv preprint arXiv:2401.12869, 2024."
+  },
+  "xiang2024atomthink": {
+    "id": 60,
+    "citation": "Xiang Kun, Liu Zhili, Jiang Zihao, et al.. AtomThink: A Slow Thinking Framework for Multimodal Mathematical Reasoning[EB/OL]. arXiv preprint arXiv:2411.11930, 2024."
+  },
+  "yang2024cops": {
+    "id": 61,
+    "citation": "Yang Chen, Zhao Chenyang, Gu Quanquan, et al.. Cops: Empowering llm agents with provable cross-task experience sharing[EB/OL]. arXiv preprint arXiv:2410.16670, 2024."
+  },
+  "you2024ferret": {
+    "id": 62,
+    "citation": "You Keen, Zhang Haotian, Schoop Eldon, et al.. Ferret-UI: Grounded Mobile UI Understanding with Multimodal LLMs[EB/OL]. arXiv preprint arXiv:2404.05719, 2024."
+  },
+  "yuan2024craft": {
+    "id": 63,
+    "citation": "Yuan Lifan, Phan Hai, Chen Yangyi, et al.. CRAFT: Customizing LLMs by Creating and Retrieving from Specialized Toolsets[EB/OL]. arXiv preprint arXiv:2309.17428, 2024."
+  },
+  "zheng2024llamafactory": {
+    "id": 64,
+    "citation": "Yaowei Zheng, Richong Zhang, Junhao Zhang, et al.. LlamaFactory: Unified Efficient Fine-Tuning of 100+ Language Models[EB/OL]. arXiv preprint arXiv:2403.13372, 2024. Available: http://arxiv.org/abs/2403.13372."
+  },
+  "furuta2023multimodal": {
+    "id": 65,
+    "citation": "Furuta Hiroki, Lee Kuang-Huei, Nachum Ofir, et al.. Multimodal Web Navigation with Instruction-Finetuned Foundation Models[C]//The Twelfth International Conference on Learning Representations. 2023."
+  },
+  "gur2023real": {
+    "id": 66,
+    "citation": "Gur Izzeddin, Furuta Hiroki, Huang Austin V, et al.. A Real-World WebAgent with Planning, Long Context Understanding, and Program Synthesis[C]//The Twelfth International Conference on Learning Representations. 2023."
+  },
+  "gur2023understanding": {
+    "id": 67,
+    "citation": "G\"ur Izzeddin, Nachum Ofir, Miao Yingjie, et al.. Understanding HTML with Large Language Models[C]//Findings of the Association for Computational Linguistics: EMNLP 2023. 2023: 2803-2821."
+  },
+  "hao2023reasoning": {
+    "id": 68,
+    "citation": "Hao Shibo, Gu Yi, Ma Haodi, et al.. Reasoning with language model is planning with world model[EB/OL]. arXiv preprint arXiv:2305.14992, 2023."
+  },
+  "hong2023cogagent": {
+    "id": 69,
+    "citation": "Hong Wenyi, Wang Weihan, Lv Qingsong, et al.. Cogagent: A visual language model for gui agents[EB/OL]. arXiv preprint arXiv:2312.08914, 2023."
+  },
+  "hong2024cogagent": {
+    "id": 69,
+    "citation": "Hong Wenyi, Wang Weihan, Lv Qingsong, et al.. Cogagent: A visual language model for gui agents[EB/OL]. arXiv preprint arXiv:2312.08914, 2023."
+  },
+  "jiang2023mistral": {
+    "id": 70,
+    "citation": "Jiang Albert Q, Sablayrolles Alexandre, Mensch Arthur, et al.. Mistral 7B[EB/OL]. arXiv preprint arXiv:2310.06825, 2023."
+  },
+  "lee2023pix2struct": {
+    "id": 71,
+    "citation": "Lee Kenton, Joshi Mandar, Turc Iulia Raluca, et al.. Pix2struct: Screenshot parsing as pretraining for visual language understanding[C]//International Conference on Machine Learning. PMLR, 2023: 18893-18912."
+  },
+  "li2023zero": {
+    "id": 72,
+    "citation": "Li Tao, Li Gang, Deng Zhiwei, et al.. A Zero-Shot Language Agent for Computer Control with Structured Reflection[C]//The 2023 Conference on Empirical Methods in Natural Language Processing. 2023."
+  },
+  "lin2023swiftsage": {
+    "id": 73,
+    "citation": "Lin Bill Yuchen, Fu Yicheng, Yang Karina, et al.. Swiftsage: A generative agent with fast and slow thinking for complex interactive tasks[J]. Advances in Neural Information Processing Systems, 2023, 36: 23813-23825."
+  },
+  "liu2023agentbench": {
+    "id": 74,
+    "citation": "Liu Xiao, Yu Hao, Zhang Hanchen, et al.. AgentBench: Evaluating LLMs as Agents[C]//The Twelfth International Conference on Learning Representations. 2023."
+  },
+  "mialon2023augmented": {
+    "id": 75,
+    "citation": "Mialon Gr'egoire, Dessi Roberto, Lomeli Maria, et al.. Augmented Language Models: a Survey[J]. Transactions on Machine Learning Research, 2023."
+  },
+  "mialon2023gaia": {
+    "id": 76,
+    "citation": "Mialon Gr'egoire, Fourrier Cl'ementine, Wolf Thomas, et al.. Gaia: a benchmark for general ai assistants[C]//The Twelfth International Conference on Learning Representations. 2023."
+  },
+  "nakajima2023babyagi": {
+    "id": 77,
+    "citation": "Y. Nakajima. BabyAGI[EB/OL]. 2023. Available: https://github.com/yoheinakajima/babyagi."
+  },
+  "openai2023chatgptplugins": {
+    "id": 78,
+    "citation": "OpenAI. ChatGPT Plugins[EB/OL]. 2023. Available: https://openai.com/blog/chatgpt-plugins."
+  },
+  "packer2023memgpt": {
+    "id": 79,
+    "citation": "Packer Charles, Fang Vivian, Patil Shishir G, et al.. MemGPT: Towards LLMs as Operating Systems[EB/OL]. arXiv preprint arXiv:2310.08560, 2023."
+  },
+  "park2023generative": {
+    "id": 80,
+    "citation": "Park Joon Sung, O'Brien Joseph C, Cai Carrie J, et al.. Generative agents: Interactive simulacra of human behavior[EB/OL]. arXiv preprint arXiv:2304.03442, 2023."
+  },
+  "qian2023creator": {
+    "id": 81,
+    "citation": "Qian Cheng, Han Chi, Fung Yi R, et al.. CREATOR: Disentangling Abstract and Concrete Reasonings of Large Language Models through Tool Creation[EB/OL]. arXiv preprint arXiv:2305.14318, 2023."
+  },
+  "richards2023autogpt": {
+    "id": 82,
+    "citation": "T. B. Richards. Auto-GPT: An Autonomous GPT-4 Experiment[EB/OL]. 2023. Available: http://example.com/auto-gpt."
+  },
+  "schick2023toolformer": {
+    "id": 83,
+    "citation": "Schick Timo, Dwivedi-Yu Jane, Dess`i Roberto, et al.. Toolformer: Language models can teach themselves to use tools[J]. Advances in Neural Information Processing Systems, 2023, 36: 68539-68551."
+  },
+  "shinn2024reflexion": {
+    "id": 84,
+    "citation": "Shinn Noah, Cassano Federico, Gopinath Ashwin, et al.. Reflexion: Language agents with verbal reinforcement learning[J]. Advances in Neural Information Processing Systems, 2023, 36: 8634-8652."
+  },
+  "shinn2023reflexionlanguageagentsverbal": {
+    "id": 84,
+    "citation": "Shinn Noah, Cassano Federico, Gopinath Ashwin, et al.. Reflexion: Language agents with verbal reinforcement learning[J]. Advances in Neural Information Processing Systems, 2023, 36: 8634-8652."
+  },
+  "sodhi2023step": {
+    "id": 85,
+    "citation": "Sodhi Paloma, Branavan SRK, Artzi Yoav, et al.. Step: Stacked llm policies for web actions[EB/OL]. arXiv preprint arXiv:2310.03720, 2023."
+  },
+  "sridhar2023hierarchical": {
+    "id": 86,
+    "citation": "Sridhar Abishek, Lo Robert, Xu Frank F, et al.. Hierarchical Prompting Assists Large Language Model on Web Navigation[C]//The 2023 Conference on Empirical Methods in Natural Language Processing. 2023."
+  },
+  "sumers2023cognitive": {
+    "id": 87,
+    "citation": "Sumers Theodore, Yao Shunyu, Narasimhan Karthik, et al.. Cognitive architectures for language agents[J]. Transactions on Machine Learning Research, 2023."
+  },
+  "unsloth2023": {
+    "id": 88,
+    "citation": "Unsloth.ai. Unsloth GitHub Repository[EB/OL]. 2023. Available: https://github.com/unslothai/unsloth."
+  },
+  "wang2023enhancing": {
+    "id": 89,
+    "citation": "Wang Bing, Liang Xinnian, Yang Jian, et al.. Enhancing large language model with self-controlled memory framework[EB/OL]. arXiv preprint arXiv:2304.13343, 2023."
+  },
+  "xi2023rise": {
+    "id": 90,
+    "citation": "Xi Zhiheng, Chen Wenxiang, Guo Xin, et al.. The rise and potential of large language model based agents: A survey[EB/OL]. arXiv preprint arXiv:2309.07864, 2023."
+  },
+  "yao2023react": {
+    "id": 91,
+    "citation": "Yao Shunyu, Zhao Jeffrey, Yu Dian, et al.. React: Synergizing reasoning and acting in language models[C]//International Conference on Learning Representations (ICLR). 2023."
+  },
+  "yao2022react": {
+    "id": 91,
+    "citation": "Yao Shunyu, Zhao Jeffrey, Yu Dian, et al.. React: Synergizing reasoning and acting in language models[C]//International Conference on Learning Representations (ICLR). 2023."
+  },
+  "yao2023tree": {
+    "id": 92,
+    "citation": "Yao Shunyu, Yu Dian, Zhao Jeffrey, et al.. Tree of thoughts: Deliberate problem solving with large language models[J]. Advances in neural information processing systems, 2023, 36: 11809-11822."
+  },
+  "zheng2023synapse": {
+    "id": 93,
+    "citation": "Zheng Longtao, Wang Rundong, An Bo. Synapse: Leveraging few-shot exemplars for human-level computer control[EB/OL]. arXiv preprint arXiv:2306.07863, 2023."
+  },
+  "zhou2023webarena": {
+    "id": 94,
+    "citation": "Zhou Shuyan, Xu Frank F, Zhu Hao, et al.. WebArena: A Realistic Web Environment for Building Autonomous Agents[C]//The Twelfth International Conference on Learning Representations. 2023."
+  },
+  "bai2022constitutional": {
+    "id": 95,
+    "citation": "Bai Yuntao, Kadavath Saurav, Kundu Sandipan, et al.. Constitutional ai: Harmlessness from ai feedback[EB/OL]. arXiv preprint arXiv:2212.08073, 2022."
+  },
+  "humphreys2022data": {
+    "id": 96,
+    "citation": "Humphreys Peter C, Raposo David, Pohlen Tobias, et al.. A data-driven approach for learning to control computers[C]//International Conference on Machine Learning. PMLR, 2022: 9466-9482."
+  },
+  "ouyang2022training": {
+    "id": 97,
+    "citation": "Ouyang Long, Wu Jeffrey, Jiang Xu, et al.. Training language models to follow instructions with human feedback[J]. Advances in neural information processing systems, 2022, 35: 27730-27744."
+  },
+  "wang2022webformer": {
+    "id": 98,
+    "citation": "Wang Qifan, Fang Yi, Ravula Anirudh, et al.. Webformer: The web-page transformer for structure information extraction[C]//Proceedings of the ACM Web Conference 2022. 2022: 3124-3133."
+  },
+  "yao2022webshop": {
+    "id": 99,
+    "citation": "Yao Shunyu, Chen Howard, Yang John, et al.. Webshop: Towards scalable real-world web interaction with grounded language agents[J]. Advances in Neural Information Processing Systems, 2022, 35: 20744-20757."
+  },
+  "hu2021lora": {
+    "id": 100,
+    "citation": "Hu Edward J, Wallis Phillip, Allen-Zhu Zeyuan, et al.. LoRA: Low-Rank Adaptation of Large Language Models[C]//International Conference on Learning Representations. 2021."
+  },
+  "nakano2021webgpt": {
+    "id": 101,
+    "citation": "Nakano Reiichiro, Hilton Jacob, Balaji Suchir, et al.. Webgpt: Browser-assisted question-answering with human feedback[EB/OL]. arXiv preprint arXiv:2112.09332, 2021."
+  },
+  "zhu2021contrastive": {
+    "id": 102,
+    "citation": "Zhu Yutao, Nie Jian-Yun, Dou Zhicheng, et al.. Contrastive learning of user behavior sequence for context-aware document ranking[C]//Proceedings of the 30th ACM International Conference on Information & Knowledge Management. 2021: 2780-2791."
+  },
+  "brown2020language": {
+    "id": 103,
+    "citation": "Brown Tom, Mann Benjamin, Ryder Nick, et al.. Language models are few-shot learners[J]. Advances in neural information processing systems, 2020, 33: 1877-1901."
+  },
+  "he2020deberta": {
+    "id": 104,
+    "citation": "He Pengcheng, Liu Xiaodong, Gao Jianfeng, et al.. DEBERTA: DECODING-ENHANCED BERT WITH DISENTANGLED ATTENTION[C]//International Conference on Learning Representations. 2020."
+  },
+  "lewis2020retrieval": {
+    "id": 105,
+    "citation": "Lewis Patrick, Perez Ethan, Piktus Aleksandra, et al.. Retrieval-augmented generation for knowledge-intensive nlp tasks[J]. Advances in neural information processing systems, 2020, 33: 9459-9474."
+  },
+  "stiennon2020learning": {
+    "id": 106,
+    "citation": "Stiennon Nisan, Ouyang Long, Wu Jeffrey, et al.. Learning to summarize with human feedback[J]. Advances in Neural Information Processing Systems, 2020, 33: 3008-3021."
+  },
+  "devlin2019bert": {
+    "id": 107,
+    "citation": "Devlin Jacob, Chang Ming-Wei, Lee Kenton, et al.. Bert: Pre-training of deep bidirectional transformers for language understanding[C]//Proceedings of the 2019 conference of the North American chapter of the association for computational linguistics: human language technologies, volume 1 (long and short papers). 2019: 4171-4186."
+  },
+  "laird2019soar": {
+    "id": 108,
+    "citation": "Laird John E. The Soar cognitive architecture[M]. MIT press, 2019."
+  },
+  "ziegler2019fine": {
+    "id": 109,
+    "citation": "Ziegler Daniel M, Stiennon Nisan, Wu Jeffrey, et al.. Fine-tuning language models from human preferences[EB/OL]. arXiv preprint arXiv:1909.08593, 2019."
+  },
+  "bacon2017option": {
+    "id": 110,
+    "citation": "Bacon Pierre-Luc, Harb Jean, Precup Doina. The option-critic architecture[C]//Proceedings of the AAAI conference on artificial intelligence. 2017."
+  },
+  "christiano2017deep": {
+    "id": 111,
+    "citation": "Christiano Paul F, Leike Jan, Brown Tom, et al.. Deep reinforcement learning from human preferences[J]. Advances in neural information processing systems, 2017, 30."
+  },
+  "shi2017world": {
+    "id": 112,
+    "citation": "Shi Tianlin, Karpathy Andrej, Fan Linxi, et al.. World of bits: An open-domain platform for web-based agents[C]//International Conference on Machine Learning. PMLR, 2017: 3135-3144."
+  },
+  "vaswani2017attention": {
+    "id": 113,
+    "citation": "Vaswani Ashish, Shazeer Noam, Parmar Niki, et al.. Attention is all you need[J]. Advances in neural information processing systems, 2017, 30."
+  },
+  "he2016deep": {
+    "id": 114,
+    "citation": "He Kaiming, Zhang Xiangyu, Ren Shaoqing, et al.. Deep residual learning for image recognition[C]//Proceedings of the IEEE conference on computer vision and pattern recognition. 2016: 770-778."
+  },
+  "mnih2015human": {
+    "id": 115,
+    "citation": "Mnih Volodymyr, Kavukcuoglu Koray, Silver David, et al.. Human-level control through deep reinforcement learning[J]. nature, 2015, 518(7540): 529-533."
+  },
+  "puterman2014markov": {
+    "id": 116,
+    "citation": "Puterman Martin L. Markov decision processes: discrete stochastic dynamic programming[M]. John Wiley & Sons, 2014."
+  },
+  "weston2014memory": {
+    "id": 117,
+    "citation": "Weston Jason, Chopra Sumit, Bordes Antoine. Memory networks[EB/OL]. arXiv preprint arXiv:1410.3916, 2014."
+  },
+  "bellemare2013arcade": {
+    "id": 118,
+    "citation": "Bellemare Marc G, Naddaf Yavar, Veness Joel, et al.. The arcade learning environment: An evaluation platform for general agents[J]. Journal of artificial intelligence research, 2013, 47: 253-279."
+  },
+  "kahneman2011thinking": {
+    "id": 119,
+    "citation": "Kahneman Daniel. Thinking, fast and slow[M]. macmillan, 2011."
+  },
+  "ross2011reduction": {
+    "id": 120,
+    "citation": "Ross St'ephane, Gordon Geoffrey, Bagnell Drew. A reduction of imitation learning and structured prediction to no-regret online learning[C]//Proceedings of the fourteenth international conference on artificial intelligence and statistics. JMLR Workshop and Conference Proceedings, 2011: 627-635."
+  },
+  "xiang2010context": {
+    "id": 121,
+    "citation": "Xiang Biao, Jiang Daxin, Pei Jian, et al.. Context-aware ranking in web search[C]//Proceedings of the 33rd international ACM SIGIR conference on Research and development in information retrieval. 2010: 451-458."
+  },
+  "bengio2009curriculum": {
+    "id": 122,
+    "citation": "Bengio Yoshua, Louradour J'er^ome, Collobert Ronan, et al.. Curriculum learning[J]. Proceedings of the 26th annual international conference on machine learning, 2009: 41-48."
+  },
+  "cormack2009reciprocal": {
+    "id": 123,
+    "citation": "Cormack Gordon V, Clarke Charles LA, Buettcher Stefan. Reciprocal rank fusion outperforms condorcet and individual rank learning methods[C]//Proceedings of the 32nd international ACM SIGIR conference on Research and development in information retrieval. 2009: 758-759."
+  },
+  "gursky2009user": {
+    "id": 124,
+    "citation": "Gursk`y Peter, Horv'ath Tom'avs, Jir'asek Jozef, et al.. User Preference Web Search–Experiments with a System Connecting Web and User[J]. Computing and informatics, 2009, 28(4): 515-553."
+  },
+  "li2008introduction": {
+    "id": 125,
+    "citation": "Li Ming, Vit'anyi Paul, others. An introduction to Kolmogorov complexity and its applications[M]. Springer, 2008."
+  },
+  "legg2007universal": {
+    "id": 126,
+    "citation": "Legg Shane, Hutter Marcus. Universal intelligence: A definition of machine intelligence[J]. Minds and machines, 2007, 17: 391-444."
+  },
+  "nuxoll2007extending": {
+    "id": 127,
+    "citation": "Nuxoll Andrew M, Laird John E. Extending cognitive architecture with episodic memory[C]//AAAI. 2007: 1560-1564."
+  },
+  "radlinski2005query": {
+    "id": 128,
+    "citation": "Radlinski Filip, Joachims Thorsten. Query chains: learning to rank from implicit feedback[C]//Proceedings of the eleventh ACM SIGKDD international conference on Knowledge discovery in data mining. 2005: 239-248."
+  },
+  "xing2004efficient": {
+    "id": 129,
+    "citation": "Xing Dongshan, Shen Junyi. Efficient data mining for web navigation patterns[J]. Information and Software Technology, 2004, 46(1): 55-63."
+  },
+  "broder2000graph": {
+    "id": 130,
+    "citation": "Broder Andrei, Kumar Ravi, Maghoul Farzin, et al.. Graph structure in the web[J]. Computer networks, 2000, 33(1-6): 309-320."
+  },
+  "legg1997solomonoff": {
+    "id": 131,
+    "citation": "Legg Shane. Solomonoff induction[M]. Centre for Discrete Mathematics and Theoretical Computer Science, 1997."
+  },
+  "BADDELEY197447": {
+    "id": 132,
+    "citation": "Alan D. Baddeley, Graham Hitch. Working Memory[EB/OL]. 1974. Available: https://www.sciencedirect.com/science/article/pii/S0079742108604521."
+  }
+}

@@ -1,0 +1,5 @@
+python-docx 
+latex2mathml
+mathml2omml
+lxml
+bibtexparser
