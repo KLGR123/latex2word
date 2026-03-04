@@ -11,30 +11,105 @@ Install:
 Usage:
   python bib.py --bib refs1.bib refs2.bib --out refs.json
   python bib.py --bib refs1.bib refs2.bib --out refs.json --sort year --dedup
+
+Extras:
+  --strict   Stop on first error (default: best-effort, continue)
+  --log      Log level: DEBUG/INFO/WARNING/ERROR (default: INFO)
 """
 
 import argparse
 import json
+import logging
+import os
 import re
-from typing import List, Dict, Set
+import sys
+import tempfile
+from dataclasses import dataclass
+from typing import List, Dict, Set, Tuple, Optional, Any
 
 import bibtexparser
+from bibtexparser.bparser import BibTexParser
 
 
-# ----------------------------
-# Helpers
-# ----------------------------
+# -----------------------------
+# Reporting utilities
+# -----------------------------
+
+@dataclass
+class Issue:
+    level: str               # "ERROR" or "WARNING"
+    stage: str               # e.g. "read_bib", "format_entry", "write_json"
+    message: str
+    context: Dict[str, Any]
+
+class IssueCollector:
+    def __init__(self):
+        self.issues: List[Issue] = []
+
+    def warn(self, stage: str, message: str, **context):
+        self.issues.append(Issue("WARNING", stage, message, dict(context)))
+
+    def error(self, stage: str, message: str, **context):
+        self.issues.append(Issue("ERROR", stage, message, dict(context)))
+
+    def has_errors(self) -> bool:
+        return any(i.level == "ERROR" for i in self.issues)
+
+    def counts(self) -> Tuple[int, int]:
+        e = sum(1 for i in self.issues if i.level == "ERROR")
+        w = sum(1 for i in self.issues if i.level == "WARNING")
+        return e, w
+
+    def print_summary(self, logger: logging.Logger):
+        e, w = self.counts()
+        if e == 0 and w == 0:
+            logger.info("No issues detected.")
+            return
+        logger.info("Issue summary: %d error(s), %d warning(s).", e, w)
+        for it in self.issues:
+            # Print compact, but with enough context to debug.
+            ctx = ", ".join(f"{k}={v}" for k, v in it.context.items() if v not in ("", None, [], {}, set()))
+            logger.log(logging.ERROR if it.level == "ERROR" else logging.WARNING,
+                       "[%s] %s: %s%s",
+                       it.level, it.stage, it.message, (f" ({ctx})" if ctx else ""))
+
+class ForwardToIssuesHandler(logging.Handler):
+    """
+    Forward selected log records into IssueCollector, so we can show them in issue summary.
+    """
+    def __init__(self, issues: IssueCollector, stage: str = "bibtexparser"):
+        super().__init__()
+        self.issues = issues
+        self.stage = stage
+
+    def emit(self, record: logging.LogRecord) -> None:
+        try:
+            msg = record.getMessage()
+            level = record.levelno
+            # Only collect WARNING/ERROR/CRITICAL (INFO/DEBUG are usually too noisy)
+            if level >= logging.ERROR:
+                self.issues.error(self.stage, msg, logger=record.name)
+            elif level >= logging.WARNING:
+                self.issues.warn(self.stage, msg, logger=record.name)
+        except Exception:
+            # Never break pipeline because of logging issues
+            pass
+
+
+# -----------------------------
+# Core formatting helpers
+# -----------------------------
+
+LANG_TAIL = "et al"  # will be overridden by CLI
 
 def normalize_spaces(s: str) -> str:
     return re.sub(r"\s+", " ", s or "").strip()
-
 
 def strip_braces(s: str) -> str:
     if not s:
         return ""
     s = s.replace("{", "").replace("}", "")
     return normalize_spaces(s)
-
 
 def latex_to_plain(s: str) -> str:
     """Light LaTeX cleanup (best-effort)."""
@@ -46,7 +121,6 @@ def latex_to_plain(s: str) -> str:
     s = re.sub(r"\\(textit|emph|textbf)\s*", "", s)
     s = s.replace("\\", "")
     return normalize_spaces(s)
-
 
 def extract_url(s: str) -> str:
     r"""
@@ -65,13 +139,11 @@ def extract_url(s: str) -> str:
         return m.group(1).rstrip(".,;)}]").strip()
     return ""
 
-
 def pick(entry: Dict, *keys: str) -> str:
     for k in keys:
         if k in entry and entry[k]:
             return latex_to_plain(entry[k])
     return ""
-
 
 def pick_url(entry: Dict) -> str:
     """Prefer explicit url field, else try howpublished/note."""
@@ -83,26 +155,22 @@ def pick_url(entry: Dict) -> str:
     url = extract_url(hp) or extract_url(nt)
     return url.strip()
 
-
 def year_from_entry(entry: Dict) -> str:
     y = pick(entry, "year", "date")
     if y and re.match(r"^\d{4}-", y):
         return y[:4]
     return y
 
-
 def pages_normalize(p: str) -> str:
     p = latex_to_plain(p)
     p = p.replace("--", "-").replace("–", "-")
     return p
-
 
 def split_authors(author_field: str) -> List[str]:
     if not author_field:
         return []
     parts = [normalize_spaces(p) for p in author_field.split(" and ") if normalize_spaces(p)]
     return parts
-
 
 def format_one_author(name: str) -> str:
     name = latex_to_plain(name)
@@ -111,16 +179,10 @@ def format_one_author(name: str) -> str:
         return normalize_spaces(f"{last} {first}")
     return name
 
-
 def contains_chinese(text: str) -> bool:
-    """Check if text contains Chinese characters (CJK Unified Ideographs)."""
     if not text:
         return False
-    for char in text:
-        if '\u4e00' <= char <= '\u9fff':
-            return True
-    return False
-
+    return any('\u4e00' <= ch <= '\u9fff' for ch in text)
 
 def format_authors(author_field: str, max_authors: int = 3) -> str:
     authors = [format_one_author(a) for a in split_authors(author_field)]
@@ -130,34 +192,12 @@ def format_authors(author_field: str, max_authors: int = 3) -> str:
         return ", ".join(authors)
     shown = ", ".join(authors[:max_authors])
 
-    # Auto-detect: use "等" if any author name contains Chinese characters
     has_chinese = any(contains_chinese(author) for author in authors)
-    tail = "等" if has_chinese else "et al."
+    if has_chinese and LANG_TAIL == "et al":
+        tail = "等"
+    else:
+        tail = LANG_TAIL
     return f"{shown}, {tail}"
-
-
-def doc_type_tag(entry_type: str, entry: Dict) -> str:
-    """GB/T type tags (pragmatic)."""
-    t = (entry_type or "").lower()
-    if t == "article":
-        return "[J]"
-    if t in ("inproceedings", "conference", "proceedings"):
-        return "[C]"
-    if t in ("book", "inbook"):
-        return "[M]"
-    if t in ("phdthesis", "mastersthesis", "thesis"):
-        return "[D]"
-    if t in ("techreport", "report"):
-        return "[R]"
-    # online-ish
-    if pick_url(entry):
-        return "[EB/OL]"
-    return "[M]"
-
-
-# ----------------------------
-# Formatters
-# ----------------------------
 
 def format_article(entry: Dict) -> str:
     authors = format_authors(pick(entry, "author"))
@@ -170,7 +210,7 @@ def format_article(entry: Dict) -> str:
     doi = pick(entry, "doi")
     url = pick_url(entry)
 
-    # Determine document type: use [EB/OL] for arXiv/preprint
+    # Pragmatic: treat arXiv/preprint as [EB/OL]
     doc_tag = "[J]"
     if "arxiv" in (journal or "").lower() or "preprint" in (journal or "").lower():
         doc_tag = "[EB/OL]"
@@ -198,11 +238,9 @@ def format_article(entry: Dict) -> str:
 
     if doi:
         out += f" DOI: {doi}."
-    elif url and ("arxiv" in (journal or "").lower() or "preprint" in (journal or "").lower()):
-        # Optional: keep arXiv URL if present
+    elif url and doc_tag == "[EB/OL]":
         out += f" Available: {url}."
     return normalize_spaces(out)
-
 
 def format_inproceedings(entry: Dict) -> str:
     authors = format_authors(pick(entry, "author"))
@@ -237,7 +275,6 @@ def format_inproceedings(entry: Dict) -> str:
         out += f" Available: {url}."
     return normalize_spaces(out)
 
-
 def format_book(entry: Dict) -> str:
     authors = format_authors(pick(entry, "author", "editor"))
     title = pick(entry, "title")
@@ -270,7 +307,6 @@ def format_book(entry: Dict) -> str:
         out += f" Available: {url}."
     return normalize_spaces(out)
 
-
 def format_thesis(entry: Dict) -> str:
     authors = format_authors(pick(entry, "author"), max_authors=99)
     title = pick(entry, "title")
@@ -297,7 +333,6 @@ def format_thesis(entry: Dict) -> str:
     if url:
         out += f" Available: {url}."
     return normalize_spaces(out)
-
 
 def format_techreport(entry: Dict) -> str:
     authors = format_authors(pick(entry, "author"))
@@ -335,7 +370,6 @@ def format_techreport(entry: Dict) -> str:
         out += f" Available: {url}."
     return normalize_spaces(out)
 
-
 def format_misc_or_online(entry: Dict) -> str:
     authors = format_authors(pick(entry, "author"))
     title = pick(entry, "title")
@@ -352,7 +386,7 @@ def format_misc_or_online(entry: Dict) -> str:
     out += f"{title}{tag}. " if title else f"{tag}. "
 
     tail = []
-    if how and not extract_url(how):  # avoid duplicating raw \url{...}
+    if how and not extract_url(how):
         tail.append(how)
     if year:
         tail.append(year)
@@ -366,7 +400,6 @@ def format_misc_or_online(entry: Dict) -> str:
     if url:
         out += f" Available: {url}."
     return normalize_spaces(out)
-
 
 def format_entry(entry: Dict) -> str:
     etype = (entry.get("ENTRYTYPE") or "").lower()
@@ -383,15 +416,44 @@ def format_entry(entry: Dict) -> str:
     return format_misc_or_online(entry)
 
 
-def load_bib_entries(paths: List[str]) -> List[Dict]:
-    """Load and merge entries from one or more .bib files."""
-    all_entries = []
-    for path in paths:
-        with open(path, "r", encoding="utf-8") as f:
-            bibdb = bibtexparser.load(f)
-        all_entries.extend(bibdb.entries)
-    return all_entries
+# -----------------------------
+# IO + pipeline steps
+# -----------------------------
 
+def load_bib_entries(paths: List[str], issues: IssueCollector, strict: bool, logger: logging.Logger) -> List[Dict]:
+    """Load and merge entries from one or more .bib files with robust error reporting."""
+    all_entries: List[Dict] = []
+    for path in paths:
+        try:
+            if not os.path.exists(path):
+                raise FileNotFoundError(path)
+            with open(path, "r", encoding="utf-8") as f:
+                try:
+                    parser = BibTexParser(ignore_nonstandard_types=False)
+                    bibdb = bibtexparser.load(f, parser=parser)
+                except Exception as e:
+                    # Parsing errors often happen here
+                    raise ValueError(f"BibTeX parse failed: {e}") from e
+
+            entries = getattr(bibdb, "entries", None)
+            if entries is None:
+                issues.error("read_bib", "bibtexparser returned no entries attribute", file=path)
+                if strict:
+                    raise RuntimeError("No entries returned from bibtexparser.")
+                continue
+
+            logger.info("Loaded %d entries from %s", len(entries), path)
+            all_entries.extend(entries)
+
+        except UnicodeDecodeError as e:
+            issues.error("read_bib", "Failed to decode file as UTF-8", file=path, error=str(e))
+            if strict:
+                raise
+        except Exception as e:
+            issues.error("read_bib", "Failed to read/parse .bib file", file=path, error=str(e))
+            if strict:
+                raise
+    return all_entries
 
 def sort_entries(entries: List[Dict], mode: str) -> List[Dict]:
     if mode == "file":
@@ -405,38 +467,40 @@ def sort_entries(entries: List[Dict], mode: str) -> List[Dict]:
         return sorted(entries, key=lambda e: (e.get("ID") or ""))
     return entries
 
-
 def normalize_title_key(entry: Dict) -> str:
-    """
-    Produce a normalized title string for deduplication:
-    strips LaTeX braces, lowercases, collapses whitespace.
-    Falls back to empty string if no title field.
-    """
     raw = entry.get("title", "") or ""
     return strip_braces(raw).lower().strip()
 
+def safe_entry_id(entry: Dict, issues: IssueCollector, idx: int) -> str:
+    """Return entry ID; if missing, generate a stable placeholder and report."""
+    key = entry.get("ID", "") or ""
+    if not key:
+        gen = f"__missing_key_{idx}__"
+        issues.warn("validate_entry", "Entry has no BibTeX key (ID); generated placeholder key", generated_key=gen)
+        return gen
+    return key
 
-def deduplicate_entries(entries: List[Dict]) -> List[Dict]:
+def deduplicate_entries(entries: List[Dict], issues: IssueCollector) -> List[Dict]:
     """
-    Remove duplicate entries based on normalized title (lowercase + strip).
-    Keeps the first occurrence; all bib keys (including duplicates) are
-    recorded in the '__aliases__' field (a set) of the retained entry.
-    Entries without a title fall back to the formatted reference string.
+    Deduplicate by normalized title (or by formatted reference if title missing).
+    Keep the first occurrence; record all keys in '__aliases__' (a set).
     """
-    # norm_key -> index in unique_entries
     seen: Dict[str, int] = {}
     unique_entries: List[Dict] = []
 
-    for e in entries:
-        bib_key = e.get("ID", "")
+    for i, e in enumerate(entries):
+        bib_key = e.get("ID", "") or ""
         norm_key = normalize_title_key(e)
-
-        # Fall back to formatted reference when title is absent
         if not norm_key:
-            norm_key = format_entry(e)
+            # fallback to formatted reference; may still be empty if broken
+            try:
+                norm_key = format_entry(e)
+            except Exception:
+                norm_key = f"__unformattable_{i}__"
+                issues.warn("dedup", "Entry missing title and could not be formatted; using placeholder dedup key",
+                            bib_key=bib_key, index=i)
 
         if norm_key in seen:
-            # Duplicate: register this bib key as an alias of the first occurrence
             idx = seen[norm_key]
             if bib_key:
                 unique_entries[idx]["__aliases__"].add(bib_key)
@@ -448,77 +512,204 @@ def deduplicate_entries(entries: List[Dict]) -> List[Dict]:
 
     return unique_entries
 
+def populate_aliases(entries: List[Dict], issues: IssueCollector):
+    """Even without dedup, ensure every entry has __aliases__ set populated."""
+    for i, e in enumerate(entries):
+        key = e.get("ID", "") or ""
+        if "__aliases__" in e and isinstance(e["__aliases__"], set):
+            continue
+        if not key:
+            # don't fabricate here; safe_entry_id() will handle in build_lookup
+            e["__aliases__"] = set()
+            issues.warn("validate_entry", "Entry has no BibTeX key (ID); it will get a placeholder during lookup build",
+                        index=i)
+        else:
+            e["__aliases__"] = {key}
 
-def build_lookup(entries: List[Dict], start: int = 1) -> Dict:
+def build_lookup(entries: List[Dict], start: int, issues: IssueCollector, strict: bool) -> Dict[str, Dict[str, Any]]:
     """
-    Build the output lookup dictionary.
-
-    Structure:
-        {
-            "<bib_key>": {
-                "id":       <int>,          # numeric citation index
-                "citation": "<str>"         # formatted GB/T 7714-2015 string
-            },
-            ...
-        }
-
-    Every bib key (including duplicate aliases) is registered as a separate
-    top-level key pointing to the same id / citation value, so any downstream
-    lookup by original cite key works directly.
+    Build {citekey: {id, citation}} mapping.
+    Any missing citekey gets a generated placeholder so downstream lookup is still possible.
     """
-    lookup: Dict = {}
-    for numeric_id, entry in enumerate(entries, start=start):
-        citation = format_entry(entry)
-        aliases: Set[str] = entry.get("__aliases__", set())
-        record = {"id": numeric_id, "citation": citation}
+    lookup: Dict[str, Dict[str, Any]] = {}
+    used_keys: Set[str] = set()
+
+    for n, entry in enumerate(entries, start=start):
+        # Format entry safely
+        try:
+            citation = format_entry(entry)
+            if not citation:
+                issues.warn("format_entry", "Formatted citation is empty", entry_type=entry.get("ENTRYTYPE", ""), key=entry.get("ID", ""))
+        except Exception as e:
+            key_for_ctx = entry.get("ID", "") or ""
+            issues.error("format_entry", "Failed to format entry; emitting error placeholder citation",
+                         key=key_for_ctx, entry_type=entry.get("ENTRYTYPE", ""), error=str(e))
+            if strict:
+                raise
+            # Best-effort placeholder
+            citation = f"[FORMAT_ERROR] key={key_for_ctx or '<missing>'} type={entry.get('ENTRYTYPE','')} error={str(e)}"
+
+        aliases: Set[str] = entry.get("__aliases__", set()) or set()
+
+        # If aliases empty (e.g., missing ID), generate one
+        if not aliases:
+            gen = safe_entry_id(entry, issues, idx=n)
+            aliases = {gen}
+
+        record = {"id": n, "citation": citation}
+
         for key in aliases:
+            if key in used_keys:
+                # This is a real problem for downstream; report it.
+                issues.warn("build_lookup", "Duplicate cite key encountered; later mapping overwrites earlier",
+                            key=key, id=n)
+            used_keys.add(key)
             lookup[key] = record
+
     return lookup
 
+def atomic_write_json(path: str, data: Dict[str, Any], issues: IssueCollector, strict: bool):
+    """Write JSON via temp file then atomic replace to avoid partial/corrupt outputs."""
+    out_dir = os.path.dirname(os.path.abspath(path)) or "."
+    try:
+        os.makedirs(out_dir, exist_ok=True)
+    except Exception as e:
+        issues.error("write_json", "Failed to create output directory", dir=out_dir, error=str(e))
+        if strict:
+            raise
+        return
+
+    try:
+        fd, tmp_path = tempfile.mkstemp(prefix=".tmp_refs_", suffix=".json", dir=out_dir)
+        try:
+            with os.fdopen(fd, "w", encoding="utf-8") as f:
+                json.dump(data, f, ensure_ascii=False, indent=2)
+            os.replace(tmp_path, path)  # atomic on most OS
+        finally:
+            # If replace failed, cleanup temp
+            if os.path.exists(tmp_path):
+                try:
+                    os.remove(tmp_path)
+                except Exception:
+                    pass
+    except Exception as e:
+        issues.error("write_json", "Failed to write JSON output", out=path, error=str(e))
+        if strict:
+            raise
+
+
+# -----------------------------
+# CLI + main
+# -----------------------------
+
+def setup_logger(level: str) -> logging.Logger:
+    logger = logging.getLogger("bib7714")
+    logger.setLevel(getattr(logging, level.upper(), logging.INFO))
+    handler = logging.StreamHandler(sys.stdout)
+    handler.setFormatter(logging.Formatter("[%(levelname)s] %(message)s"))
+    logger.handlers = [handler]
+    logger.propagate = False
+    return logger
 
 def main():
+    global LANG_TAIL
+
     ap = argparse.ArgumentParser(
         description="Convert .bib files to a GB/T 7714-2015 JSON lookup dictionary."
     )
-    ap.add_argument(
-        "--bib", required=True, nargs="+",
-        help="One or more input .bib file paths"
-    )
-    ap.add_argument(
-        "--out", default="refs.json",
-        help="Output JSON file path (default: refs.json)"
-    )
-    ap.add_argument(
-        "--sort", choices=["file", "year", "key"], default="file",
-        help="Sorting mode applied before numbering"
-    )
-    ap.add_argument(
-        "--dedup", action="store_true",
-        help="Deduplicate entries by normalized title"
-    )
-    ap.add_argument(
-        "--start", type=int, default=1,
-        help="Starting numeric citation index (default: 1)"
-    )
+    ap.add_argument("--bib", required=True, nargs="+", help="One or more input .bib file paths")
+    ap.add_argument("--out", default="refs.json", help="Output JSON file path (default: refs.json)")
+    ap.add_argument("--sort", choices=["file", "year", "key"], default="file", help="Sorting mode applied before numbering")
+    ap.add_argument("--dedup", action="store_true", help="Deduplicate entries by normalized title")
+    ap.add_argument("--start", type=int, default=1, help="Starting numeric citation index (default: 1)")
+    ap.add_argument("--lang", default="en", choices=["en", "zh", "ja", "fr", "de"], help="Language for 'et al.' tail")
+    ap.add_argument("--strict", action="store_true", help="Stop on first error (default: continue best-effort)")
+    ap.add_argument("--log", default="INFO", choices=["DEBUG", "INFO", "WARNING", "ERROR"], help="Log level")
+
     args = ap.parse_args()
+    logger = setup_logger(args.log)
+    issues = IssueCollector()
 
-    entries = load_bib_entries(args.bib)
+    # --- Capture bibtexparser warnings/errors into our IssueCollector ---
+    btp_logger = logging.getLogger("bibtexparser")
+    btp_logger.setLevel(logging.WARNING)      # only collect warnings+
+    btp_logger.propagate = False              # stop it from going to root handlers
+    btp_logger.handlers = []                  # remove default handlers (prevents naked prints)
+    btp_logger.addHandler(ForwardToIssuesHandler(issues, stage="bibtexparser"))
 
-    if args.dedup:
-        entries = deduplicate_entries(entries)
-    else:
-        # Even without dedup, populate __aliases__ so build_lookup works uniformly
-        for e in entries:
-            bib_key = e.get("ID", "")
-            e["__aliases__"] = {bib_key} if bib_key else set()
+    # Validate args early
+    if args.start < 1:
+        issues.error("args", "--start must be >= 1", start=args.start)
+        issues.print_summary(logger)
+        sys.exit(2)
 
-    entries = sort_entries(entries, args.sort)
-    lookup = build_lookup(entries, start=args.start)
+    # Set language-specific 'et al'
+    lang_map = {
+        "en": "et al",
+        "zh": "等",
+        "ja": "他",
+        "fr": "et al",
+        "de": "u. a.",
+    }
+    LANG_TAIL = lang_map.get(args.lang, "et al")
 
-    with open(args.out, "w", encoding="utf-8") as f:
-        json.dump(lookup, f, ensure_ascii=False, indent=2)
+    # 1) Load
+    try:
+        entries = load_bib_entries(args.bib, issues=issues, strict=args.strict, logger=logger)
+    except Exception:
+        # strict mode likely raised; summary first
+        issues.print_summary(logger)
+        sys.exit(1)
 
-    print(f"Wrote {len(lookup)} citation keys ({len(entries)} unique entries) -> {args.out}")
+    if not entries:
+        issues.error("pipeline", "No entries loaded from input .bib files", bib=args.bib)
+        issues.print_summary(logger)
+        sys.exit(1)
+
+    # 2) Dedup / aliases
+    try:
+        if args.dedup:
+            entries = deduplicate_entries(entries, issues=issues)
+        else:
+            populate_aliases(entries, issues=issues)
+    except Exception as e:
+        issues.error("pipeline", "Failed during dedup/alias stage", error=str(e))
+        if args.strict:
+            issues.print_summary(logger)
+            sys.exit(1)
+
+    # 3) Sort
+    try:
+        entries = sort_entries(entries, args.sort)
+    except Exception as e:
+        issues.error("pipeline", "Failed during sort stage", mode=args.sort, error=str(e))
+        if args.strict:
+            issues.print_summary(logger)
+            sys.exit(1)
+
+    # 4) Build lookup
+    try:
+        lookup = build_lookup(entries, start=args.start, issues=issues, strict=args.strict)
+    except Exception:
+        issues.print_summary(logger)
+        sys.exit(1)
+
+    # 5) Write output
+    try:
+        atomic_write_json(args.out, lookup, issues=issues, strict=args.strict)
+    except Exception:
+        issues.print_summary(logger)
+        sys.exit(1)
+
+    # Done
+    logger.info("Wrote %d citation keys (%d unique entries) -> %s", len(lookup), len(entries), args.out)
+
+    # Print issue summary and decide exit code
+    issues.print_summary(logger)
+    if issues.has_errors():
+        # Non-zero to make CI/pipelines catch it
+        sys.exit(1)
+    sys.exit(0)
 
 
 if __name__ == "__main__":

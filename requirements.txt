@@ -1,5 +1,6 @@
-python-docx 
+bibtexparser
 latex2mathml
 mathml2omml
+python-docx 
 lxml
-bibtexparser
+cn2an
