@@ -62,6 +62,8 @@ import re
 import sys
 from typing import Dict, List, Optional, Any
 
+from macro import expand_defined_macros
+
 
 def eprint(*args, **kwargs):
     print(*args, file=sys.stderr, **kwargs)
@@ -233,15 +235,22 @@ _BIB_CMD_RE = re.compile(
     re.DOTALL,
 )
 
+_MACRO_DEF_RE = re.compile(
+    r"^(?:\\(?:newcommand|renewcommand|providecommand|def|gdef|edef|xdef)"
+    r"[\s\S]*?)\s*$",
+    re.DOTALL,
+)
+
 
 def is_noncontent_chunk(chunk: str) -> bool:
-    """Return True for chunks that carry no translatable content."""
     s = chunk.strip()
     if not s:
         return True
     if _PURE_CMD_RE.match(s):
         return True
     if _BIB_CMD_RE.match(s):
+        return True
+    if _MACRO_DEF_RE.match(s):
         return True
     return False
 
@@ -453,6 +462,9 @@ def main():
             if args.strict:
                 sys.exit(1)
             continue
+
+        # Expand user-defined macros before chunking
+        doc = expand_defined_macros(doc)
 
         try:
             chunks = chunk_document(

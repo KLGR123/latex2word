@@ -13,7 +13,7 @@ for d in "$INPUTS_DIR"/*/; do
 done
 
 if [[ ${#folders[@]} -gt 0 ]]; then
-  python3 tex.py --folders "${folders[@]}" --verbose
+  python3 tex.py --folders "${folders[@]}" --verbose --strip-formatting
 else
   echo "No subfolders found in $INPUTS_DIR" >&2
 fi

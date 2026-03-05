@@ -28,6 +28,13 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Dict, List, Optional, Set, Tuple
 
+from macro import expand_defined_macros
+
+try:
+    from strip import strip_formatting as _strip_formatting
+    _STRIP_FMT_AVAILABLE = True
+except ImportError:
+    _STRIP_FMT_AVAILABLE = False
 
 # ----------------------------
 # LaTeX inclusion syntaxes supported
@@ -82,6 +89,16 @@ def parse_args() -> argparse.Namespace:
         "--verbose",
         action="store_true",
         help="Verbose logging.",
+    )
+    p.add_argument(
+        "--strip-formatting",
+        action="store_true",
+        dest="strip_formatting",
+        help=(
+            "After inlining, strip LaTeX formatting commands (\\textbf, \\textit, "
+            "\\textcolor, \\hspace, etc.) from the merged main .tex file while "
+            "preserving wrapped content. Requires strip.py alongside tex.py."
+        ),
     )
     return p.parse_args()
 
@@ -345,7 +362,7 @@ def choose_main_file(tex_files: List[Path], verbose: bool = False) -> Path:
 # ----------------------------
 # Folder preprocessing workflow
 # ----------------------------
-def preprocess_folder(folder: Path, dry_run: bool, verbose: bool) -> None:
+def preprocess_folder(folder: Path, dry_run: bool, verbose: bool, strip_fmt: bool) -> None:
     folder = folder.resolve()
     if not folder.exists() or not folder.is_dir():
         log(f"[ERROR] Not a folder: {folder}")
@@ -390,11 +407,22 @@ def preprocess_folder(folder: Path, dry_run: bool, verbose: bool) -> None:
         )
 
     # Write main file with inlined content
+    expanded_text = expand_defined_macros(inlined.text)
+
     if dry_run:
         log(f"[dry-run] Would overwrite main file: {main_tex.name} (inlined {len(used_abs)} files)")
     else:
-        main_tex.write_text(inlined.text, encoding="utf-8")
-        log(f"[INFO] Overwrote main file with inlined content: {main_tex.name} (inlined {len(used_abs)} files)")
+        final_text = inlined.text
+        if strip_fmt:
+            if not _STRIP_FMT_AVAILABLE:
+                log("[WARN] --strip-formatting requested but strip.py not found; skipping.")
+                
+            else:
+                final_text = _strip_formatting(final_text)
+                print("done")
+                vget(verbose, "[strip-fmt] Formatting commands stripped.")
+        main_tex.write_text(final_text, encoding="utf-8")
+        log(f"[INFO] Overwrote main file with inlined content: ...")
 
     # Move all non-main .tex into ./preprocessed/
     pre_dir = folder / "preprocessed"
@@ -430,8 +458,7 @@ def main() -> None:
     folders = [Path(p) for p in args.folders]
 
     for f in folders:
-        preprocess_folder(f, dry_run=args.dry_run, verbose=args.verbose)
-
+        preprocess_folder(f, dry_run=args.dry_run, verbose=args.verbose, strip_fmt=args.strip_formatting)
 
 if __name__ == "__main__":
     main()
