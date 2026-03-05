@@ -17,14 +17,13 @@ For each input .tex file:
    paragraph breaks inserted around:
    - Sectioning commands (\\section, \\subsection, ...)
    - Some block environments (abstract/figure/table/equation/itemize/...)
-5) Remove non-content chunks (e.g., pure \\cite{...} / \\label{...} lines).
-6) Enforce: "\\label{...}" must NOT start a paragraph.
-   If a chunk begins with one or more leading \\label{...}, those label commands
-   are merged into the previous chunk.
-7) Chapter is derived from the parent folder name of each --tex path.
-   Example:
-     /Users/.../inputs/7/iclr2022_conference.tex  -> chapter = 7
-   The parent folder name MUST be a number; otherwise error.
+5) Re-merge any chunks that were split inside an environment
+   (i.e. \\begin{xxx} ... \\end{xxx} is always kept as one chunk).
+6) Merge leading \\label{...} commands into the preceding chunk so that
+   section labels are never detached from their section command.
+7) Remove non-content chunks (e.g., pure \\cite{...} / \\label{...} lines,
+   bibliography directives).
+8) Chapter is derived from the parent folder name of each --tex path.
 
 Output JSON schema
 ------------------
@@ -131,6 +130,9 @@ def merge_leading_labels(chunks: List[str]) -> List[str]:
     If a chunk begins with \\label{...}, merge that \\label{...} into the previous chunk.
     Supports multiple leading labels in a row.
     This prevents \\label from being the first token of a paragraph.
+
+    NOTE: This must be called BEFORE any non-content filtering so that section
+    labels are not silently discarded before they can be re-attached.
     """
     merged: List[str] = []
 
@@ -157,6 +159,91 @@ def merge_leading_labels(chunks: List[str]) -> List[str]:
             merged.append(s.strip())
 
     return merged
+
+
+# -----------------------------
+# Environment completeness guard
+# -----------------------------
+
+def _env_depth(text: str) -> int:
+    """
+    Return the net \\begin / \\end depth of *text*.
+    Positive means there are more \\begin{} than \\end{} — the block is unclosed.
+    """
+    depth = 0
+    for m in re.finditer(r"\\(begin|end)\{[^}]+\}", text):
+        depth += 1 if m.group(1) == "begin" else -1
+    return depth
+
+
+def merge_split_environments(chunks: List[str]) -> List[str]:
+    """
+    Re-join chunks that were split inside a LaTeX environment.
+
+    After blank-line splitting some environments (figure, table, algorithm, …)
+    may have been torn apart.  Walk through the chunk list and, whenever the
+    accumulated \\begin / \\end depth is still positive (an environment is open),
+    keep appending subsequent chunks until the environment is closed.
+    """
+    result: List[str] = []
+    buffer: Optional[str] = None
+    depth: int = 0
+
+    for chunk in chunks:
+        if buffer is None:
+            buffer = chunk
+            depth = _env_depth(chunk)
+        else:
+            buffer = buffer + "\n\n" + chunk
+            depth += _env_depth(chunk)
+
+        if depth <= 0:
+            result.append(buffer)
+            buffer = None
+            depth = 0
+
+    # Flush any remaining (e.g. unclosed environment at end-of-document)
+    if buffer is not None:
+        result.append(buffer)
+
+    return result
+
+
+# -----------------------------
+# Non-content detection
+# -----------------------------
+
+# Matches a chunk that consists ONLY of pure command invocations with no prose.
+# The key fix vs the original: the old pattern used `.*` which matched arbitrary
+# prose after the command name, causing paragraphs like
+#   "\citet{x} proposed that ..."
+# to be silently dropped.  The new pattern requires the remainder to be a
+# brace-enclosed argument (possibly repeated) with only whitespace between.
+_PURE_CMD_RE = re.compile(
+    r"^(?:\\(?:label|ref|cite[a-zA-Z]*|vspace\*?|hspace\*?|"
+    r"smallskip|medskip|bigskip|noindent|newpage|clearpage|appendix|"
+    r"thispagestyle|pagestyle|enlargethispage\*?)"
+    r"(?:\{[^}]*\}|\[[^\]]*\])*\s*)+$",
+    re.DOTALL,
+)
+
+# Bibliography directives — always discard
+_BIB_CMD_RE = re.compile(
+    r"^(?:\\bibliography(?:style)?\{[^}]*\}\s*)+$",
+    re.DOTALL,
+)
+
+
+def is_noncontent_chunk(chunk: str) -> bool:
+    """Return True for chunks that carry no translatable content."""
+    s = chunk.strip()
+    if not s:
+        return True
+    if _PURE_CMD_RE.match(s):
+        return True
+    if _BIB_CMD_RE.match(s):
+        return True
+    return False
 
 
 # -----------------------------
@@ -224,41 +311,31 @@ def insert_breaks_before_sections(doc: str) -> str:
     return "\n".join(out)
 
 def insert_breaks_for_some_environments(doc: str) -> str:
-    block_envs = {
-        "abstract", "figure", "table", "equation", "align", "align*", "gather", "gather*",
-        "itemize", "enumerate", "description", "algorithm", "algorithm*", "lstlisting", "verbatim"
-    }
+    """
+    Insert blank lines around well-known block environments so they become
+    their own paragraph-level chunks.  Completeness (ensuring begin/end are
+    in the same chunk) is handled separately by merge_split_environments.
+    """
     lines = doc.splitlines()
     out = []
     for ln in lines:
         b = ENV_BEGIN_RE.search(ln)
         e = ENV_END_RE.search(ln)
         if b:
-            env = b.group(1)
-            if env in block_envs:
-                if out and out[-1].strip() != "":
-                    out.append("")
-                out.append(ln)
-                continue
-        if e:
-            env = e.group(1)
-            if env in block_envs:
-                out.append(ln)
+            if out and out[-1].strip() != "":
                 out.append("")
-                continue
+            out.append(ln)
+            continue
+        if e:
+            out.append(ln)
+            out.append("")
+            continue
         out.append(ln)
     return "\n".join(out)
 
 def collapse_blank_lines(doc: str) -> str:
     return re.sub(r"\n[ \t]*\n[ \t]*\n+", "\n\n", doc)
 
-def is_noncontent_chunk(chunk: str) -> bool:
-    s = chunk.strip()
-    if not s:
-        return True
-    if re.fullmatch(r"\\(label|ref|cite|citep|citet|vspace|hspace|smallskip|medskip|bigskip)\b.*", s):
-        return True
-    return False
 
 def chunk_document(
     doc: str,
@@ -280,16 +357,31 @@ def chunk_document(
 
     raw_chunks = [c.strip() for c in re.split(r"\n\s*\n", doc) if c.strip()]
 
+    # Step 1: Re-join chunks that were torn apart inside an environment.
+    # Must happen on the raw split before any filtering so that the full
+    # environment text is preserved.
+    raw_chunks = merge_split_environments(raw_chunks)
+
+    # Step 2: Merge leading \label{...} commands into the preceding chunk.
+    # This must happen BEFORE is_noncontent_chunk filtering; otherwise a
+    # standalone \label chunk would be dropped before it can be re-attached
+    # to its section heading.
+    raw_chunks = merge_leading_labels(raw_chunks)
+
+    # Step 3: Filter and optionally drop pure command chunks.
     chunks: List[str] = []
     for c in raw_chunks:
         if not keep_commands:
-            if re.fullmatch(r"\\(part|chapter|section|subsection|subsubsection|paragraph|subparagraph)\*?\{.*?\}", c.strip()):
+            if re.fullmatch(
+                r"\\(part|chapter|section|subsection|subsubsection|paragraph|subparagraph)\*?\{.*?\}",
+                c.strip(),
+            ):
                 continue
         if is_noncontent_chunk(c):
             continue
         chunks.append(c)
 
-    return merge_leading_labels(chunks)
+    return chunks
 
 
 # -----------------------------
