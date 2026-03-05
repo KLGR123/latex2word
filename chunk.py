@@ -257,7 +257,7 @@ TITLE_PATTERNS = [
 DOC_PATTERN = r"\\begin\{document\}(.*?)\\end\{document\}"
 
 SECTION_CMD_RE = re.compile(
-    r"^(\\(part|chapter|section|subsection|subsubsection|paragraph|subparagraph)\*?\{.*?\})\s*$",
+    r"^(\\(part|chapter|section|subsection|subsubsection)\*?\{.*?\})\s*$",
     flags=re.MULTILINE
 )
 ENV_BEGIN_RE = re.compile(r"\\begin\{([a-zA-Z*]+)\}")
@@ -373,7 +373,7 @@ def chunk_document(
     for c in raw_chunks:
         if not keep_commands:
             if re.fullmatch(
-                r"\\(part|chapter|section|subsection|subsubsection|paragraph|subparagraph)\*?\{.*?\}",
+                r"\\(part|chapter|section|subsection|subsubsection)\*?\{.*?\}",
                 c.strip(),
             ):
                 continue
