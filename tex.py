@@ -419,7 +419,6 @@ def preprocess_folder(folder: Path, dry_run: bool, verbose: bool, strip_fmt: boo
                 
             else:
                 final_text = _strip_formatting(final_text)
-                print("done")
                 vget(verbose, "[strip-fmt] Formatting commands stripped.")
         main_tex.write_text(final_text, encoding="utf-8")
         log(f"[INFO] Overwrote main file with inlined content: ...")
