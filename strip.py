@@ -56,10 +56,10 @@ _SINGLE_ARG_WRAPPERS: List[str] = [
 
 # \\cmd{ignored_arg}{content}  ->  content
 _TWO_ARG_WRAPPERS: List[str] = [
-    # color
-    "textcolor", "color@twoarg",
+    # color -- includes both \textcolor and \color (the latter uses a brace arg)
+    "textcolor", "color",
     # highlight / box with color
-    "colorbox", "fcolorbox",   # fcolorbox actually has 3 args; handled below
+    "colorbox",
     # rotation / scaling (cosmetic)
     "rotatebox", "scalebox",
     # makebox with optional width arg handled separately; this catches plain form
@@ -104,13 +104,13 @@ _SIZE_SWITCHES: List[str] = [
     "large", "Large", "LARGE", "huge", "Huge",
 ]
 
-# Spacing commands that consume one brace argument and are removed entirely
+# Spacing commands that consume one brace argument and are removed entirely.
+# Note: fontsize is NOT listed here; it takes two args and belongs only in
+# _SPACING_TWO_ARG.
 _SPACING_ONE_ARG: List[str] = [
     "hspace", "hspace*", "vspace", "vspace*",
     "phantom", "hphantom", "vphantom",
     "kern",
-    # font size selection (the arg is a number, not content)
-    "fontsize",       # \\fontsize{size}{skip} -> handled as two-arg discard below
     # box sizing helpers
     "settowidth", "settoheight", "settodepth",
 ]
@@ -196,8 +196,12 @@ def _skip_ws(s: str, i: int) -> int:
 # Verbatim / math zone detection  (best-effort, for protection)
 # ---------------------------------------------------------------------------
 
-_VERBATIM_BEGIN = re.compile(r"\\begin\{(verbatim\*?|lstlisting|minted|Verbatim)\}")
-_VERBATIM_END   = re.compile(r"\\end\{(verbatim\*?|lstlisting|minted|Verbatim)\}")
+_VERBATIM_BEGIN  = re.compile(r"\\begin\{(verbatim\*?|lstlisting|minted|Verbatim)\}")
+_VERBATIM_END    = re.compile(r"\\end\{(verbatim\*?|lstlisting|minted|Verbatim)\}")
+# Pre-compiled so we can call .match(string, pos) with a position offset.
+# re.match(pattern, string, pos) is WRONG: the 3rd positional arg is `flags`,
+# not `pos`.  Only compiled pattern objects support .match(string, pos).
+_MATH_ENV_BEGIN  = re.compile(r"\\begin\{([a-zA-Z*]+)\}")
 
 
 def _build_protected_zones(tex: str) -> List[Tuple[int, int]]:
@@ -225,7 +229,7 @@ def _build_protected_zones(tex: str) -> List[Tuple[int, int]]:
         # \verb|...|  or \verb+...+
         if tex[i:i+5] == "\\verb":
             j = i + 5
-            # optional * 
+            # optional *
             if j < n and tex[j] == '*':
                 j += 1
             if j < n:
@@ -275,7 +279,7 @@ def _build_protected_zones(tex: str) -> List[Tuple[int, int]]:
 
         # \begin{equation} / {align} / {math} / etc.
         if tex[i:i+7] == "\\begin{":
-            m2 = re.match(r"\\begin\{([a-zA-Z*]+)\}", tex, i)
+            m2 = _MATH_ENV_BEGIN.match(tex, i)
             if m2:
                 env = m2.group(1)
                 if env in ("equation", "equation*", "align", "align*",
@@ -294,8 +298,16 @@ def _build_protected_zones(tex: str) -> List[Tuple[int, int]]:
 
 
 def _in_protected(pos: int, zones: List[Tuple[int, int]]) -> bool:
-    for (a, b) in zones:
-        if a <= pos < b:
+    """Binary-search based check for whether pos falls inside any protected zone."""
+    lo, hi = 0, len(zones) - 1
+    while lo <= hi:
+        mid = (lo + hi) // 2
+        a, b = zones[mid]
+        if b <= pos:
+            lo = mid + 1
+        elif a > pos:
+            hi = mid - 1
+        else:
             return True
     return False
 
@@ -310,9 +322,9 @@ def _build_pattern(cmds: List[str]) -> re.Pattern:
     return re.compile(r"\\(" + "|".join(escaped) + r")(?![a-zA-Z*])")
 
 
-_PAT_SINGLE   = _build_pattern(_SINGLE_ARG_WRAPPERS)
-_PAT_TWO_W    = _build_pattern(_TWO_ARG_WRAPPERS)
-_PAT_THREE_W  = _build_pattern(_THREE_ARG_WRAPPERS)
+_PAT_SINGLE     = _build_pattern(_SINGLE_ARG_WRAPPERS)
+_PAT_TWO_W      = _build_pattern(_TWO_ARG_WRAPPERS)
+_PAT_THREE_W    = _build_pattern(_THREE_ARG_WRAPPERS)
 _PAT_STANDALONE = _build_pattern(
     _STANDALONE_SWITCHES + _SIZE_SWITCHES + _SPACING_STANDALONE
 )
@@ -324,26 +336,23 @@ def _apply_replacements(tex: str, zones: List[Tuple[int, int]]) -> str:
     """
     Single-pass character-level walk that applies all stripping rules.
     Protected zones are copied verbatim.
+
+    Extracted wrapper content is recursively processed so that nested
+    formatting commands (e.g. \\textbf{\\textit{x}}) are fully stripped.
     """
     out: List[str] = []
     n = len(tex)
     i = 0
 
-    # Pre-sort zones for fast lookup (they should already be non-overlapping)
-    zone_iter = iter(zones)
-    cur_zone: Tuple[int, int] | None = next(zone_iter, None)
-
     while i < n:
-        # Advance past any fully-preceding zones
-        while cur_zone and cur_zone[1] <= i:
-            cur_zone = next(zone_iter, None)
-
-        # If inside a protected zone, copy verbatim up to zone end
-        if cur_zone and cur_zone[0] <= i < cur_zone[1]:
-            end = cur_zone[1]
-            out.append(tex[i:end])
-            i = end
-            cur_zone = next(zone_iter, None)
+        # Fast-path: if inside a protected zone, copy verbatim up to zone end.
+        if _in_protected(i, zones):
+            # Advance to the end of the innermost zone that covers i.
+            for (a, b) in zones:
+                if a <= i < b:
+                    out.append(tex[i:b])
+                    i = b
+                    break
             continue
 
         if tex[i] != '\\':
@@ -357,7 +366,7 @@ def _apply_replacements(tex: str, zones: List[Tuple[int, int]]) -> str:
         m = _PAT_THREE_W.match(tex, i)
         if m:
             j = _skip_ws(tex, m.end())
-            j = _skip_opt_arg(tex, j)          # optional [] if present
+            j = _skip_opt_arg(tex, j)
             if j < n and tex[j] == '{':
                 j = _find_brace_end(tex, j)    # skip arg1
                 j = _skip_ws(tex, j)
@@ -367,10 +376,12 @@ def _apply_replacements(tex: str, zones: List[Tuple[int, int]]) -> str:
             if j < n and tex[j] == '{':
                 content_start = j + 1
                 content_end   = _find_brace_end(tex, j) - 1
-                out.append(tex[content_start:content_end])
+                # Recursively strip the extracted content.
+                inner = tex[content_start:content_end]
+                out.append(_apply_replacements(inner, _shift_zones(zones, -content_start)))
                 i = content_end + 1
                 continue
-            # fallback: could not parse args; emit as-is
+            # Fallback: could not parse args; emit backslash and move on.
             out.append(tex[i])
             i += 1
             continue
@@ -386,7 +397,8 @@ def _apply_replacements(tex: str, zones: List[Tuple[int, int]]) -> str:
             if j < n and tex[j] == '{':
                 content_start = j + 1
                 content_end   = _find_brace_end(tex, j) - 1
-                out.append(tex[content_start:content_end])
+                inner = tex[content_start:content_end]
+                out.append(_apply_replacements(inner, _shift_zones(zones, -content_start)))
                 i = content_end + 1
                 continue
             out.append(tex[i])
@@ -401,7 +413,8 @@ def _apply_replacements(tex: str, zones: List[Tuple[int, int]]) -> str:
             if j < n and tex[j] == '{':
                 content_start = j + 1
                 content_end   = _find_brace_end(tex, j) - 1
-                out.append(tex[content_start:content_end])
+                inner = tex[content_start:content_end]
+                out.append(_apply_replacements(inner, _shift_zones(zones, -content_start)))
                 i = content_end + 1
                 continue
             out.append(tex[i])
@@ -450,6 +463,21 @@ def _apply_replacements(tex: str, zones: List[Tuple[int, int]]) -> str:
     return "".join(out)
 
 
+def _shift_zones(zones: List[Tuple[int, int]], delta: int) -> List[Tuple[int, int]]:
+    """
+    Translate protected zone coordinates by delta so they remain valid
+    after slicing a substring out of the original source string.
+    Zones that fall entirely outside [0, ...) after shifting are dropped.
+    """
+    shifted = []
+    for (a, b) in zones:
+        na, nb = a + delta, b + delta
+        if nb <= 0:
+            continue
+        shifted.append((max(na, 0), nb))
+    return shifted
+
+
 # ---------------------------------------------------------------------------
 # Post-processing cleanup
 # ---------------------------------------------------------------------------
@@ -457,7 +485,7 @@ def _apply_replacements(tex: str, zones: List[Tuple[int, int]]) -> str:
 def _cleanup(tex: str) -> str:
     """
     Light cleanup after stripping:
-    - Collapse runs of blank lines introduced by removed commands.
+    - Collapse runs of blank lines to at most one blank line separator.
     - Remove lines that became blank (contained only a formatting command).
     - Trim trailing whitespace on each line.
     """
@@ -468,7 +496,7 @@ def _cleanup(tex: str) -> str:
         ln = ln.rstrip()
         if ln == "":
             blank_run += 1
-            if blank_run <= 2:          # preserve at most one blank line separator
+            if blank_run <= 1:   # preserve at most one blank line separator
                 cleaned.append("")
         else:
             blank_run = 0

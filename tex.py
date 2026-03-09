@@ -406,13 +406,10 @@ def preprocess_folder(folder: Path, dry_run: bool, verbose: bool, strip_fmt: boo
             + ", ".join(p.name for p in leftover)
         )
 
-    # Write main file with inlined content
-    expanded_text = expand_defined_macros(inlined.text)
-
     if dry_run:
         log(f"[dry-run] Would overwrite main file: {main_tex.name} (inlined {len(used_abs)} files)")
     else:
-        final_text = inlined.text
+        final_text = expand_defined_macros(inlined.text)
         if strip_fmt:
             if not _STRIP_FMT_AVAILABLE:
                 log("[WARN] --strip-formatting requested but strip.py not found; skipping.")
