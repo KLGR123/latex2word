@@ -10,6 +10,15 @@ class Macro:
     has_optional: bool = False
     opt_default: Optional[str] = None
 
+@dataclass
+class EnvMacro:
+    name: str
+    n_args: int
+    begin_code: str
+    end_code: str
+    has_optional: bool = False
+    opt_default: Optional[str] = None
+
 # -----------------------------
 # Basic LaTeX lexing helpers
 # -----------------------------
@@ -241,6 +250,118 @@ def _parse_def(s: str, i: int) -> Tuple[Optional[Macro], int]:
     macro = Macro(name=name, n_args=n_args, body=body_content)
     return macro, k
 
+_DECLAREMATH_LIKE = {"DeclareMathOperator", "DeclareMathOperator*"}
+
+def _parse_declaremathoperator(s: str, i: int) -> Tuple[Optional[Macro], int]:
+    """
+    Parse \\DeclareMathOperator{\\foo}{body} and \\DeclareMathOperator*{\\foo}{body}.
+    Registers \\foo as a 0-arg macro expanding to \\operatorname[*]{body}.
+    """
+    cmd, j = _read_control_sequence(s, i)
+    if cmd not in _DECLAREMATH_LIKE:
+        return None, i
+
+    star = "*" if cmd.endswith("*") else ""
+    k = _skip_spaces(s, j)
+    k = _skip_comment(s, k)
+
+    # macro name: {\foo} or \foo
+    if k < len(s) and s[k] == '{':
+        inside, k2 = _read_balanced_braces(s, k)
+        m = re.match(r"\s*\\([A-Za-z@]+)\s*$", inside)
+        if not m:
+            return None, i
+        name = m.group(1)
+        k = k2
+    elif k < len(s) and s[k] == '\\':
+        name, k = _read_control_sequence(s, k)
+        if not name:
+            return None, i
+    else:
+        return None, i
+
+    k = _skip_spaces(s, k)
+    k = _skip_comment(s, k)
+    if k >= len(s) or s[k] != '{':
+        return None, i
+    body_content, k = _read_balanced_braces(s, k)
+
+    # Expand to \operatorname{...} or \operatorname*{...}
+    body = f"\\operatorname{star}{{{body_content}}}"
+    macro = Macro(name=name, n_args=0, body=body)
+    return macro, k
+
+
+_NEWENV_LIKE = {"newenvironment", "renewenvironment"}
+
+def _parse_newenvironment(s: str, i: int) -> Tuple[Optional[EnvMacro], int]:
+    """
+    Parse \\newenvironment{name}[n_args][opt_default]{begin_code}{end_code}.
+    Supports optional argument syntax identical to \\newcommand.
+    """
+    cmd, j = _read_control_sequence(s, i)
+    if cmd not in _NEWENV_LIKE:
+        return None, i
+
+    k = _skip_spaces(s, j)
+    k = _skip_comment(s, k)
+
+    # environment name: {sproof}
+    if k >= len(s) or s[k] != '{':
+        return None, i
+    name, k = _read_balanced_braces(s, k)
+    name = name.strip()
+    if not name:
+        return None, i
+
+    k = _skip_spaces(s, k)
+    k = _skip_comment(s, k)
+
+    # optional: [n_args]
+    n_args = 0
+    has_optional = False
+    opt_default = None
+
+    if k < len(s) and s[k] == '[':
+        raw_n, k = _read_bracket_optional(s, k)
+        raw_n = raw_n.strip()
+        if not raw_n.isdigit():
+            return None, i
+        n_args = int(raw_n)
+
+        k = _skip_spaces(s, k)
+        k = _skip_comment(s, k)
+
+        if k < len(s) and s[k] == '[':
+            has_optional = True
+            opt_default, k = _read_bracket_optional(s, k)
+
+    k = _skip_spaces(s, k)
+    k = _skip_comment(s, k)
+
+    # begin_code
+    if k >= len(s) or s[k] != '{':
+        return None, i
+    begin_code, k = _read_balanced_braces(s, k)
+
+    k = _skip_spaces(s, k)
+    k = _skip_comment(s, k)
+
+    # end_code
+    if k >= len(s) or s[k] != '{':
+        return None, i
+    end_code, k = _read_balanced_braces(s, k)
+
+    env = EnvMacro(
+        name=name,
+        n_args=n_args,
+        begin_code=begin_code,
+        end_code=end_code,
+        has_optional=has_optional,
+        opt_default=opt_default,
+    )
+    return env, k
+
 # -----------------------------
 # Expansion engine (streaming)
 # -----------------------------
@@ -262,6 +383,7 @@ def expand_defined_macros(latex: str, *, max_recursion: int = 8) -> str:
       - Does not implement advanced expansion primitives (\\expandafter, \\csname, \\let, catcodes).
     """
     macros: Dict[str, Macro] = {}
+    environments: Dict[str, EnvMacro] = {}   # NEW: user-defined environments
 
     def expand_at(s: str, i: int, depth: int) -> Tuple[Optional[str], int]:
         """Try to expand a macro invocation at position i (backslash)."""
@@ -274,27 +396,70 @@ def expand_defined_macros(latex: str, *, max_recursion: int = 8) -> str:
         m = macros[name]
         k = j
 
-        # parse optional arg if applicable
         args: List[str] = []
         if m.has_optional:
             k2 = _skip_spaces(s, k)
             if k2 < len(s) and s[k2] == '[':
                 opt_val, k = _read_bracket_optional(s, k2)
-                args.append("{" + opt_val + "}")  # normalize to braced form for substitution
+                args.append("{" + opt_val + "}")
             else:
                 args.append("{" + (m.opt_default or "") + "}")
 
-        # parse required args
         for _ in range(m.n_args - (1 if m.has_optional else 0)):
             arg, k = _read_one_arg(s, k)
             args.append(arg)
 
         expanded = _substitute_body(m.body, args)
 
-        # recursively expand inside the expansion (usually desired)
         if depth < max_recursion:
             expanded = _expand_string(expanded, depth + 1)
 
+        return expanded, k
+
+    def expand_env_at(s: str, i: int, depth: int) -> Tuple[Optional[str], int]:
+        """
+        Try to expand \\begin{name} or \\end{name} at position i (backslash)
+        if 'name' is a user-defined environment.
+        """
+        # Match \begin or \end
+        cmd, j = _read_control_sequence(s, i)
+        if cmd not in ("begin", "end"):
+            return None, i
+
+        k = _skip_spaces(s, j)
+        if k >= len(s) or s[k] != '{':
+            return None, i
+        env_name, k = _read_balanced_braces(s, k)
+        env_name = env_name.strip()
+
+        if env_name not in environments:
+            return None, i
+
+        env = environments[env_name]
+
+        if cmd == "end":
+            expanded = env.end_code
+            if depth < max_recursion:
+                expanded = _expand_string(expanded, depth + 1)
+            return expanded, k
+
+        # cmd == "begin": parse args for the begin_code
+        args: List[str] = []
+        if env.has_optional:
+            k2 = _skip_spaces(s, k)
+            if k2 < len(s) and s[k2] == '[':
+                opt_val, k = _read_bracket_optional(s, k2)
+                args.append("{" + opt_val + "}")
+            else:
+                args.append("{" + (env.opt_default or "") + "}")
+
+        for _ in range(env.n_args - (1 if env.has_optional else 0)):
+            arg, k = _read_one_arg(s, k)
+            args.append(arg)
+
+        expanded = _substitute_body(env.begin_code, args)
+        if depth < max_recursion:
+            expanded = _expand_string(expanded, depth + 1)
         return expanded, k
 
     def _expand_string(s: str, depth: int) -> str:
@@ -302,7 +467,6 @@ def expand_defined_macros(latex: str, *, max_recursion: int = 8) -> str:
         i = 0
         n = len(s)
         while i < n:
-            # keep comments verbatim
             if s[i] == '%':
                 j = _skip_comment(s, i)
                 out.append(s[i:j])
@@ -310,31 +474,58 @@ def expand_defined_macros(latex: str, *, max_recursion: int = 8) -> str:
                 continue
 
             if s[i] == '\\':
-                # if this is a macro-definition command, parse and record
+                # 1. Try newcommand/renewcommand/providecommand
                 macro, j = _parse_newcommand(s, i)
-                if macro is None:
-                    macro, j = _parse_def(s, i)
                 if macro is not None:
                     macros[macro.name] = macro
-                    # output the definition exactly as-is
                     out.append(s[i:j])
                     i = j
                     continue
 
-                # else: try to expand a known macro invocation
+                # 2. Try def/gdef/edef/xdef
+                macro, j = _parse_def(s, i)
+                if macro is not None:
+                    macros[macro.name] = macro
+                    out.append(s[i:j])
+                    i = j
+                    continue
+
+                # 3. NEW: Try DeclareMathOperator / DeclareMathOperator*
+                macro, j = _parse_declaremathoperator(s, i)
+                if macro is not None:
+                    macros[macro.name] = macro
+                    out.append(s[i:j])
+                    i = j
+                    continue
+
+                # 4. NEW: Try newenvironment / renewenvironment
+                env, j = _parse_newenvironment(s, i)
+                if env is not None:
+                    environments[env.name] = env
+                    out.append(s[i:j])
+                    i = j
+                    continue
+
+                # 5. NEW: Try expanding \begin{name} / \end{name} for known envs
+                expanded, j = expand_env_at(s, i, depth)
+                if expanded is not None:
+                    out.append(expanded)
+                    i = j
+                    continue
+
+                # 6. Try expanding a known macro invocation
                 expanded, j = expand_at(s, i, depth)
                 if expanded is not None:
                     out.append(expanded)
                     i = j
                     continue
 
-                # default: keep the control sequence as-is
+                # Default: keep control sequence as-is
                 name, j2 = _read_control_sequence(s, i)
                 out.append("\\" + (name or ""))
                 i = j2
                 continue
 
-            # default: copy char
             out.append(s[i])
             i += 1
 

@@ -482,6 +482,56 @@ def _shift_zones(zones: List[Tuple[int, int]], delta: int) -> List[Tuple[int, in
 # Post-processing cleanup
 # ---------------------------------------------------------------------------
 
+def _unwrap_orphan_groups(tex: str, zones: List[Tuple[int, int]]) -> str:
+    """
+    Remove brace groups {content} that are not command arguments.
+    A '{' is considered orphaned if the character immediately before it is
+    not a letter, '@', '}', ']', or '*' — all of which indicate the brace
+    is an argument to (or chained after) a command.
+    Iterates until stable to handle nested cases like {{text}}.
+    """
+    while True:
+        out: List[str] = []
+        i = 0
+        n = len(tex)
+        removed = False
+
+        while i < n:
+            # Copy protected zones (math, verbatim) verbatim.
+            if _in_protected(i, zones):
+                for (a, b) in zones:
+                    if a <= i < b:
+                        out.append(tex[i:b])
+                        i = b
+                        break
+                continue
+
+            if tex[i] == '{':
+                prev = tex[i - 1] if i > 0 else ''
+                # Keep the brace if it is a command argument or chained argument.
+                if prev.isalpha() or prev in ('@', '}', ']', '*'):
+                    out.append(tex[i])
+                    i += 1
+                    continue
+                # Orphan group: strip outer braces, keep content.
+                end = _find_brace_end(tex, i)
+                out.append(tex[i + 1:end - 1])
+                i = end
+                removed = True
+                continue
+
+            out.append(tex[i])
+            i += 1
+
+        if not removed:
+            break
+
+        tex = ''.join(out)
+        zones = _build_protected_zones(tex)  # recompute after modification
+
+    return tex
+
+
 def _cleanup(tex: str) -> str:
     """
     Light cleanup after stripping:
@@ -526,6 +576,9 @@ def strip_formatting(tex: str) -> str:
     """
     zones = _build_protected_zones(tex)
     stripped = _apply_replacements(tex, zones)
+    # Recompute zones after replacements (positions have changed).
+    zones = _build_protected_zones(stripped)
+    stripped = _unwrap_orphan_groups(stripped, zones)
     return _cleanup(stripped)
 
 
