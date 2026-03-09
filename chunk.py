@@ -510,23 +510,20 @@ def main():
                 title = ""
 
         try:
-            doc = extract_document(tex)
+            tex = expand_defined_macros(tex)
         except Exception as ex:
-            eprint(f"[ERROR] Failed to extract document env from {tex_path}: {ex}")
+            eprint(f"[WARNING] Macro expansion failed for {tex_path}: {ex}")
             if args.strict:
                 raise
-            failed += 1
-            continue
 
-        if not doc:
-            eprint(f"[ERROR] No document content found in {tex_path} (missing \\begin{{document}}...\\end{{document}})")
+        try:
+            doc = extract_document(tex)
+        except Exception as ex:
+            eprint(f"[ERROR] Failed to extract document body from {tex_path}: {ex}")
             failed += 1
             if args.strict:
-                sys.exit(1)
+                raise
             continue
-
-        # Expand user-defined macros before chunking
-        doc = expand_defined_macros(doc)
 
         try:
             chunks = chunk_document(
