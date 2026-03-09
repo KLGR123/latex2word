@@ -437,6 +437,33 @@ def expand_defined_macros(latex: str, *, max_recursion: int = 8) -> str:
 
         env = environments[env_name]
 
+        # ------------------------------------------------------------------
+        # Normalize proof-style environments: \newenvironment{foo}{...\proof}{
+        # \endproof} uses non-standard \proof/\endproof delimiters that the
+        # chunker cannot recognize as a balanced environment, causing:
+        #   1. Content loss — the opening chunk (containing \renewcommand...)
+        #      is mistakenly filtered by _MACRO_DEF_RE.
+        #   2. Fragmentation — merge_split_environments can't hold the block
+        #      together because there's no \begin{}/\end{} pair.
+        #   3. \endproof bleeds into the next paragraph (no blank line after).
+        #
+        # Fix: convert to standard \begin{proof}[Label]...\end{proof} form,
+        # extracting the label from \renewcommand{\proofname}{Label} if present.
+        # This also handles \DeclareMathOperator-style aliases that resolve to
+        # the same \proof/\endproof pattern.
+        # ------------------------------------------------------------------
+        end_stripped = env.end_code.strip()
+        if end_stripped == r'\endproof':
+            label_m = re.search(
+                r'\\(?:renewcommand|newcommand)\{\\proofname\}\{([^}]+)\}',
+                env.begin_code,
+            )
+            label = label_m.group(1).strip() if label_m else None
+            if cmd == "end":
+                return r'\end{proof}', k
+            else:  # begin
+                return (f'\\begin{{proof}}[{label}]' if label else r'\begin{proof}'), k
+
         if cmd == "end":
             expanded = env.end_code
             if depth < max_recursion:

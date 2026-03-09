@@ -235,11 +235,55 @@ _BIB_CMD_RE = re.compile(
     re.DOTALL,
 )
 
-_MACRO_DEF_RE = re.compile(
-    r"^(?:\\(?:newcommand|renewcommand|providecommand|def|gdef|edef|xdef)"
-    r"[\s\S]*?)\s*$",
-    re.DOTALL,
-)
+# _MACRO_DEF_RE = re.compile(
+#     r"^(?:\\(?:newcommand|renewcommand|providecommand|def|gdef|edef|xdef)"
+#     r"[\s\S]*?)\s*$",
+#     re.DOTALL,
+# )
+
+def _strip_macro_def_lines(chunk: str) -> str:
+    """
+    Remove \\newcommand / \\renewcommand / \\def etc. definition blocks from
+    a chunk, preserving any surrounding prose.  Uses brace-depth tracking to
+    handle multi-line bodies such as:
+
+        \\newcommand{\\foo}[2]{
+            some \\textbf{body}
+        }
+
+    Returns the cleaned chunk text (may be empty if the chunk contained only
+    macro definitions).
+    """
+    lines = chunk.splitlines()
+    result: List[str] = []
+    skip = False   # True while we are inside a macro body
+    depth = 0      # net brace depth while skipping
+
+    _MACRO_START = re.compile(
+        r"\\(?:newcommand\*?|renewcommand\*?|providecommand\*?"
+        r"|def|gdef|edef|xdef)\b"
+    )
+
+    for line in lines:
+        if skip:
+            depth += line.count('{') - line.count('}')
+            if depth <= 0:
+                skip = False
+                depth = 0
+            continue
+
+        if _MACRO_START.match(line.lstrip()):
+            # Start of a macro definition — count braces to detect end.
+            depth += line.count('{') - line.count('}')
+            if depth > 0:
+                skip = True   # body continues on subsequent lines
+            else:
+                depth = 0     # single-line definition, done immediately
+            continue
+
+        result.append(line)
+
+    return '\n'.join(result)
 
 
 def is_noncontent_chunk(chunk: str) -> bool:
@@ -250,8 +294,10 @@ def is_noncontent_chunk(chunk: str) -> bool:
         return True
     if _BIB_CMD_RE.match(s):
         return True
-    if _MACRO_DEF_RE.match(s):
-        return True
+    # NOTE: macro-def detection is now handled in chunk_document via
+    # _strip_macro_def_lines; we do NOT filter here based on macro defs
+    # to avoid discarding chunks that start with \newcommand but also
+    # contain prose (the original _MACRO_DEF_RE bug).
     return False
 
 
@@ -321,10 +367,20 @@ def insert_breaks_before_sections(doc: str) -> str:
 
 def insert_breaks_for_some_environments(doc: str) -> str:
     """
-    Insert blank lines around well-known block environments so they become
-    their own paragraph-level chunks.  Completeness (ensuring begin/end are
-    in the same chunk) is handled separately by merge_split_environments.
+    Insert blank lines around block environments so they become their own
+    paragraph-level chunks.  Completeness (ensuring begin/end are in the
+    same chunk) is handled separately by merge_split_environments.
+
+    Mid-line handling: when \\begin{...} or \\end{...} appears in the
+    middle of a line (e.g. "text \\begin{wraptable}" or
+    "\\end{wraptable}text"), insert blank lines at those split points
+    before the usual line-by-line pass.
     """
+    # Split "text\begin{env}" -> "text\n\n\begin{env}"
+    doc = re.sub(r'([^\n\s])([ \t]*)\\begin\{', r'\1\n\n\\begin{', doc)
+    # Split "\end{env}text" -> "\end{env}\n\ntext"
+    doc = re.sub(r'(\\end\{[^}]+\})([ \t]*)(?=[^\n\s])', r'\1\n\n', doc)
+
     lines = doc.splitlines()
     out = []
     for ln in lines:
@@ -380,15 +436,21 @@ def chunk_document(
     # Step 3: Filter and optionally drop pure command chunks.
     chunks: List[str] = []
     for c in raw_chunks:
+        # Strip inline macro definitions before any content check.
+        # This prevents chunks that START with \newcommand (but also
+        # contain prose) from being wrongly discarded.
+        cleaned = _strip_macro_def_lines(c)
+        use = cleaned.strip() if cleaned.strip() else c
+
         if not keep_commands:
             if re.fullmatch(
                 r"\\(part|chapter|section|subsection|subsubsection)\*?\{.*?\}",
-                c.strip(),
+                use,
             ):
                 continue
-        if is_noncontent_chunk(c):
+        if is_noncontent_chunk(use):
             continue
-        chunks.append(c)
+        chunks.append(use)
 
     return chunks
 
