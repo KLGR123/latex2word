@@ -4,3 +4,5 @@ mathml2omml
 python-docx 
 lxml
 cn2an
+anthropic>=0.40.0
+openai>=1.50.0

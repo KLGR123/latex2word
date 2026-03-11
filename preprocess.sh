@@ -4,7 +4,6 @@ shopt -s nullglob
 
 INPUTS_DIR=/Users/liujiarun/Downloads/latex2word/inputs
 OUTPUTS_DIR=/Users/liujiarun/Downloads/latex2word/outputs
-CONFIGS_DIR=/Users/liujiarun/Downloads/latex2word/configs
 
 # Collect all subfolder paths under inputs/
 folders=()

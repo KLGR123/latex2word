@@ -1,0 +1,22 @@
+[
+    {
+        "chapter": 1,
+        "terms": {
+            "Agent": "智能体"
+        }
+    },
+    {
+        "chapter": 2,
+        "terms": {
+            "Agent": "智能体",
+            "Episodic Memory": "情景记忆",
+            "Memory Retrieval": "记忆检索"
+        }
+    },
+    {
+        "chapter": 4,
+        "terms": {
+            "Reranking Optimization": "重排序优化"
+        }
+    }
+]

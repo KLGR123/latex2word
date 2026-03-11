@@ -6,3 +6,6 @@ outputs/*
 inputs/
 source/
 source/*
+
+secrets.env
+configs/terms.json
