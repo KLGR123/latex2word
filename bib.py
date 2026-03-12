@@ -9,8 +9,8 @@ Install:
   pip install bibtexparser
 
 Usage:
-  python bib.py --bib refs1.bib refs2.bib --out refs.json
-  python bib.py --bib refs1.bib refs2.bib --out refs.json --sort year --dedup
+  python bib.py --bib citations1.bib citations2.bib --out citations.json
+  python bib.py --bib citations1.bib citations2.bib --out citations.json --sort year --dedup
 
 Extras:
   --strict   Stop on first error (default: best-effort, continue)
@@ -580,7 +580,7 @@ def atomic_write_json(path: str, data: Dict[str, Any], issues: IssueCollector, s
         return
 
     try:
-        fd, tmp_path = tempfile.mkstemp(prefix=".tmp_refs_", suffix=".json", dir=out_dir)
+        fd, tmp_path = tempfile.mkstemp(prefix=".tmp_citations_", suffix=".json", dir=out_dir)
         try:
             with os.fdopen(fd, "w", encoding="utf-8") as f:
                 json.dump(data, f, ensure_ascii=False, indent=2)
@@ -618,7 +618,7 @@ def main():
         description="Convert .bib files to a GB/T 7714-2015 JSON lookup dictionary."
     )
     ap.add_argument("--bib", required=True, nargs="+", help="One or more input .bib file paths")
-    ap.add_argument("--out", default="refs.json", help="Output JSON file path (default: refs.json)")
+    ap.add_argument("--out", default="citations.json", help="Output JSON file path (default: citations.json)")
     ap.add_argument("--sort", choices=["file", "year", "key"], default="file", help="Sorting mode applied before numbering")
     ap.add_argument("--dedup", action="store_true", help="Deduplicate entries by normalized title")
     ap.add_argument("--start", type=int, default=1, help="Starting numeric citation index (default: 1)")

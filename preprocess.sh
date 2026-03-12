@@ -32,7 +32,7 @@ done
 mkdir -p $OUTPUTS_DIR
 
 if ((${#bib_files[@]} > 0)); then
-  python3 bib.py --bib "${bib_files[@]}" --out $OUTPUTS_DIR/refs.json --sort year --dedup --lang en
+  python3 bib.py --bib "${bib_files[@]}" --out $OUTPUTS_DIR/citations.json --sort year --dedup --lang en
 else
   echo "No .bib files found in folders: ${folders[*]:-(none)}" >&2
 fi
