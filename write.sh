@@ -1,0 +1,1 @@
+python3 label.py --input outputs/translated.json --output outputs/labeled.json
