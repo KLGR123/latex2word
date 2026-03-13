@@ -20,3 +20,4 @@ if [[ -f "$CONFIGS_DIR/terms.json" ]]; then
   TRANSLATE_ARGS+=(--terms "$CONFIGS_DIR/terms.json")
 fi
 python3 translate.py "${TRANSLATE_ARGS[@]}" --strip-cjk-spaces
+rm "$OUTPUTS_DIR/chunks.json"

@@ -132,7 +132,7 @@ _DEF_LIKE = {"def", "gdef", "edef", "xdef"}
 _NEWCOMMAND_LIKE = {"newcommand", "renewcommand", "providecommand"}
 
 def _parse_newcommand(s: str, i: int) -> Tuple[Optional[Macro], int]:
-    """
+    r"""
     Parse \newcommand / \renewcommand / \providecommand at index i (which points to backslash).
     Supports:
       \newcommand{\foo}[2][default]{body}
@@ -210,7 +210,7 @@ def _parse_newcommand(s: str, i: int) -> Tuple[Optional[Macro], int]:
     return macro, k
 
 def _parse_def(s: str, i: int) -> Tuple[Optional[Macro], int]:
-    """
+    r"""
     Parse \def-like commands:
       \def\foo#1#2{body}
     Returns (Macro or None, new_index).
