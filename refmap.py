@@ -15,6 +15,11 @@ For every paragraph, all LaTeX labeling commands are extracted:
   \\newlabel{key}       -- manually declared label (rare, but valid)
   \\refstepcounter + implicit label (not parsed; too implicit)
 
+After extraction each command (and its surrounding horizontal whitespace /
+newlines) is stripped from the paragraph's "text" field, since the
+information is now stored in the refmap.  \\hypertarget is special: its
+display-text argument is kept; only the command wrapper is removed.
+
 Output structure:
 {
   "1": {
@@ -69,8 +74,6 @@ _LABEL_PATTERNS: List[Tuple[str, re.Pattern]] = [
         re.compile(r"\\hypertarget\{([^}]+)\}"),
     ),
     # \tag{text} and \tag*{text}  -- equation tags used as display labels
-    # Note: tag content is a display string, not a ref key, but it IS used
-    # with \ref in some custom setups; include for completeness.
     (
         "tag",
         re.compile(r"\\tag\*?\{([^}]+)\}"),
@@ -100,6 +103,86 @@ def extract_label_keys(text: str) -> Dict[str, List[str]]:
 
 
 # ---------------------------------------------------------------------------
+# Label-command stripping
+# ---------------------------------------------------------------------------
+
+# Patterns ordered so that multi-arg forms are tried before single-arg ones.
+# Each tuple: (re.Pattern, replacement_string_or_None)
+# None means "use a callable" (for hypertarget, which keeps its text arg).
+#
+# Surrounding whitespace strategy: strip any mix of spaces, tabs, and newlines
+# on both sides of the command.  Using \s* would risk collapsing paragraph
+# breaks, so we are deliberate:
+#   - Leading  : strip spaces/tabs on the same line (\t\  ) and at most one
+#                preceding newline.
+#   - Trailing : strip spaces/tabs on the remainder of the same line and the
+#                newline that terminates it (making an otherwise-blank line
+#                disappear entirely).
+# This preserves blank-line paragraph separators between chunks.
+_LABEL_STRIP_PATTERNS: List[Tuple[re.Pattern, str]] = [
+    # \newlabel{key}{...second-arg...}  -- keep nothing
+    (
+        re.compile(r"\n?[ \t]*\\newlabel\{[^}]+\}\{[^}]*\}[ \t]*\n?"),
+        "",
+    ),
+    # \hypertarget{name}{display_text}  -- keep display_text, drop wrapper
+    # Handled separately via _HYPERTARGET_STRIP_RE below.
+
+    # \label[opt]{key}  -- keep nothing
+    (
+        re.compile(r"\n?[ \t]*\\label(?:\[[^\]]*\])?\{[^}]+\}[ \t]*\n?"),
+        "",
+    ),
+    # \bibitem[opt]{key}  -- keep nothing (bibliography anchor only)
+    (
+        re.compile(r"\n?[ \t]*\\bibitem(?:\[[^\]]*\])?\{[^}]+\}[ \t]*\n?"),
+        "",
+    ),
+    # \tag*?{text}  -- keep nothing (equation tag is display formatting)
+    (
+        re.compile(r"\n?[ \t]*\\tag\*?\{[^}]+\}[ \t]*\n?"),
+        "",
+    ),
+]
+
+# \hypertarget{name}{display_text}  -> display_text
+# Simple [^}]* for display_text; if nesting is needed a brace-depth approach
+# would be required, but anchor labels virtually never contain nested braces.
+_HYPERTARGET_STRIP_RE = re.compile(
+    r"\n?[ \t]*\\hypertarget\{[^}]+\}\{([^}]*)\}[ \t]*\n?"
+)
+
+# After stripping it is possible that three or more consecutive newlines appear
+# (e.g. when a label was on its own line between two real lines).
+# Collapse to at most two newlines to avoid excessive vertical whitespace
+# inside a chunk without disturbing paragraph-level blank-line separators.
+_MULTI_NEWLINE_RE = re.compile(r"\n{3,}")
+
+
+def strip_label_commands(text: str) -> str:
+    """
+    Remove LaTeX label/anchor commands from *text*, preserving the surrounding
+    content.  \\hypertarget{name}{display_text} is reduced to display_text;
+    all other label commands are deleted entirely.
+
+    Horizontal whitespace and newlines directly adjacent to each removed
+    command are also trimmed so that no orphan blank lines or extra spaces
+    are left behind.
+    """
+    # 1. \hypertarget: keep display text, drop the rest
+    text = _HYPERTARGET_STRIP_RE.sub(lambda m: m.group(1), text)
+
+    # 2. All other label commands: drop entirely
+    for pattern, replacement in _LABEL_STRIP_PATTERNS:
+        text = pattern.sub(replacement, text)
+
+    # 3. Collapse accidental triple+ newlines created by stripping
+    text = _MULTI_NEWLINE_RE.sub("\n\n", text)
+
+    return text
+
+
+# ---------------------------------------------------------------------------
 # Core builder
 # ---------------------------------------------------------------------------
 
@@ -110,12 +193,16 @@ def build_refmap(
     """
     Walk all documents and build the chapter-keyed reference map.
 
+    As a side-effect, each paragraph's "text" field is updated in-place:
+    every label command that was extracted is stripped from the text
+    (including surrounding whitespace / newlines) because its information
+    is now recorded in the refmap.
+
     Returns
     -------
     refmap : {chapter_str: {label_key: env_label}}
     stats  : summary counters for logging
     """
-    # Use defaultdict so we can freely add keys
     refmap: Dict[str, Dict[str, str]] = defaultdict(dict)
 
     stats = defaultdict(int)
@@ -137,7 +224,6 @@ def build_refmap(
 
                     existing = refmap[chapter].get(key)
                     if existing is not None and existing != env_label:
-                        # Duplicate key with a different env_label in the same chapter
                         stats["collision"] += 1
                         if len(collision_examples) < 5:
                             collision_examples.append(
@@ -153,7 +239,13 @@ def build_refmap(
 
                     refmap[chapter][key] = env_label
 
-    # Convert defaultdict to plain dict for clean JSON output
+            # Strip all found label commands from the paragraph text.
+            # Only touch the field when there is something to remove.
+            if found:
+                para["text"] = strip_label_commands(text)
+                if isinstance(para.get("translation"), str):
+                    para["translation"] = strip_label_commands(para["translation"])
+
     return {ch: dict(mapping) for ch, mapping in sorted(refmap.items())}, dict(stats)
 
 
@@ -180,7 +272,6 @@ def write_json_atomic(path: str, data: dict) -> None:
             json.dump(data, f, ensure_ascii=False, indent=2)
         os.replace(tmp, path)
     except Exception as exc:
-        # Clean up temp file on failure
         if os.path.exists(tmp):
             try:
                 os.remove(tmp)
@@ -197,7 +288,7 @@ def parse_args() -> argparse.Namespace:
     ap = argparse.ArgumentParser(
         description=(
             "Build a chapter-keyed internal reference lookup dictionary "
-            "from labeled.json."
+            "from labeled.json, stripping label commands from paragraph text."
         ),
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog=__doc__,
@@ -211,6 +302,16 @@ def parse_args() -> argparse.Namespace:
         "--output",
         default=os.path.join("outputs", "refmap.json"),
         help="Path to output refmap.json (default: outputs/refmap.json)",
+    )
+    ap.add_argument(
+        "--labeled-out",
+        default=None,
+        metavar="PATH",
+        help=(
+            "If given, write the modified labeled.json (with label commands "
+            "stripped from paragraph text) to this path instead of overwriting "
+            "the input.  Defaults to overwriting --input in-place."
+        ),
     )
     ap.add_argument(
         "--verbose",
@@ -232,11 +333,20 @@ def main() -> None:
     total_paras = sum(len(d.get("paragraphs", [])) for d in documents)
     print(f"[INFO] Loaded {len(documents)} document(s), {total_paras} paragraph(s).")
 
-    # Build
+    # Build refmap (modifies paragraph text in-place)
     refmap, stats = build_refmap(documents, verbose=args.verbose)
 
-    # Write
+    # Write refmap.json
     write_json_atomic(args.output, refmap)
+
+    # Write back the modified labeled.json (with labels stripped from text)
+    labeled_out = args.labeled_out or args.input
+    data["documents"] = documents
+    write_json_atomic(labeled_out, data)
+    if labeled_out == args.input:
+        print(f"[INFO] Updated labeled.json in-place: {args.input}")
+    else:
+        print(f"[INFO] Wrote stripped labeled.json to: {labeled_out}")
 
     # Report
     total_keys  = stats.get("total", 0)
@@ -246,7 +356,6 @@ def main() -> None:
     print(f"[INFO] Chapters indexed  : {chapters}")
     print(f"[INFO] Total label keys  : {total_keys}")
 
-    # Per-category breakdown
     category_display = {
         "label":       r"\label{}",
         "bibitem":     r"\bibitem{}",
@@ -267,12 +376,7 @@ def main() -> None:
     else:
         print("[INFO] No duplicate key collisions.")
 
-    # Per-chapter key counts
-    print("[INFO] Keys per chapter:")
-    for ch, mapping in sorted(refmap.items(), key=lambda x: int(x[0]) if x[0].isdigit() else 0):
-        print(f"         chapter {ch:>3} : {len(mapping)} key(s)")
-
-    print(f"[INFO] Output written to: {args.output}")
+    print(f"[INFO] Refmap written to: {args.output}")
 
 
 if __name__ == "__main__":

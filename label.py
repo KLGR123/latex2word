@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-"""
+r"""
 label_envs.py
 
 Post-process outputs/translated.json to assign display names (env_label) to
@@ -340,7 +340,7 @@ def _classify_paragraph(text: str) -> Optional[str]:
 # ---------------------------------------------------------------------------
 
 def label_paragraphs(documents: list) -> Tuple[list, Dict[str, int]]:
-    """
+    r"""
     Walk every paragraph in every document and assign "env_label".
 
     Priority (checked in order for each paragraph):
