@@ -46,7 +46,8 @@ Input JSON schema (from chunk.py)
 
 Output JSON schema
 ------------------
-Same structure, with "translation" added to every paragraph dict.
+Same structure, with "translation" added to every paragraph dict and
+"title_translation" added to every document dict.
 
 Usage
 -----
@@ -98,7 +99,7 @@ _SYSTEM_BASE = (
     "1. 保留所有 LaTeX 命令原样不变，包括 \\textbf{}、\\cite{}、\\label{}、"
     "数学公式（$...$、\\[...\\] 等），仅翻译命令中或命令之间的自然语言文本；\n"
     "2. 仅将文本中的英文标点替换为对应中文全角标点：逗号用（，）、句号用（。）、"
-    "分号用（；）、括号用（（））、引号用（“”）；\n"
+    "分号用（；）、括号用（（））、引号用（""）；\n"
     "3. LaTeX 命令内部（如公式内容、命令参数中的变量名）的符号不得修改，LaTex 命令内部的标点符号也不得修改，例如 \\citep{} 或 $...$ 中的英文逗号；\n"
     "4. 直接输出译文，不要添加任何解释、前缀或总结。"
 )
@@ -234,7 +235,6 @@ _SECTION_RE = re.compile(
     re.IGNORECASE,
 )
 
-
 def try_section_cache(text: str) -> Optional[str]:
     """
     If text is a bare section heading whose title exists in the local cache,
@@ -249,6 +249,44 @@ def try_section_cache(text: str) -> Optional[str]:
     if translated:
         return f"{cmd}{{{translated}}}{label}"
     return None
+
+
+async def _assign_title_translations(
+    docs_out: List[Dict],
+    provider: "BaseProvider",
+    sem: asyncio.Semaphore,
+) -> None:
+    """
+    Translate the 'title' field of each document and store the result as
+    'title_translation' on the same document object.
+
+    Titles found in SECTION_TITLE_CACHE are resolved without an API call;
+    the remainder are translated in a single batched request.
+    Documents without a 'title' field get an empty string.
+    """
+    # Pair each doc index with its English title (skip missing/empty).
+    to_translate: List[Tuple[int, str]] = []
+    for i, doc in enumerate(docs_out):
+        title_en = (doc.get("title") or "").strip()
+        if not title_en:
+            doc["title_translation"] = ""
+            continue
+        cached = SECTION_TITLE_CACHE.get(title_en.lower())
+        if cached:
+            doc["title_translation"] = cached
+        else:
+            to_translate.append((i, title_en))
+
+    if not to_translate:
+        return
+
+    titles_en = [t for _, t in to_translate]
+    system = _make_system(batch=len(titles_en) > 1)
+    async with sem:
+        translations = await provider.translate_batch(titles_en, system=system)
+
+    for (doc_idx, _), title_zh in zip(to_translate, translations):
+        docs_out[doc_idx]["title_translation"] = title_zh
 
 
 # ---------------------------------------------------------------------------
@@ -719,7 +757,8 @@ async def translate_all(
 ) -> List[Dict]:
     """
     Translate all paragraphs across all documents concurrently.
-    Returns a deep copy of `documents` with "translation" added to each paragraph.
+    Returns a deep copy of `documents` with "translation" added to each
+    paragraph and "title_translation" added to each document.
     """
     docs_out = deepcopy(documents)
     cached = checkpoint.load()
@@ -882,7 +921,7 @@ async def translate_all(
             tasks.append(process_batch(doc_idx, batch))
 
     await asyncio.gather(*tasks, return_exceptions=False)
-    
+
     total_paras = sum(len(d["paragraphs"]) for d in docs_out)
     log.info(
         "Syntax check: %d / %d paragraphs have broken syntax.",
@@ -895,6 +934,10 @@ async def translate_all(
         for para in doc["paragraphs"]:
             key = CheckpointManager.make_key(doc_idx, para["id"])
             para["translation"] = cached.get(key, "")
+
+    # Translate the 'title' field of each document; result stored as 'title_translation'.
+    log.info("Computing title_translation for all documents...")
+    await _assign_title_translations(docs_out, provider, sem)
 
     return docs_out
 

@@ -61,25 +61,55 @@ from typing import Any, Dict, List, Optional, Tuple
 # Citation commands.
 # Handles optional pre/post note args:  \citep[pre][post]{key1, key2}
 # Capture group 1: raw comma-separated key string (whitespace stripped by us).
+# The leading ~? consumes an optional LaTeX non-breaking space before the command.
 _CITE_RE = re.compile(
-    r"\\cite[a-zA-Z*]*"      # command name: \cite \citep \citet \citealt ...
-    r"(?:\s*\[[^\]]*\])*"    # zero or more optional args [...]
-    r"\s*\{\s*([^}]+?)\s*\}" # {key1, key2, ...}
+    r"~?"                         # optional preceding LaTeX non-breaking space
+    r"\\cite[a-zA-Z*]*"           # command name: \cite \citep \citet \citealt ...
+    r"(?:\s*\[[^\]]*\])*"         # zero or more optional args [...]
+    r"\s*\{\s*([^}]+?)\s*\}"      # {key1, key2, ...}
 )
 
 # Standard single-argument reference commands.
 # Capture group 1: command name (for context in warnings).
 # Capture group 2: label key.
+# The leading ~? consumes an optional LaTeX non-breaking space before the command.
 _REF_RE = re.compile(
+    r"~?"                         # optional preceding LaTeX non-breaking space
     r"\\(ref|eqref|autoref|cref|Cref|pageref|nameref|vref|Vref|fref)\*?"
     r"\s*\{\s*([^}]+?)\s*\}"
 )
 
 # \hyperref[label]{display_text}  --  label is in [...], not {...}.
 # Capture group 1: label key.
+# The leading ~? consumes an optional LaTeX non-breaking space before the command.
 _HYPERREF_RE = re.compile(
+    r"~?"                         # optional preceding LaTeX non-breaking space
     r"\\hyperref\s*\[\s*([^\]]+?)\s*\]\s*\{[^}]*\}"
 )
+
+# Matches doubled Chinese environment label prefixes, with optional whitespace
+# between the two occurrences — e.g. "图图7-5", "表 表7-1", "算法 算法3-1".
+# Uses a backreference so only identical consecutive prefixes are collapsed.
+_DUPLICATE_PREFIX_RE = re.compile(r'(图|表|算法|代码|式)\s*\1(?=\d)')
+
+# Matches horizontal whitespace immediately surrounding a resolved Chinese env
+# label such as "表7-1" or "图7-5".  Strips spurious spaces left by the LLM
+# (e.g. "如表 7-1 所示" → "如表7-1所示") after duplicate-prefix removal.
+_LABEL_SPACE_RE = re.compile(r'[ \t]*((?:图|表|算法|代码|式)\d[\d-]*)[ \t]*')
+
+
+def _dedup_env_prefixes(text: str) -> str:
+    """
+    Fix label formatting artifacts in translated text:
+      1. Remove doubled prefix (with or without intervening space):
+           表表7-1  →  表7-1
+           表 表7-1 →  表7-1
+      2. Strip surrounding horizontal whitespace from every resolved label:
+           如表 7-1 所示  →  如表7-1所示
+    """
+    text = _DUPLICATE_PREFIX_RE.sub(r'\1', text)
+    text = _LABEL_SPACE_RE.sub(r'\1', text)
+    return text
 
 
 # ---------------------------------------------------------------------------
@@ -210,11 +240,10 @@ def replace_field(
       1. \\hyperref[label]{text}   (must come before generic ref pass)
       2. Standard \\ref-family commands
       3. Citation commands
+      4. Deduplicate doubled Chinese env prefixes (e.g. 图图7-5 → 图7-5)
 
-    Surrounding whitespace / newlines adjacent to the matched command are
-    collapsed: we replace the full match (which may already include
-    whitespace inside the argument) and the regex patterns already strip
-    inner whitespace via \\s* around the captured key.
+    A leading ~ (LaTeX non-breaking space) immediately before any of these
+    commands is consumed as part of the match and dropped from the output.
     """
     if not text:
         return text
@@ -257,6 +286,9 @@ def replace_field(
         )
 
     text = _CITE_RE.sub(_cite_sub, text)
+
+    # --- 4. Remove doubled env prefixes created by LLM translation ---
+    text = _dedup_env_prefixes(text)
 
     return text
 
