@@ -16,3 +16,5 @@ python3 replace.py \
   --output    ${OUTPUTS_DIR}/replaced.json \
   --verbose
 rm ${OUTPUTS_DIR}/labeled.json
+
+python3 render.py --json outputs/replaced.json --docx outputs/final.docx
