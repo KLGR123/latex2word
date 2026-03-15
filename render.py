@@ -103,6 +103,10 @@ _TEX_PREAMBLE  = (
 )
 _TEX_POSTAMBLE = "\n\\end{document}\n"
 
+# Registry of temporary files created during a run (e.g. PDF→PNG conversions).
+# Populated by _pdf_to_image(); cleaned up at the end of main().
+_g_temp_files: List[str] = []
+
 
 # ─────────────────────────────────────────────────────────────────────────────
 # Low-level XML helpers
@@ -326,6 +330,17 @@ def _init_footnotes(doc: Document) -> None:
     print(f"  [footnotes] Initialised -- next ID = {_g_footnote_next_id}.")
 
 
+def _fix_footnote_fonts(fn_elem) -> None:
+    """
+    Set FONT_BODY (宋体) on every <w:r> run inside a footnote element.
+    Pandoc does not know the document font, so footnote runs inherit whatever
+    default the skeleton XML provides; this call normalises them all.
+    """
+    fn_size = SIZE_BODY - 1          # 11 pt — standard footnote size
+    for r_elem in fn_elem.iter(f"{{{NS_W}}}r"):
+        _fix_lxml_run_fonts(r_elem, FONT_BODY, fn_size)
+
+
 def _merge_pandoc_footnotes(doc_tree, fn_xml_bytes: Optional[bytes]) -> None:
     """
     Remap footnote IDs from a pandoc fragment and merge them into the document.
@@ -363,6 +378,7 @@ def _merge_pandoc_footnotes(doc_tree, fn_xml_bytes: Optional[bytes]) -> None:
     for old_id, new_id in id_map.items():
         fn_elem = copy.deepcopy(pandoc_fns[old_id])
         fn_elem.set(_FN_ID_ATTR, str(new_id))
+        _fix_footnote_fonts(fn_elem)          # ensure Chinese text uses 宋体
         _g_footnotes_root.append(fn_elem)
 
 
@@ -714,6 +730,7 @@ def render_chapter_title(doc, meta: dict) -> None:
     """Render the chapter heading; Arabic chapter number is converted to Chinese."""
     chapter  = meta.get("chapter", "")
     title_zh = meta.get("title_translation", meta.get("title", ""))
+    title_zh = re.sub(r'^#+\s+', '', title_zh)   # strip leading # marks
     try:
         chapter_cn = _to_chinese_number(int(chapter))
     except (ValueError, TypeError):
@@ -759,6 +776,7 @@ def render_heading(doc, para: dict, level: int) -> None:
     heading_clean = re.sub(r'\\[a-zA-Z]+\*?\{([^{}]*)\}', r'\1', heading_text)
     heading_clean = re.sub(r'\\[a-zA-Z]+\*?', '', heading_clean).strip()
     heading_clean = _clean_spaces(heading_clean)
+    heading_clean = re.sub(r'^#+\s+', '', heading_clean)   # strip leading # marks
 
     # Numeric prefix from env_label (e.g. "3.5" from "3.5节")
     numeric = re.sub(r'[节小].*$', '', env_label)
@@ -820,9 +838,11 @@ def _add_caption(doc, label: str, caption_latex: str) -> None:
         return
     cleaned = _clean_spaces(caption_latex) if caption_latex else ""
 
-    # Build full LaTeX string: bold label + caption text
+    # Build full LaTeX string: bold label + space + caption text.
+    # A plain space after the closing brace is the most portable separator —
+    # \quad is sometimes silently dropped by pandoc when adjacent to CJK text.
     full_latex = (
-        f"\\textbf{{{label}}}\\quad {cleaned}" if cleaned
+        f"\\textbf{{{label}}} {cleaned}" if cleaned
         else f"\\textbf{{{label}}}"
     )
 
@@ -838,7 +858,7 @@ def _add_caption(doc, label: str, caption_latex: str) -> None:
         p = doc.add_paragraph()
         p.alignment = WD_ALIGN_PARAGRAPH.CENTER
         _spacing(p, before_pt=2, after_pt=8)
-        parts = re.split(r'(\$[^$]+\$)', f"{label}  {cleaned}")
+        parts = re.split(r'(\$[^$]+\$)', f"{label} {cleaned}")
         for part in parts:
             if part.startswith("$") and part.endswith("$"):
                 # Attempt to render math inline via pandoc into a temp para,
@@ -893,11 +913,70 @@ def _remove_table_borders(table) -> None:
     tblPr.append(borders)
 
 
+def _pdf_to_image(pdf_path: Path) -> Optional[Path]:
+    """
+    Rasterise the first page of a PDF to a temporary PNG file.
+
+    Tries PyMuPDF (fitz) first, then falls back to pdf2image (poppler).
+    The resulting path is registered in _g_temp_files for cleanup.
+    Returns None if no suitable library is available or conversion fails.
+    """
+    global _g_temp_files
+
+    # --- attempt 1: PyMuPDF (pip install pymupdf) ---
+    try:
+        import fitz  # type: ignore
+        pdf_doc = fitz.open(str(pdf_path))
+        page    = pdf_doc[0]
+        mat     = fitz.Matrix(2.0, 2.0)   # 2× zoom → ~144 dpi effective
+        pix     = page.get_pixmap(matrix=mat)
+        tmp     = tempfile.NamedTemporaryFile(suffix=".png", delete=False)
+        pix.save(tmp.name)
+        tmp.close()
+        pdf_doc.close()
+        _g_temp_files.append(tmp.name)
+        print(f"  [pdf→png] {pdf_path.name} -> {tmp.name} (fitz)")
+        return Path(tmp.name)
+    except ImportError:
+        pass
+    except Exception as exc:
+        print(f"  [warn] fitz PDF conversion failed for {pdf_path}: {exc}")
+
+    # --- attempt 2: pdf2image (pip install pdf2image; needs poppler) ---
+    try:
+        from pdf2image import convert_from_path  # type: ignore
+        images = convert_from_path(str(pdf_path), first_page=1, last_page=1, dpi=144)
+        if images:
+            tmp = tempfile.NamedTemporaryFile(suffix=".png", delete=False)
+            images[0].save(tmp.name, "PNG")
+            tmp.close()
+            _g_temp_files.append(tmp.name)
+            print(f"  [pdf→png] {pdf_path.name} -> {tmp.name} (pdf2image)")
+            return Path(tmp.name)
+    except ImportError:
+        pass
+    except Exception as exc:
+        print(f"  [warn] pdf2image conversion failed for {pdf_path}: {exc}")
+
+    print(f"  [warn] No PDF-to-image library found; cannot embed {pdf_path.name}.")
+    print("         Install PyMuPDF:  pip install pymupdf")
+    print("         or pdf2image:     pip install pdf2image")
+    return None
+
+
 def _resolve_image(figures_dir: str, rel: str) -> Optional[Path]:
-    """Find an image file by trying the given path and common image extensions."""
+    """
+    Find an image file by trying the given path and common image extensions.
+    PDF files are transparently converted to PNG before returning.
+    """
     base = Path(figures_dir) / rel
-    for candidate in [base, *[base.with_suffix(s) for s in (".png", ".jpg", ".jpeg")]]:
+    for candidate in [
+        base,
+        *[base.with_suffix(s) for s in (".png", ".jpg", ".jpeg", ".pdf")],
+    ]:
         if candidate.exists():
+            if candidate.suffix.lower() == ".pdf":
+                return _pdf_to_image(candidate)   # convert PDF → PNG
             return candidate
     return None
 
@@ -986,6 +1065,99 @@ def render_figure(doc, para: dict, figures_dir: str = ".") -> None:
     # Removed: doc.add_paragraph() blank line after caption
 
 
+def _set_table_auto_col_widths(doc, total_cm: float = 15.5) -> None:
+    """
+    Redistribute column widths of the most recently added table.
+
+    Column widths are assigned proportionally to the longest text found in
+    each column (measured in Unicode code-point count).  A minimum of 10 %
+    of the total width is guaranteed per column so narrow columns are not
+    squashed.  Falls back to equal widths when all columns are empty.
+
+    total_cm should match the document's usable body width
+    (page width − left margin − right margin; default matches the 15.5 cm
+    body set up in main()).
+    """
+    if not doc.tables:
+        return
+    tbl    = doc.tables[-1]
+    n_cols = len(tbl.columns)
+    if n_cols == 0:
+        return
+
+    # --- measure max text length per column ---
+    col_chars = [0] * n_cols
+    for row in tbl.rows:
+        cells = row.cells
+        for i in range(min(n_cols, len(cells))):
+            length = sum(len(p.text) for p in cells[i].paragraphs)
+            if length > col_chars[i]:
+                col_chars[i] = length
+
+    total_chars = sum(col_chars)
+    total_twips = int(total_cm * 567)   # 1 cm = 567 twips
+    min_twips   = total_twips // (n_cols * 10)   # 10 % floor per column
+
+    if total_chars == 0:
+        col_twips = [total_twips // n_cols] * n_cols
+    else:
+        raw       = [int(total_twips * c / total_chars) for c in col_chars]
+        col_twips = [max(w, min_twips) for w in raw]
+        # Re-scale so the total stays exactly right
+        excess = sum(col_twips) - total_twips
+        if excess != 0:
+            col_twips[col_twips.index(max(col_twips))] -= excess
+
+    # --- apply to tblPr / tblW ---
+    tblPr = tbl._tbl.find(qn("w:tblPr"))
+    if tblPr is None:
+        tblPr = OxmlElement("w:tblPr")
+        tbl._tbl.insert(0, tblPr)
+
+    for old_tag in (qn("w:tblW"), qn("w:tblLayout")):
+        old = tblPr.find(old_tag)
+        if old is not None:
+            tblPr.remove(old)
+
+    tblW = OxmlElement("w:tblW")
+    tblW.set(qn("w:w"), str(total_twips))
+    tblW.set(qn("w:type"), "dxa")
+    tblPr.append(tblW)
+
+    layout = OxmlElement("w:tblLayout")
+    layout.set(qn("w:type"), "fixed")
+    tblPr.append(layout)
+
+    # --- rebuild tblGrid ---
+    old_grid = tbl._tbl.find(qn("w:tblGrid"))
+    if old_grid is not None:
+        tbl._tbl.remove(old_grid)
+    grid = OxmlElement("w:tblGrid")
+    for w in col_twips:
+        gc = OxmlElement("w:gridCol")
+        gc.set(qn("w:w"), str(w))
+        grid.append(gc)
+    tblPr_idx = list(tbl._tbl).index(tblPr)
+    tbl._tbl.insert(tblPr_idx + 1, grid)
+
+    # --- update every cell's tcW ---
+    for row in tbl.rows:
+        cells = row.cells
+        for i in range(min(n_cols, len(cells))):
+            tc    = cells[i]._tc
+            tcPr  = tc.find(qn("w:tcPr"))
+            if tcPr is None:
+                tcPr = OxmlElement("w:tcPr")
+                tc.insert(0, tcPr)
+            old_tcW = tcPr.find(qn("w:tcW"))
+            if old_tcW is not None:
+                tcPr.remove(old_tcW)
+            tcW = OxmlElement("w:tcW")
+            tcW.set(qn("w:w"), str(col_twips[i]))
+            tcW.set(qn("w:type"), "dxa")
+            tcPr.append(tcW)
+
+
 def render_table(doc, para: dict) -> None:
     """Render a table chunk via latex_table_renderer.
     Falls back to a raw-LaTeX placeholder block on parse failure.
@@ -1004,6 +1176,7 @@ def render_table(doc, para: dict) -> None:
             caption_latex = _extract_caption(source)    # Extract caption from LaTeX source
             _add_caption(doc, env_label, caption_latex) # Render label above the table
             render_latex_table_to_docx(doc, source)
+            _set_table_auto_col_widths(doc)             # Redistribute column widths by content
             # Removed: doc.add_paragraph() blank line after table
             return
         except Exception as exc:
@@ -1180,7 +1353,7 @@ def render_references(doc, citations_path: str) -> None:
         _indent(p, left_cm=1.2, hanging_cm=1.2)
         _spacing(p, before_pt=0, after_pt=4)
         _set_para_font(p, FONT_BODY, size)
-        set_run_font(p.add_run(f"[{nid}]  "), FONT_BODY, size, bold=True)
+        set_run_font(p.add_run(f"[{nid}] "), FONT_BODY, size, bold=True)
         set_run_font(p.add_run(_clean_spaces(id_to_citation[nid])), FONT_BODY, size)
 
     print(f"  [references] Appended {len(id_to_citation)} entries.")
@@ -1280,6 +1453,13 @@ def main() -> None:
 
     doc.save(str(docx_path))
     print(f"\n[done] Saved -> {docx_path}")
+
+    # Clean up any temporary files created during PDF→image conversion
+    for tmp in _g_temp_files:
+        try:
+            os.unlink(tmp)
+        except OSError:
+            pass
 
 
 if __name__ == "__main__":
