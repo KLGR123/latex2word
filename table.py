@@ -1128,7 +1128,7 @@ def render_latex_table_to_docx(doc, latex_str: str,
     col_aligns = data["col_align"] or ["l"] + ["c"] * (col_count - 1)
 
     # --- Caption ---
-    _render_caption(doc, data["caption"])
+    # _render_caption(doc, data["caption"])
 
     # --- Column widths ---
     if col_widths is None:

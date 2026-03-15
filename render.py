@@ -269,13 +269,13 @@ _FN_SKIP_TYPES = frozenset({"separator", "continuationSeparator"})
 # Minimal footnotes.xml skeleton required by the OOXML spec.
 # IDs -1 and 0 are the mandatory separator / continuationSeparator entries.
 _FN_SKELETON_XML = (
-    '<w:footnotes xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main">' 
-    '<w:footnote w:id="-1" w:type="separator">' 
-    '<w:p><w:r><w:separator/></w:r></w:p>' 
-    '</w:footnote>' 
-    '<w:footnote w:id="0" w:type="continuationSeparator">' 
-    '<w:p><w:r><w:continuationSeparator/></w:r></w:p>' 
-    '</w:footnote>' 
+    '<w:footnotes xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main">'
+    '<w:footnote w:id="-1" w:type="separator">'
+    '<w:p><w:r><w:separator/></w:r></w:p>'
+    '</w:footnote>'
+    '<w:footnote w:id="0" w:type="continuationSeparator">'
+    '<w:p><w:r><w:continuationSeparator/></w:r></w:p>'
+    '</w:footnote>'
     '</w:footnotes>'
 )
 
@@ -819,17 +819,39 @@ def _add_caption(doc, label: str, caption_latex: str) -> None:
     if not label and not caption_latex:
         return
     cleaned = _clean_spaces(caption_latex) if caption_latex else ""
+
+    # Build full LaTeX string: bold label + caption text
+    full_latex = (
+        f"\\textbf{{{label}}}\\quad {cleaned}" if cleaned
+        else f"\\textbf{{{label}}}"
+    )
+
+    # Primary path: pandoc handles both text and inline math together
     ok = _inject_pandoc_paras(
-        f"\\textbf{{{label}}}\\quad {cleaned}", doc,
+        full_latex, doc,
         font_name=FONT_CAPTION, size_pt=SIZE_CAPTION,
         align=WD_ALIGN_PARAGRAPH.CENTER,
         before_pt=2.0, after_pt=8.0,
-    ) if cleaned else False
+    )
     if not ok:
+        # Fallback: split on $...$ and handle math segments separately
         p = doc.add_paragraph()
         p.alignment = WD_ALIGN_PARAGRAPH.CENTER
         _spacing(p, before_pt=2, after_pt=8)
-        set_run_font(p.add_run(f"{label}  {cleaned}"), FONT_CAPTION, SIZE_CAPTION, italic=True)
+        parts = re.split(r'(\$[^$]+\$)', f"{label}  {cleaned}")
+        for part in parts:
+            if part.startswith("$") and part.endswith("$"):
+                # Attempt to render math inline via pandoc into a temp para,
+                # then fall back to raw text if that also fails
+                math_ok = _inject_pandoc_paras(
+                    part, doc,
+                    font_name=FONT_CAPTION, size_pt=SIZE_CAPTION,
+                    align=WD_ALIGN_PARAGRAPH.CENTER,
+                )
+                if not math_ok:
+                    set_run_font(p.add_run(part), FONT_CAPTION, SIZE_CAPTION)
+            else:
+                set_run_font(p.add_run(part), FONT_CAPTION, SIZE_CAPTION, italic=False)
 
 
 def _find_minipages(text: str) -> List[Dict[str, Any]]:
@@ -895,7 +917,7 @@ def render_figure(doc, para: dict, figures_dir: str = ".") -> None:
     if re.search(r'\\begin\{(?:minipage|subfigure|subfloat)\}', translation):
         minipages = _find_minipages(translation)
         if minipages:
-            doc.add_paragraph()
+            # Removed: doc.add_paragraph() blank line before table
             n   = len(minipages)
             tbl = doc.add_table(rows=2, cols=n)
             _remove_table_borders(tbl)
@@ -937,7 +959,7 @@ def render_figure(doc, para: dict, figures_dir: str = ".") -> None:
     # ── Single-image layout ──────────────────────────────────────────────
     img_paths     = re.findall(r'\\includegraphics(?:\[[^\]]*\])?\{([^}]+)\}', translation)
     caption_latex = _extract_caption(translation)
-    doc.add_paragraph()
+    # Removed: doc.add_paragraph() blank line before image
 
     embedded = False
     for rel in img_paths:
@@ -961,7 +983,7 @@ def render_figure(doc, para: dict, figures_dir: str = ".") -> None:
         )
 
     _add_caption(doc, env_label, caption_latex)
-    doc.add_paragraph()
+    # Removed: doc.add_paragraph() blank line after caption
 
 
 def render_table(doc, para: dict) -> None:
@@ -979,8 +1001,10 @@ def render_table(doc, para: dict) -> None:
 
     if has_content:
         try:
+            caption_latex = _extract_caption(source)    # Extract caption from LaTeX source
+            _add_caption(doc, env_label, caption_latex) # Render label above the table
             render_latex_table_to_docx(doc, source)
-            doc.add_paragraph()
+            # Removed: doc.add_paragraph() blank line after table
             return
         except Exception as exc:
             print(f"  [table] Renderer failed for {env_label}: {exc}")
@@ -1005,7 +1029,7 @@ def render_table(doc, para: dict) -> None:
     caption_latex = _extract_caption(source)
     if caption_latex:
         _add_caption(doc, env_label, caption_latex)
-    doc.add_paragraph()
+    # Removed: doc.add_paragraph() blank line after fallback block
 
 
 def render_code(doc, para: dict) -> None:
@@ -1037,8 +1061,7 @@ def render_code(doc, para: dict) -> None:
         run = p.add_run(line)
         run.font.name = FONT_CODE
         run.font.size = Pt(SIZE_CODE)
-
-    doc.add_paragraph()
+    # Removed: doc.add_paragraph() blank line after code block
 
 
 def render_mathenv(doc, para: dict) -> None:
