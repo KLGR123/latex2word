@@ -46,6 +46,8 @@ from docx.oxml.ns import qn
 from docx.shared import Cm, Inches, Pt, RGBColor
 from lxml import etree
 
+from table import render_latex_table_to_docx
+
 # ─────────────────────────────────────────────────────────────────────────────
 # Optional dependency: cn2an (Arabic -> Chinese numerals for chapter titles)
 # ─────────────────────────────────────────────────────────────────────────────
@@ -529,53 +531,178 @@ def _render_para(doc, latex_text: str,
 
 
 # ─────────────────────────────────────────────────────────────────────────────
-# Chunk classifier
+# Chunk classifier — environment regexes
+# Each pattern matches \begin{env_name} at the start of a stripped chunk.
 # ─────────────────────────────────────────────────────────────────────────────
 
 _RE_SECTION       = re.compile(r'\\section\*?\{')
 _RE_SUBSECTION    = re.compile(r'\\subsection\*?\{')
 _RE_SUBSUBSECTION = re.compile(r'\\subsubsection\*?\{')
-_RE_ABSTRACT      = re.compile(r'\\begin\{abstract\}')
-_RE_FIGURE        = re.compile(r'\\begin\{(figure\*?|wrapfigure)\}')
-_RE_TABLE         = re.compile(r'\\begin\{(table\*?|wraptable)\}')
-_RE_VERBATIM      = re.compile(r'\\begin\{(verbatim|lstlisting|minted|Verbatim)\}')
-_RE_MATHENV       = re.compile(
-    r'\\begin\{(definition|lemma|theorem|corollary|proposition'
-    r'|remark|claim|example|fact)\*?\}', re.IGNORECASE)
-_RE_PROOF         = re.compile(r'\\begin\{proof\}', re.IGNORECASE)
-_RE_EQUATION      = re.compile(
-    r'\\begin\{(equation|align|multline|gather|eqnarray|flalign|alignat|split)\*?\}')
+_RE_ABSTRACT      = re.compile(r'\\begin\{abstract\}', re.IGNORECASE)
+
+_RE_FIGURE = re.compile(
+    r'\\begin\{'
+    r'(?:figure\*?'
+    r'|subfigure\*?'
+    r'|subfloat'
+    r'|wrapfigure\*?'
+    r'|SCfigure\*?'
+    r'|floatrow'
+    r'|ffigbox'
+    r'|capbeside'
+    r'|sidewaysfigure\*?'
+    r'|turnfigure'
+    r'|captionedbox'
+    r'|tikzpicture'
+    r'|tikzfigure'
+    r'|floatingfigure'
+    r'|figwindow'
+    r'|cutout'
+    r'|overpic'
+    r'|teaserfigure'
+    r'|figurehere'
+    r')\}'
+)
+
+_RE_TABLE = re.compile(
+    r'\\begin\{'
+    r'(?:table\*?'
+    r'|tabular\*?'
+    r'|tabularx\*?'
+    r'|tabulary'
+    r'|tabularray'
+    r'|tblr'
+    r'|longtblr'
+    r'|longtable\*?'
+    r'|supertabular\*?'
+    r'|mpsupertabular'
+    r'|xtabular'
+    r'|sidewaystable\*?'
+    r'|sidewaystabular'
+    r'|turntable'
+    r'|threeparttable'
+    r'|threeparttablex'
+    r'|tabu'
+    r'|longtabu'
+    r'|tabbing'
+    r'|wraptable\*?'
+    r'|ttabbox'
+    r'|ctable'
+    r'|array'
+    r'|spreadtab'
+    r'|tablehere'
+    r'|adjustbox'
+    r')\}'
+)
+
+_RE_ALGORITHM = re.compile(
+    r'\\begin\{'
+    r'(?:algorithm\*?'
+    r'|algorithmic'
+    r'|algorithmicx'
+    r'|algpseudocode'
+    r'|algorithm2e\*?'
+    r'|pseudocode'
+    r'|lstpseudocode'
+    r'|myalgorithm'
+    r'|algo'
+    r'|proc'
+    r'|procedure'
+    r'|function'
+    r')\}'
+)
+
+_RE_VERBATIM = re.compile(
+    r'\\begin\{'
+    r'(?:verbatim\*?'
+    r'|lstlisting'
+    r'|minted\*?'
+    r'|Verbatim\*?'
+    r'|BVerbatim'
+    r'|LVerbatim'
+    r'|SaveVerbatim'
+    r'|alltt'
+    r'|verbatimtab'
+    r'|listing'
+    r'|tcolorbox'
+    r'|tcblisting'
+    r'|mdframed'
+    r'|spverbatim'
+    r'|codeblock'
+    r'|codebox'
+    r'|sourcecode'
+    r'|pycode'
+    r'|bashcode'
+    r'|jsoncode'
+    r'|xmlcode'
+    r'|sqlcode'
+    r'|exampleblock'
+    r'|example'
+    r')\}'
+)
+
+_RE_EQUATION = re.compile(
+    r'\\begin\{'
+    r'(?:equation\*?'
+    r'|displaymath'
+    r'|align\*?'
+    r'|aligned'
+    r'|alignat\*?'
+    r'|alignedat'
+    r'|gather\*?'
+    r'|gathered'
+    r'|multline\*?'
+    r'|flalign\*?'
+    r'|split'
+    r'|cases\*?'
+    r'|dcases\*?'
+    r'|rcases\*?'
+    r'|numcases'
+    r'|subequations'
+    r'|eqnarray\*?'
+    r'|empheq'
+    r'|dmath\*?'
+    r'|dseries\*?'
+    r'|dgroup\*?'
+    r'|darray\*?'
+    r'|IEEEeqnarray\*?'
+    r'|math'
+    r')\}'
+)
+
+_RE_MATHENV = re.compile(
+    r'\\begin\{'
+    r'(?:definition|lemma|theorem|corollary|proposition'
+    r'|remark|claim|example|fact'
+    r')\*?\}',
+    re.IGNORECASE
+)
+
+_RE_PROOF = re.compile(r'\\begin\{proof\}', re.IGNORECASE)
 
 
 def classify(para: dict) -> str:
-    """
-    Return the chunk type for a paragraph dict.
-
-    Possible values: abstract | section | subsection | subsubsection |
-                     equation | figure | table | code | mathenv | proof | paragraph
-    """
     label = para.get("env_label", "")
     text  = para.get("text", "").strip()
 
-    # Label-based fast paths (cheapest check first)
-    if label == "摘要":             return "abstract"
-    if label.startswith("式"):      return "equation"
-    if label.startswith("图"):      return "figure"
-    if label.startswith("表"):      return "table"
-    if label.startswith("代码"):    return "code"
-    if label.startswith("算法"):    return "code"
+    if label == "摘要":               return "abstract"
+    if label.startswith("式"):        return "equation"
+    if label.startswith("图"):        return "figure"
+    if label.startswith("表"):        return "table"
+    if label.startswith("代码"):      return "code"
+    if label.startswith("算法"):      return "code"   # rendered same as code
 
-    # Content-based paths
-    if _RE_ABSTRACT.match(text):    return "abstract"
-    if _RE_SECTION.match(text):     return "section"
-    if _RE_SUBSECTION.match(text):  return "subsection"
+    if _RE_ABSTRACT.match(text):      return "abstract"
+    if _RE_SECTION.match(text):       return "section"
+    if _RE_SUBSECTION.match(text):    return "subsection"
     if _RE_SUBSUBSECTION.match(text): return "subsubsection"
-    if _RE_EQUATION.match(text):    return "equation"
-    if _RE_FIGURE.match(text):      return "figure"
-    if _RE_TABLE.match(text):       return "table"
-    if _RE_VERBATIM.match(text):    return "code"
-    if _RE_MATHENV.match(text):     return "mathenv"
-    if _RE_PROOF.match(text):       return "proof"
+    if _RE_EQUATION.match(text):      return "equation"
+    if _RE_FIGURE.match(text):        return "figure"
+    if _RE_TABLE.match(text):         return "table"
+    if _RE_ALGORITHM.match(text):     return "code"
+    if _RE_VERBATIM.match(text):      return "code"
+    if _RE_MATHENV.match(text):       return "mathenv"
+    if _RE_PROOF.match(text):         return "proof"
     return "paragraph"
 
 
@@ -838,14 +965,27 @@ def render_figure(doc, para: dict, figures_dir: str = ".") -> None:
 
 
 def render_table(doc, para: dict) -> None:
+    """Render a table chunk via latex_table_renderer.
+    Falls back to a raw-LaTeX placeholder block on parse failure.
     """
-    Show the raw LaTeX source for table chunks.
-    A dedicated table renderer will be added in a future iteration.
-    """
-    translation   = para.get("translation", para.get("text", ""))
-    env_label     = para.get("env_label", "")
-    caption_latex = _extract_caption(translation)
+    source    = para.get("translation") or para.get("text", "")
+    env_label = para.get("env_label", "")
 
+    try:
+        from table import parse_latex_table
+        has_content = bool(parse_latex_table(source).get("rows"))
+    except Exception:
+        has_content = False
+
+    if has_content:
+        try:
+            render_latex_table_to_docx(doc, source)
+            doc.add_paragraph()
+            return
+        except Exception as exc:
+            print(f"  [table] Renderer failed for {env_label}: {exc}")
+
+    # Fallback: amber placeholder (original behaviour)
     header = doc.add_paragraph()
     _shade(header, BG_TABLE)
     _spacing(header, before_pt=6, after_pt=2)
@@ -853,7 +993,7 @@ def render_table(doc, para: dict) -> None:
         header.add_run(f"[表格 {env_label}]"),
         FONT_BODY, 10, bold=True, color=RGBColor(0x80, 0x60, 0x00),
     )
-    snippet = translation[:600] + ("…" if len(translation) > 600 else "")
+    snippet = source[:600] + ("…" if len(source) > 600 else "")
     for line in snippet.split("\n"):
         p = doc.add_paragraph()
         _indent(p, left_cm=0.5)
@@ -862,7 +1002,7 @@ def render_table(doc, para: dict) -> None:
         run = p.add_run(line)
         run.font.name = FONT_CODE
         run.font.size = Pt(8)
-
+    caption_latex = _extract_caption(source)
     if caption_latex:
         _add_caption(doc, env_label, caption_latex)
     doc.add_paragraph()
