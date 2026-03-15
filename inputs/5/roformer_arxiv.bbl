@@ -1,0 +1,322 @@
+\begin{thebibliography}{43}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Gehring et~al.(2017)Gehring, Auli, Grangier, Yarats, and
+  Dauphin]{Gehring:2017}
+Jonas Gehring, Michael Auli, David Grangier, Denis Yarats, and Yann~N Dauphin.
+\newblock Convolutional sequence to sequence learning.
+\newblock In \emph{International Conference on Machine Learning}, pages
+  1243--1252. PMLR, 2017.
+
+\bibitem[Islam et~al.(2020)Islam, Jia, and Bruce]{Islam2020HowMP}
+Md.~Amirul Islam, Sen Jia, and Neil D.~B. Bruce.
+\newblock How much position information do convolutional neural networks
+  encode?
+\newblock \emph{ArXiv}, abs/2001.08248, 2020.
+
+\bibitem[Vaswani et~al.(2017)Vaswani, Shazeer, Parmar, Uszkoreit, Jones, Gomez,
+  Kaiser, and Polosukhin]{Vaswani:2017}
+Ashish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones,
+  Aidan~N Gomez, \L~ukasz Kaiser, and Illia Polosukhin.
+\newblock Attention is all you need.
+\newblock In I.~Guyon, U.~V. Luxburg, S.~Bengio, H.~Wallach, R.~Fergus,
+  S.~Vishwanathan, and R.~Garnett, editors, \emph{Advances in Neural
+  Information Processing Systems}, volume~30. Curran Associates, Inc., 2017.
+\newblock URL
+  \url{https://proceedings.neurips.cc/paper/2017/file/3f5ee243547dee91fbd053c1c4a845aa-Paper.pdf}.
+
+\bibitem[Devlin et~al.(2019)Devlin, Chang, Lee, and
+  Toutanova]{Devlin2019BERTPO}
+J.~Devlin, Ming-Wei Chang, Kenton Lee, and Kristina Toutanova.
+\newblock Bert: Pre-training of deep bidirectional transformers for language
+  understanding.
+\newblock In \emph{NAACL-HLT}, 2019.
+
+\bibitem[Radford et~al.(2019)Radford, Wu, Child, Luan, Amodei, and
+  Sutskever]{Radford2019LanguageMA}
+A.~Radford, Jeffrey Wu, R.~Child, David Luan, Dario Amodei, and Ilya Sutskever.
+\newblock Language models are unsupervised multitask learners.
+\newblock 2019.
+
+\bibitem[Yun et~al.(2020)Yun, Bhojanapalli, Rawat, Reddi, and
+  Kumar]{Yun2020Are}
+Chulhee Yun, Srinadh Bhojanapalli, Ankit~Singh Rawat, Sashank Reddi, and Sanjiv
+  Kumar.
+\newblock Are transformers universal approximators of sequence-to-sequence
+  functions?
+\newblock In \emph{International Conference on Learning Representations}, 2020.
+\newblock URL \url{https://openreview.net/forum?id=ByxRM0Ntvr}.
+
+\bibitem[Lan et~al.(2020)Lan, Chen, Goodman, Gimpel, Sharma, and
+  Soricut]{Lan2020ALBERT:2020}
+Zhenzhong Lan, Mingda Chen, Sebastian Goodman, Kevin Gimpel, Piyush Sharma, and
+  Radu Soricut.
+\newblock Albert: A lite bert for self-supervised learning of language
+  representations.
+\newblock In \emph{International Conference on Learning Representations}, 2020.
+\newblock URL \url{https://openreview.net/forum?id=H1eA7AEtvS}.
+
+\bibitem[Clark et~al.(2020)Clark, Luong, Le, and Manning]{clark2020electra}
+Kevin Clark, Minh-Thang Luong, Quoc~V. Le, and Christopher~D. Manning.
+\newblock {ELECTRA}: Pre-training text encoders as discriminators rather than
+  generators.
+\newblock In \emph{ICLR}, 2020.
+\newblock URL \url{https://openreview.net/pdf?id=r1xMH1BtvB}.
+
+\bibitem[Radford and Narasimhan(2018)]{Radford2018ImprovingLU:2018}
+A.~Radford and Karthik Narasimhan.
+\newblock Improving language understanding by generative pre-training.
+\newblock 2018.
+
+\bibitem[Parikh et~al.(2016)Parikh, T{\"a}ckstr{\"o}m, Das, and
+  Uszkoreit]{Parikh2016ADA}
+Ankur~P. Parikh, Oscar T{\"a}ckstr{\"o}m, Dipanjan Das, and Jakob Uszkoreit.
+\newblock A decomposable attention model for natural language inference.
+\newblock In \emph{EMNLP}, 2016.
+
+\bibitem[Shaw et~al.(2018)Shaw, Uszkoreit, and
+  Vaswani]{Shaw2018SelfAttentionWR}
+Peter Shaw, Jakob Uszkoreit, and Ashish Vaswani.
+\newblock Self-attention with relative position representations.
+\newblock In \emph{NAACL-HLT}, 2018.
+
+\bibitem[Huang et~al.(2018)Huang, Vaswani, Uszkoreit, Shazeer, Simon,
+  Hawthorne, Dai, Hoffman, Dinculescu, and Eck]{Huang2018MusicT}
+Cheng-Zhi~Anna Huang, Ashish Vaswani, Jakob Uszkoreit, Noam Shazeer, I.~Simon,
+  C.~Hawthorne, Andrew~M. Dai, M.~Hoffman, M.~Dinculescu, and D.~Eck.
+\newblock Music transformer.
+\newblock \emph{arXiv: Learning}, 2018.
+
+\bibitem[Dai et~al.(2019)Dai, Yang, Yang, Carbonell, Le, and
+  Salakhutdinov]{Dai2019TransformerXLAL}
+Zihang Dai, Z.~Yang, Yiming Yang, J.~Carbonell, Quoc~V. Le, and
+  R.~Salakhutdinov.
+\newblock Transformer-xl: Attentive language models beyond a fixed-length
+  context.
+\newblock In \emph{ACL}, 2019.
+
+\bibitem[Yang et~al.(2019)Yang, Dai, Yang, Carbonell, Salakhutdinov, and
+  Le]{Yang2019XLNetGA}
+Z.~Yang, Zihang Dai, Yiming Yang, J.~Carbonell, R.~Salakhutdinov, and Quoc~V.
+  Le.
+\newblock Xlnet: Generalized autoregressive pretraining for language
+  understanding.
+\newblock In \emph{NeurIPS}, 2019.
+
+\bibitem[Raffel et~al.(2020)Raffel, Shazeer, Roberts, Lee, Narang, Matena,
+  Zhou, Li, and Liu]{Raffel2020ExploringTL}
+Colin Raffel, Noam Shazeer, Adam Roberts, Katherine Lee, Sharan Narang, Michael
+  Matena, Yanqi Zhou, W.~Li, and Peter~J. Liu.
+\newblock Exploring the limits of transfer learning with a unified text-to-text
+  transformer.
+\newblock \emph{J. Mach. Learn. Res.}, 21:\penalty0 140:1--140:67, 2020.
+
+\bibitem[Ke et~al.(2020)Ke, He, and Liu]{Ke2020RethinkingPE}
+Guolin Ke, Di~He, and T.~Liu.
+\newblock Rethinking positional encoding in language pre-training.
+\newblock \emph{ArXiv}, abs/2006.15595, 2020.
+
+\bibitem[He et~al.(2020)He, Liu, Gao, and Chen]{He2020DeBERTaDB}
+Pengcheng He, Xiaodong Liu, Jianfeng Gao, and Weizhu Chen.
+\newblock Deberta: Decoding-enhanced bert with disentangled attention.
+\newblock \emph{ArXiv}, abs/2006.03654, 2020.
+
+\bibitem[Huang et~al.(2020)Huang, Liang, Xu, and
+  Xiang]{huang-etal-2020-improve}
+Zhiheng Huang, Davis Liang, Peng Xu, and Bing Xiang.
+\newblock Improve transformer models with better relative position embeddings.
+\newblock In \emph{Findings of the Association for Computational Linguistics:
+  EMNLP 2020}, pages 3327--3335, Online, November 2020. Association for
+  Computational Linguistics.
+\newblock \doi{10.18653/v1/2020.findings-emnlp.298}.
+\newblock URL \url{https://www.aclweb.org/anthology/2020.findings-emnlp.298}.
+
+\bibitem[Liu et~al.(2020)Liu, Yu, Dhillon, and Hsieh]{LiuYDH:2020}
+Xuanqing Liu, Hsiang{-}Fu Yu, Inderjit~S. Dhillon, and Cho{-}Jui Hsieh.
+\newblock Learning to encode position for transformer with continuous dynamical
+  model.
+\newblock In \emph{Proceedings of the 37th International Conference on Machine
+  Learning, {ICML} 2020, 13-18 July 2020, Virtual Event}, volume 119 of
+  \emph{Proceedings of Machine Learning Research}, pages 6327--6335. {PMLR},
+  2020.
+\newblock URL \url{http://proceedings.mlr.press/v119/liu20n.html}.
+
+\bibitem[Chen et~al.(2018{\natexlab{a}})Chen, Rubanova, Bettencourt, and
+  Duvenaud]{ChenRBD:2018}
+Tian~Qi Chen, Yulia Rubanova, Jesse Bettencourt, and David Duvenaud.
+\newblock Neural ordinary differential equations.
+\newblock In Samy Bengio, Hanna~M. Wallach, Hugo Larochelle, Kristen Grauman,
+  Nicol{\`{o}} Cesa{-}Bianchi, and Roman Garnett, editors, \emph{Advances in
+  Neural Information Processing Systems 31: Annual Conference on Neural
+  Information Processing Systems 2018, NeurIPS 2018, December 3-8, 2018,
+  Montr{\'{e}}al, Canada}, pages 6572--6583, 2018{\natexlab{a}}.
+\newblock URL
+  \url{https://proceedings.neurips.cc/paper/2018/hash/69386f6bb1dfed68692a24c8686939b9-Abstract.html}.
+
+\bibitem[Wang et~al.(2020)Wang, Zhao, Lioma, Li, Zhang, and
+  Simonsen]{Wang2020Encoding}
+Benyou Wang, Donghao Zhao, Christina Lioma, Qiuchi Li, Peng Zhang, and
+  Jakob~Grue Simonsen.
+\newblock Encoding word order in complex embeddings.
+\newblock In \emph{International Conference on Learning Representations}, 2020.
+\newblock URL \url{https://openreview.net/forum?id=Hke-WTVtwr}.
+
+\bibitem[Katharopoulos et~al.(2020)Katharopoulos, Vyas, Pappas, and
+  Fleuret]{katharopoulos2020transformers}
+Angelos Katharopoulos, Apoorv Vyas, Nikolaos Pappas, and Fran{\c{c}}ois
+  Fleuret.
+\newblock Transformers are rnns: Fast autoregressive transformers with linear
+  attention.
+\newblock In \emph{International Conference on Machine Learning}, pages
+  5156--5165. PMLR, 2020.
+
+\bibitem[Shen et~al.(2021)Shen, Zhang, Zhao, Yi, and Li]{shen2021efficient}
+Zhuoran Shen, Mingyuan Zhang, Haiyu Zhao, Shuai Yi, and Hongsheng Li.
+\newblock Efficient attention: Attention with linear complexities.
+\newblock In \emph{Proceedings of the IEEE/CVF Winter Conference on
+  Applications of Computer Vision}, pages 3531--3539, 2021.
+
+\bibitem[Singh et~al.(2018)Singh, Michael, Hill, Levy, and Bowman]{glue}
+Amapreet Singh, Julian Michael, Felix Hill, Omer Levy, and Samuel Bowman.
+\newblock Glue: A multi-task benchmark and analysis platform for natural
+  language understanding.
+\newblock 04 2018.
+
+\bibitem[Choromanski et~al.(2020)Choromanski, Likhosherstov, Dohan, Song, Gane,
+  Sarl{\'o}s, Hawkins, Davis, Mohiuddin, Kaiser, Belanger, Colwell, and
+  Weller]{performer}
+Krzysztof Choromanski, Valerii Likhosherstov, David Dohan, Xingyou Song,
+  A.~Gane, Tam{\'a}s Sarl{\'o}s, Peter Hawkins, J.~Davis, Afroz Mohiuddin,
+  Lukasz Kaiser, David Belanger, Lucy~J. Colwell, and Adrian Weller.
+\newblock Rethinking attention with performers.
+\newblock \emph{ArXiv}, abs/2009.14794, 2020.
+
+\bibitem[Bojar et~al.(2014)Bojar, Buck, Federmann, Haddow, Koehn, Leveling,
+  Monz, Pecina, Post, Saint-Amand, Soricut, Specia, and Tamchyna]{mtdataset}
+Ondrej Bojar, Christian Buck, Christian Federmann, Barry Haddow, Philipp Koehn,
+  Johannes Leveling, Christof Monz, Pavel Pecina, Matt Post, Herve Saint-Amand,
+  Radu Soricut, Lucia Specia, and Alevs Tamchyna.
+\newblock Findings of the 2014 workshop on statistical machine translation.
+\newblock pages 12--58, 06 2014.
+\newblock \doi{10.3115/v1/W14-3302}.
+
+\bibitem[Sennrich et~al.(2015)Sennrich, Haddow, and Birch]{bpe}
+Rico Sennrich, Barry Haddow, and Alexandra Birch.
+\newblock Neural machine translation of rare words with subword units.
+\newblock 08 2015.
+
+\bibitem[Ott et~al.(2019)Ott, Edunov, Baevski, Fan, Gross, Ng, Grangier, and
+  Auli]{fairseq}
+Myle Ott, Sergey Edunov, Alexei Baevski, Angela Fan, Sam Gross, Nathan Ng,
+  David Grangier, and Michael Auli.
+\newblock fairseq: A fast, extensible toolkit for sequence modeling.
+\newblock pages 48--53, 01 2019.
+\newblock \doi{10.18653/v1/N19-4009}.
+
+\bibitem[Papineni et~al.(2002)Papineni, Roukos, Ward, and Zhu]{bleu}
+Kishore Papineni, Salim Roukos, Todd Ward, and Wei~Jing Zhu.
+\newblock Bleu: a method for automatic evaluation of machine translation.
+\newblock 10 2002.
+\newblock \doi{10.3115/1073083.1073135}.
+
+\bibitem[Zhu et~al.(2015)Zhu, Kiros, Zemel, Salakhutdinov, Urtasun, Torralba,
+  and Fidler]{moviebook}
+Yukun Zhu, Ryan Kiros, Richard Zemel, Ruslan Salakhutdinov, Raquel Urtasun,
+  Antonio Torralba, and Sanja Fidler.
+\newblock Aligning books and movies: Towards story-like visual explanations by
+  watching movies and reading books.
+\newblock In \emph{arXiv preprint arXiv:1506.06724}, 2015.
+
+\bibitem[Foundation(2021)]{wikidump}
+Wikimedia Foundation.
+\newblock Wikimedia downloads, \url{https://dumps.wikimedia.org}, 2021.
+
+\bibitem[{Loshchilov} and {Hutter}(2017)]{adamw}
+Ilya {Loshchilov} and Frank {Hutter}.
+\newblock {Decoupled Weight Decay Regularization}.
+\newblock \emph{arXiv e-prints}, art. arXiv:1711.05101, November 2017.
+
+\bibitem[Dolan and Brockett(2005)]{mrpc}
+William~B. Dolan and Chris Brockett.
+\newblock Automatically constructing a corpus of sentential paraphrases.
+\newblock In \emph{Proceedings of the Third International Workshop on
+  Paraphrasing ({IWP}2005)}, 2005.
+\newblock URL \url{https://www.aclweb.org/anthology/I05-5002}.
+
+\bibitem[Socher et~al.(2013)Socher, Perelygin, Wu, Chuang, Manning, Ng, and
+  Potts]{sst2}
+Richard Socher, A.~Perelygin, J.Y. Wu, J.~Chuang, C.D. Manning, A.Y. Ng, and
+  C.~Potts.
+\newblock Recursive deep models for semantic compositionality over a sentiment
+  treebank.
+\newblock \emph{EMNLP}, 1631:\penalty0 1631--1642, 01 2013.
+
+\bibitem[Rajpurkar et~al.(2016)Rajpurkar, Zhang, Lopyrev, and Liang]{qnli}
+Pranav Rajpurkar, Jian Zhang, Konstantin Lopyrev, and Percy Liang.
+\newblock Squad: 100,000+ questions for machine comprehension of text.
+\newblock pages 2383--2392, 01 2016.
+\newblock \doi{10.18653/v1/D16-1264}.
+
+\bibitem[Al-Natsheh(2017)]{stsb}
+Hussein Al-Natsheh.
+\newblock Udl at semeval-2017 task 1: Semantic textual similarity estimation of
+  english sentence pairs using regression model over pairwise features.
+\newblock 08 2017.
+
+\bibitem[Chen et~al.(2018{\natexlab{b}})Chen, Zhang, and Zhang]{qqp}
+Z.~Chen, H.~Zhang, and L.~Zhang, X.and~Zhao.
+\newblock Quora question pairs., 2018{\natexlab{b}}.
+\newblock URL \url{https://www.kaggle.com/c/quora-question-pairs}.
+
+\bibitem[Williams et~al.(2018)Williams, Nangia, and Bowman]{mnli}
+Adina Williams, Nikita Nangia, and Samuel Bowman.
+\newblock A broad-coverage challenge corpus for sentence understanding through
+  inference.
+\newblock pages 1112--1122, 01 2018.
+\newblock \doi{10.18653/v1/N18-1101}.
+
+\bibitem[Wolf et~al.(2020)Wolf, Debut, Sanh, Chaumond, Delangue, Moi, Cistac,
+  Rault, Louf, Funtowicz, Davison, Shleifer, von Platen, Ma, Jernite, Plu, Xu,
+  Scao, Gugger, Drame, Lhoest, and Rush]{wolf-etal-2020-transformers}
+Thomas Wolf, Lysandre Debut, Victor Sanh, Julien Chaumond, Clement Delangue,
+  Anthony Moi, Pierric Cistac, Tim Rault, Rémi Louf, Morgan Funtowicz, Joe
+  Davison, Sam Shleifer, Patrick von Platen, Clara Ma, Yacine Jernite, Julien
+  Plu, Canwen Xu, Teven~Le Scao, Sylvain Gugger, Mariama Drame, Quentin Lhoest,
+  and Alexander~M. Rush.
+\newblock Transformers: State-of-the-art natural language processing.
+\newblock In \emph{Proceedings of the 2020 Conference on Empirical Methods in
+  Natural Language Processing: System Demonstrations}, pages 38--45, Online,
+  October 2020. Association for Computational Linguistics.
+\newblock URL \url{https://www.aclweb.org/anthology/2020.emnlp-demos.6}.
+
+\bibitem[Mahoney(2006)]{enwik8}
+Matt Mahoney.
+\newblock Large text compression benchmark,
+  \url{http://www.mattmahoney.net/dc/text.html}, 2006.
+
+\bibitem[Su(2020)]{zhuiyipretrainedmodels}
+Jianlin Su.
+\newblock Wobert: Word-based chinese bert model - zhuiyiai.
+\newblock Technical report, 2020.
+\newblock URL \url{https://github.com/ZhuiyiTechnology/WoBERT}.
+
+\bibitem[Wei et~al.(2019)Wei, Ren, Li, Huang, Liao, Wang, Lin, Jiang, Chen, and
+  Liu]{nezha}
+Victor~Junqiu Wei, Xiaozhe Ren, Xiaoguang Li, Wenyong Huang, Yi~Liao, Yasheng
+  Wang, Jiashu Lin, Xin Jiang, Xiao Chen, and Qun Liu.
+\newblock Nezha: Neural contextualized representation for chinese language
+  understanding.
+\newblock 08 2019.
+
+\bibitem[Xiao et~al.(2019)Xiao, Zhong, Guo, Tu, Liu, Sun, Zhang, Han, hu, Wang,
+  and Xu]{cail2019scm}
+Chaojun Xiao, Haoxi Zhong, Zhipeng Guo, Cunchao Tu, Zhiyuan Liu, Maosong Sun,
+  Tianyang Zhang, Xianpei Han, Zhen hu, Heng Wang, and Jianfeng Xu.
+\newblock Cail2019-scm: A dataset of similar case matching in legal domain.
+\newblock 11 2019.
+
+\end{thebibliography}

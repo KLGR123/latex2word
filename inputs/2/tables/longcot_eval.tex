@@ -1,0 +1,30 @@
+\begin{table}[h]
+    \centering
+    \begin{tabular}{@{}c l | c c | c c c@{}}
+    \toprule
+    & \multirow{3}{*}{\centering \textbf{Benchmark {\tiny (Metric)}}} 
+    & \multicolumn{2}{c|}{\textbf{Language-only Model}} 
+    & \multicolumn{3}{c}{\textbf{Vision-Language Model}} \\ 
+    & & \textbf{QwQ-32B} & \textbf{OpenAI} & \textbf{QVQ-72B} & \textbf{OpenAI} & \textbf{Kimi} \\
+    & & \textbf{Preview} & \textbf{o1-mini} & \textbf{Preview} & \textbf{o1} & \textbf{k1.5}  \\
+    \midrule
+
+    \multirow{4}{*}{Reasoning}
+    & MATH-500 {\tiny (EM)} & 90.6 & 90.0 & - & 94.8 & \textbf{96.2} \\
+    & AIME 2024 {\tiny (Pass@1)} & 50.0 & 63.6 & - & 74.4 & \textbf{77.5} \\
+    & Codeforces {\tiny (Percentile)} & 62 & 88 & - & \textbf{94} & \textbf{94} \\
+    & LiveCodeBench  {\tiny (Pass@1)} & 40.6 & 53.1 & - & \textbf{67.2} & 62.5 \\
+    \midrule
+
+    \multirow{3}{*}{Vision} 
+    & MathVista-Test {\tiny (Pass@1)} & - & - & 71.4 & 71.0 & \textbf{74.9} \\
+    & MMMU-Val {\tiny (Pass@1)} & - & - & 70.3 & \textbf{77.3} & 70.0 \\
+    & MathVision-Full {\tiny (Pass@1)} & - & - & 35.9 & - & \textbf{38.6} \\
+    % & Mensa-Norway-35 {\tiny (Acc@5)} & - & - & 28.5 & 22.9 & 38.3 \\
+
+    \bottomrule
+    \end{tabular}
+    \vspace{1em}
+    \caption{Performance of Kimi k1.5 long-CoT and  flagship open-source and proprietary models.}
+    \label{tab:long_perf}
+\end{table}

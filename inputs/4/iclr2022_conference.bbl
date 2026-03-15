@@ -1,0 +1,461 @@
+\begin{thebibliography}{62}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Aghajanyan et~al.(2020)Aghajanyan, Zettlemoyer, and
+  Gupta]{aghajanyan_intrinsic_2020}
+Armen Aghajanyan, Luke Zettlemoyer, and Sonal Gupta.
+\newblock Intrinsic {Dimensionality} {Explains} the {Effectiveness} of
+  {Language} {Model} {Fine}-{Tuning}.
+\newblock \emph{arXiv:2012.13255 [cs]}, December 2020.
+\newblock URL \url{http://arxiv.org/abs/2012.13255}.
+
+\bibitem[{Allen-Zhu} \& Li(2019){Allen-Zhu} and Li]{AL2019-resnet}
+Zeyuan {Allen-Zhu} and Yuanzhi Li.
+\newblock {What Can ResNet Learn Efficiently, Going Beyond Kernels?}
+\newblock In \emph{NeurIPS}, 2019.
+\newblock Full version available at \url{http://arxiv.org/abs/1905.10337}.
+
+\bibitem[Allen-Zhu \& Li(2020{\natexlab{a}})Allen-Zhu and
+  Li]{allen2020backward}
+Zeyuan Allen-Zhu and Yuanzhi Li.
+\newblock Backward feature correction: How deep learning performs deep
+  learning.
+\newblock \emph{arXiv preprint arXiv:2001.04413}, 2020{\natexlab{a}}.
+
+\bibitem[Allen-Zhu \& Li(2020{\natexlab{b}})Allen-Zhu and Li]{allen2020feature}
+Zeyuan Allen-Zhu and Yuanzhi Li.
+\newblock Feature purification: How adversarial training performs robust deep
+  learning.
+\newblock \emph{arXiv preprint arXiv:2005.10190}, 2020{\natexlab{b}}.
+
+\bibitem[{Allen-Zhu} et~al.(2019){Allen-Zhu}, Li, and Song]{als18dnn}
+Zeyuan {Allen-Zhu}, Yuanzhi Li, and Zhao Song.
+\newblock A convergence theory for deep learning via over-parameterization.
+\newblock In \emph{ICML}, 2019.
+\newblock Full version available at \url{http://arxiv.org/abs/1811.03962}.
+
+\bibitem[Ba et~al.(2016)Ba, Kiros, and Hinton]{ba2016layer}
+Jimmy~Lei Ba, Jamie~Ryan Kiros, and Geoffrey~E. Hinton.
+\newblock Layer normalization, 2016.
+
+\bibitem[Brown et~al.(2020)Brown, Mann, Ryder, Subbiah, Kaplan, Dhariwal,
+  Neelakantan, Shyam, Sastry, Askell, Agarwal, Herbert-Voss, Krueger, Henighan,
+  Child, Ramesh, Ziegler, Wu, Winter, Hesse, Chen, Sigler, Litwin, Gray, Chess,
+  Clark, Berner, McCandlish, Radford, Sutskever, and
+  Amodei]{brown_language_2020}
+Tom~B. Brown, Benjamin Mann, Nick Ryder, Melanie Subbiah, Jared Kaplan,
+  Prafulla Dhariwal, Arvind Neelakantan, Pranav Shyam, Girish Sastry, Amanda
+  Askell, Sandhini Agarwal, Ariel Herbert-Voss, Gretchen Krueger, Tom Henighan,
+  Rewon Child, Aditya Ramesh, Daniel~M. Ziegler, Jeffrey Wu, Clemens Winter,
+  Christopher Hesse, Mark Chen, Eric Sigler, Mateusz Litwin, Scott Gray,
+  Benjamin Chess, Jack Clark, Christopher Berner, Sam McCandlish, Alec Radford,
+  Ilya Sutskever, and Dario Amodei.
+\newblock Language {Models} are {Few}-{Shot} {Learners}.
+\newblock \emph{arXiv:2005.14165 [cs]}, July 2020.
+\newblock URL \url{http://arxiv.org/abs/2005.14165}.
+
+\bibitem[Cai et~al.(2010)Cai, Cand{\`e}s, and Shen]{cai2010singular}
+Jian-Feng Cai, Emmanuel~J Cand{\`e}s, and Zuowei Shen.
+\newblock A singular value thresholding algorithm for matrix completion.
+\newblock \emph{SIAM Journal on optimization}, 20\penalty0 (4):\penalty0
+  1956--1982, 2010.
+
+\bibitem[Cer et~al.(2017)Cer, Diab, Agirre, Lopez-Gazpio, and Specia]{Cer_2017}
+Daniel Cer, Mona Diab, Eneko Agirre, Inigo Lopez-Gazpio, and Lucia Specia.
+\newblock Semeval-2017 task 1: Semantic textual similarity multilingual and
+  crosslingual focused evaluation.
+\newblock \emph{Proceedings of the 11th International Workshop on Semantic
+  Evaluation (SemEval-2017)}, 2017.
+\newblock \doi{10.18653/v1/s17-2001}.
+\newblock URL \url{http://dx.doi.org/10.18653/v1/S17-2001}.
+
+\bibitem[Collobert \& Weston(2008)Collobert and Weston]{collobert_unified_2008}
+Ronan Collobert and Jason Weston.
+\newblock A unified architecture for natural language processing: deep neural
+  networks with multitask learning.
+\newblock In \emph{Proceedings of the 25th international conference on
+  {Machine} learning}, {ICML} '08, pp.\  160--167, New York, NY, USA, July
+  2008. Association for Computing Machinery.
+\newblock ISBN 978-1-60558-205-4.
+\newblock \doi{10.1145/1390156.1390177}.
+\newblock URL \url{https://doi.org/10.1145/1390156.1390177}.
+
+\bibitem[Denil et~al.(2014)Denil, Shakibi, Dinh, Ranzato, and
+  de~Freitas]{denil2014predicting}
+Misha Denil, Babak Shakibi, Laurent Dinh, Marc'Aurelio Ranzato, and Nando
+  de~Freitas.
+\newblock Predicting parameters in deep learning, 2014.
+
+\bibitem[Devlin et~al.(2019{\natexlab{a}})Devlin, Chang, Lee, and
+  Toutanova]{devlin2019bert}
+Jacob Devlin, Ming-Wei Chang, Kenton Lee, and Kristina Toutanova.
+\newblock Bert: Pre-training of deep bidirectional transformers for language
+  understanding, 2019{\natexlab{a}}.
+
+\bibitem[Devlin et~al.(2019{\natexlab{b}})Devlin, Chang, Lee, and
+  Toutanova]{devlin_bert_2019}
+Jacob Devlin, Ming-Wei Chang, Kenton Lee, and Kristina Toutanova.
+\newblock {BERT}: {Pre}-training of {Deep} {Bidirectional} {Transformers} for
+  {Language} {Understanding}.
+\newblock \emph{arXiv:1810.04805 [cs]}, May 2019{\natexlab{b}}.
+\newblock URL \url{http://arxiv.org/abs/1810.04805}.
+\newblock arXiv: 1810.04805.
+
+\bibitem[Dolan \& Brockett(2005)Dolan and
+  Brockett]{dolan-brockett-2005-automatically}
+William~B. Dolan and Chris Brockett.
+\newblock Automatically constructing a corpus of sentential paraphrases.
+\newblock In \emph{Proceedings of the Third International Workshop on
+  Paraphrasing ({IWP}2005)}, 2005.
+\newblock URL \url{https://aclanthology.org/I05-5002}.
+
+\bibitem[Gardent et~al.(2017)Gardent, Shimorina, Narayan, and
+  Perez-Beltrachini]{gardent2017webnlg}
+Claire Gardent, Anastasia Shimorina, Shashi Narayan, and Laura
+  Perez-Beltrachini.
+\newblock The webnlg challenge: Generating text from rdf data.
+\newblock In \emph{Proceedings of the 10th International Conference on Natural
+  Language Generation}, pp.\  124--133, 2017.
+
+\bibitem[Ghorbani et~al.(2020)Ghorbani, Mei, Misiakiewicz, and
+  Montanari]{ghorbani2020neural}
+Behrooz Ghorbani, Song Mei, Theodor Misiakiewicz, and Andrea Montanari.
+\newblock When do neural networks outperform kernel methods?
+\newblock \emph{arXiv preprint arXiv:2006.13409}, 2020.
+
+\bibitem[Gliwa et~al.(2019)Gliwa, Mochol, Biesek, and
+  Wawer]{DBLP:journals/corr/abs-1911-12237}
+Bogdan Gliwa, Iwona Mochol, Maciej Biesek, and Aleksander Wawer.
+\newblock Samsum corpus: {A} human-annotated dialogue dataset for abstractive
+  summarization.
+\newblock \emph{CoRR}, abs/1911.12237, 2019.
+\newblock URL \url{http://arxiv.org/abs/1911.12237}.
+
+\bibitem[Grasedyck et~al.(2013)Grasedyck, Kressner, and
+  Tobler]{grasedyck2013literature}
+Lars Grasedyck, Daniel Kressner, and Christine Tobler.
+\newblock A literature survey of low-rank tensor approximation techniques.
+\newblock \emph{GAMM-Mitteilungen}, 36\penalty0 (1):\penalty0 53--78, 2013.
+
+\bibitem[Ham \& Lee(2008)Ham and Lee]{dist}
+Jihun Ham and Daniel~D. Lee.
+\newblock Grassmann discriminant analysis: a unifying view on subspace-based
+  learning.
+\newblock In \emph{ICML}, pp.\  376--383, 2008.
+\newblock URL \url{https://doi.org/10.1145/1390156.1390204}.
+
+\bibitem[Hambardzumyan et~al.(2020)Hambardzumyan, Khachatrian, and
+  May]{hambardzumyan_warp_2020}
+Karen Hambardzumyan, Hrant Khachatrian, and Jonathan May.
+\newblock {WARP}: {Word}-level {Adversarial} {ReProgramming}.
+\newblock \emph{arXiv:2101.00121 [cs]}, December 2020.
+\newblock URL \url{http://arxiv.org/abs/2101.00121}.
+\newblock arXiv: 2101.00121.
+
+\bibitem[He et~al.(2021)He, Liu, Gao, and Chen]{he2021deberta}
+Pengcheng He, Xiaodong Liu, Jianfeng Gao, and Weizhu Chen.
+\newblock Deberta: Decoding-enhanced bert with disentangled attention, 2021.
+
+\bibitem[Houlsby et~al.(2019)Houlsby, Giurgiu, Jastrzebski, Morrone,
+  de~Laroussilhe, Gesmundo, Attariyan, and
+  Gelly]{houlsby_parameter-efficient_2019}
+Neil Houlsby, Andrei Giurgiu, Stanislaw Jastrzebski, Bruna Morrone, Quentin
+  de~Laroussilhe, Andrea Gesmundo, Mona Attariyan, and Sylvain Gelly.
+\newblock Parameter-{Efficient} {Transfer} {Learning} for {NLP}.
+\newblock \emph{arXiv:1902.00751 [cs, stat]}, June 2019.
+\newblock URL \url{http://arxiv.org/abs/1902.00751}.
+
+\bibitem[Jaderberg et~al.(2014)Jaderberg, Vedaldi, and
+  Zisserman]{jaderberg2014speeding}
+Max Jaderberg, Andrea Vedaldi, and Andrew Zisserman.
+\newblock Speeding up convolutional neural networks with low rank expansions.
+\newblock \emph{arXiv preprint arXiv:1405.3866}, 2014.
+
+\bibitem[Khodak et~al.(2021)Khodak, Tenenholtz, Mackey, and
+  Fusi]{khodak2021initialization}
+Mikhail Khodak, Neil Tenenholtz, Lester Mackey, and Nicolò Fusi.
+\newblock Initialization and regularization of factorized neural layers, 2021.
+
+\bibitem[Kingma \& Ba(2017)Kingma and Ba]{kingma2017adam}
+Diederik~P. Kingma and Jimmy Ba.
+\newblock Adam: A method for stochastic optimization, 2017.
+
+\bibitem[Lepikhin et~al.(2020)Lepikhin, Lee, Xu, Chen, Firat, Huang, Krikun,
+  Shazeer, and Chen]{lepikhin2020gshard}
+Dmitry Lepikhin, HyoukJoong Lee, Yuanzhong Xu, Dehao Chen, Orhan Firat, Yanping
+  Huang, Maxim Krikun, Noam Shazeer, and Zhifeng Chen.
+\newblock Gshard: Scaling giant models with conditional computation and
+  automatic sharding, 2020.
+
+\bibitem[Lester et~al.(2021)Lester, Al-Rfou, and Constant]{lester_power_2021}
+Brian Lester, Rami Al-Rfou, and Noah Constant.
+\newblock The {Power} of {Scale} for {Parameter}-{Efficient} {Prompt} {Tuning}.
+\newblock \emph{arXiv:2104.08691 [cs]}, April 2021.
+\newblock URL \url{http://arxiv.org/abs/2104.08691}.
+\newblock arXiv: 2104.08691.
+
+\bibitem[Li et~al.(2018{\natexlab{a}})Li, Farkhoor, Liu, and
+  Yosinski]{li_measuring_2018}
+Chunyuan Li, Heerad Farkhoor, Rosanne Liu, and Jason Yosinski.
+\newblock Measuring the {Intrinsic} {Dimension} of {Objective} {Landscapes}.
+\newblock \emph{arXiv:1804.08838 [cs, stat]}, April 2018{\natexlab{a}}.
+\newblock URL \url{http://arxiv.org/abs/1804.08838}.
+\newblock arXiv: 1804.08838.
+
+\bibitem[Li \& Liang(2021)Li and Liang]{li_prefix-tuning_2021}
+Xiang~Lisa Li and Percy Liang.
+\newblock Prefix-{Tuning}: {Optimizing} {Continuous} {Prompts} for
+  {Generation}.
+\newblock \emph{arXiv:2101.00190 [cs]}, January 2021.
+\newblock URL \url{http://arxiv.org/abs/2101.00190}.
+
+\bibitem[Li \& Liang(2018)Li and Liang]{li2018learning}
+Yuanzhi Li and Yingyu Liang.
+\newblock Learning overparameterized neural networks via stochastic gradient
+  descent on structured data.
+\newblock In \emph{Advances in Neural Information Processing Systems}, 2018.
+
+\bibitem[Li et~al.(2016)Li, Liang, and Risteski]{li2016recovery}
+Yuanzhi Li, Yingyu Liang, and Andrej Risteski.
+\newblock Recovery guarantee of weighted low-rank approximation via alternating
+  minimization.
+\newblock In \emph{International Conference on Machine Learning}, pp.\
+  2358--2367. PMLR, 2016.
+
+\bibitem[Li et~al.(2018{\natexlab{b}})Li, Ma, and Zhang]{li2018algorithmic}
+Yuanzhi Li, Tengyu Ma, and Hongyang Zhang.
+\newblock Algorithmic regularization in over-parameterized matrix sensing and
+  neural networks with quadratic activations.
+\newblock In \emph{Conference On Learning Theory}, pp.\  2--47. PMLR,
+  2018{\natexlab{b}}.
+
+\bibitem[Lin et~al.(2020)Lin, Madotto, and Fung]{lin-etal-2020-exploring}
+Zhaojiang Lin, Andrea Madotto, and Pascale Fung.
+\newblock Exploring versatile generative language model via parameter-efficient
+  transfer learning.
+\newblock In \emph{Findings of the Association for Computational Linguistics:
+  EMNLP 2020}, pp.\  441--459, Online, November 2020. Association for
+  Computational Linguistics.
+\newblock \doi{10.18653/v1/2020.findings-emnlp.41}.
+\newblock URL \url{https://aclanthology.org/2020.findings-emnlp.41}.
+
+\bibitem[Liu et~al.(2021)Liu, Zheng, Du, Ding, Qian, Yang, and
+  Tang]{liu_gpt_2021}
+Xiao Liu, Yanan Zheng, Zhengxiao Du, Ming Ding, Yujie Qian, Zhilin Yang, and
+  Jie Tang.
+\newblock {GPT} {Understands}, {Too}.
+\newblock \emph{arXiv:2103.10385 [cs]}, March 2021.
+\newblock URL \url{http://arxiv.org/abs/2103.10385}.
+\newblock arXiv: 2103.10385.
+
+\bibitem[Liu et~al.(2019)Liu, Ott, Goyal, Du, Joshi, Chen, Levy, Lewis,
+  Zettlemoyer, and Stoyanov]{liu2019roberta}
+Yinhan Liu, Myle Ott, Naman Goyal, Jingfei Du, Mandar Joshi, Danqi Chen, Omer
+  Levy, Mike Lewis, Luke Zettlemoyer, and Veselin Stoyanov.
+\newblock Roberta: A robustly optimized bert pretraining approach, 2019.
+
+\bibitem[Loshchilov \& Hutter(2017)Loshchilov and
+  Hutter]{loshchilov2017decoupled}
+Ilya Loshchilov and Frank Hutter.
+\newblock Decoupled weight decay regularization.
+\newblock \emph{arXiv preprint arXiv:1711.05101}, 2017.
+
+\bibitem[Loshchilov \& Hutter(2019)Loshchilov and
+  Hutter]{loshchilov2019decoupled}
+Ilya Loshchilov and Frank Hutter.
+\newblock Decoupled weight decay regularization, 2019.
+
+\bibitem[Mahabadi et~al.(2021)Mahabadi, Henderson, and
+  Ruder]{mahabadi2021compacter}
+Rabeeh~Karimi Mahabadi, James Henderson, and Sebastian Ruder.
+\newblock Compacter: Efficient low-rank hypercomplex adapter layers, 2021.
+
+\bibitem[Nan et~al.(2020)Nan, Radev, Zhang, Rau, Sivaprasad, Hsieh, Tang, Vyas,
+  Verma, Krishna, et~al.]{nan2020dart}
+Linyong Nan, Dragomir Radev, Rui Zhang, Amrit Rau, Abhinand Sivaprasad,
+  Chiachun Hsieh, Xiangru Tang, Aadit Vyas, Neha Verma, Pranav Krishna, et~al.
+\newblock Dart: Open-domain structured data record to text generation.
+\newblock \emph{arXiv preprint arXiv:2007.02871}, 2020.
+
+\bibitem[Novikova et~al.(2017)Novikova, Du{\v{s}}ek, and
+  Rieser]{novikova2017e2e}
+Jekaterina Novikova, Ond{\v{r}}ej Du{\v{s}}ek, and Verena Rieser.
+\newblock The e2e dataset: New challenges for end-to-end generation.
+\newblock \emph{arXiv preprint arXiv:1706.09254}, 2017.
+
+\bibitem[Oymak et~al.(2019)Oymak, Fabian, Li, and
+  Soltanolkotabi]{oymak2019generalization}
+Samet Oymak, Zalan Fabian, Mingchen Li, and Mahdi Soltanolkotabi.
+\newblock Generalization guarantees for neural networks via harnessing the
+  low-rank structure of the jacobian.
+\newblock \emph{arXiv preprint arXiv:1906.05392}, 2019.
+
+\bibitem[Pfeiffer et~al.(2021)Pfeiffer, Kamath, Rücklé, Cho, and
+  Gurevych]{pfeiffer2021adapterfusion}
+Jonas Pfeiffer, Aishwarya Kamath, Andreas Rücklé, Kyunghyun Cho, and Iryna
+  Gurevych.
+\newblock Adapterfusion: Non-destructive task composition for transfer
+  learning, 2021.
+
+\bibitem[Povey et~al.(2018)Povey, Cheng, Wang, Li, Xu, Yarmohammadi, and
+  Khudanpur]{povey2018semi}
+Daniel Povey, Gaofeng Cheng, Yiming Wang, Ke~Li, Hainan Xu, Mahsa Yarmohammadi,
+  and Sanjeev Khudanpur.
+\newblock Semi-orthogonal low-rank matrix factorization for deep neural
+  networks.
+\newblock In \emph{Interspeech}, pp.\  3743--3747, 2018.
+
+\bibitem[Radford et~al.({\natexlab{a}})Radford, Narasimhan, Salimans, and
+  Sutskever]{radford_improving_nodate}
+Alec Radford, Karthik Narasimhan, Tim Salimans, and Ilya Sutskever.
+\newblock Improving {Language} {Understanding} by {Generative}
+  {Pre}-{Training}.
+\newblock pp.\ ~12, {\natexlab{a}}.
+
+\bibitem[Radford et~al.({\natexlab{b}})Radford, Wu, Child, Luan, Amodei, and
+  Sutskever]{radford_language_nodate}
+Alec Radford, Jeffrey Wu, Rewon Child, David Luan, Dario Amodei, and Ilya
+  Sutskever.
+\newblock Language {Models} are {Unsupervised} {Multitask} {Learners}.
+\newblock pp.\ ~24, {\natexlab{b}}.
+
+\bibitem[Rajpurkar et~al.(2018)Rajpurkar, Jia, and
+  Liang]{DBLP:journals/corr/abs-1806-03822}
+Pranav Rajpurkar, Robin Jia, and Percy Liang.
+\newblock Know what you don't know: Unanswerable questions for squad.
+\newblock \emph{CoRR}, abs/1806.03822, 2018.
+\newblock URL \url{http://arxiv.org/abs/1806.03822}.
+
+\bibitem[Rebuffi et~al.(2017)Rebuffi, Bilen, and
+  Vedaldi]{rebuffi_learning_2017}
+Sylvestre-Alvise Rebuffi, Hakan Bilen, and Andrea Vedaldi.
+\newblock Learning multiple visual domains with residual adapters.
+\newblock \emph{arXiv:1705.08045 [cs, stat]}, November 2017.
+\newblock URL \url{http://arxiv.org/abs/1705.08045}.
+\newblock arXiv: 1705.08045.
+
+\bibitem[Rücklé et~al.(2020)Rücklé, Geigle, Glockner, Beck, Pfeiffer,
+  Reimers, and Gurevych]{ruckle2020adapterdrop}
+Andreas Rücklé, Gregor Geigle, Max Glockner, Tilman Beck, Jonas Pfeiffer,
+  Nils Reimers, and Iryna Gurevych.
+\newblock Adapterdrop: On the efficiency of adapters in transformers, 2020.
+
+\bibitem[Sainath et~al.(2013)Sainath, Kingsbury, Sindhwani, Arisoy, and
+  Ramabhadran]{sainath2013low}
+Tara~N Sainath, Brian Kingsbury, Vikas Sindhwani, Ebru Arisoy, and Bhuvana
+  Ramabhadran.
+\newblock Low-rank matrix factorization for deep neural network training with
+  high-dimensional output targets.
+\newblock In \emph{2013 IEEE international conference on acoustics, speech and
+  signal processing}, pp.\  6655--6659. IEEE, 2013.
+
+\bibitem[Shoeybi et~al.(2020)Shoeybi, Patwary, Puri, LeGresley, Casper, and
+  Catanzaro]{shoeybi2020megatronlm}
+Mohammad Shoeybi, Mostofa Patwary, Raul Puri, Patrick LeGresley, Jared Casper,
+  and Bryan Catanzaro.
+\newblock Megatron-lm: Training multi-billion parameter language models using
+  model parallelism, 2020.
+
+\bibitem[Socher et~al.(2013)Socher, Perelygin, Wu, Chuang, Manning, Ng, and
+  Potts]{socher-etal-2013-recursive}
+Richard Socher, Alex Perelygin, Jean Wu, Jason Chuang, Christopher~D. Manning,
+  Andrew Ng, and Christopher Potts.
+\newblock Recursive deep models for semantic compositionality over a sentiment
+  treebank.
+\newblock In \emph{Proceedings of the 2013 Conference on Empirical Methods in
+  Natural Language Processing}, pp.\  1631--1642, Seattle, Washington, USA,
+  October 2013. Association for Computational Linguistics.
+\newblock URL \url{https://aclanthology.org/D13-1170}.
+
+\bibitem[Vaswani et~al.(2017)Vaswani, Shazeer, Parmar, Uszkoreit, Jones, Gomez,
+  Kaiser, and Polosukhin]{vaswani2017attention}
+Ashish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones,
+  Aidan~N Gomez, {\L}ukasz Kaiser, and Illia Polosukhin.
+\newblock Attention is all you need.
+\newblock In \emph{Proceedings of the 31st International Conference on Neural
+  Information Processing Systems}, pp.\  6000--6010, 2017.
+
+\bibitem[Wang et~al.(2019)Wang, Singh, Michael, Hill, Levy, and
+  Bowman]{wang2019glue}
+Alex Wang, Amanpreet Singh, Julian Michael, Felix Hill, Omer Levy, and
+  Samuel~R. Bowman.
+\newblock Glue: A multi-task benchmark and analysis platform for natural
+  language understanding, 2019.
+
+\bibitem[Wang et~al.(2020)Wang, Pruksachatkun, Nangia, Singh, Michael, Hill,
+  Levy, and Bowman]{wang2020superglue}
+Alex Wang, Yada Pruksachatkun, Nikita Nangia, Amanpreet Singh, Julian Michael,
+  Felix Hill, Omer Levy, and Samuel~R. Bowman.
+\newblock Superglue: A stickier benchmark for general-purpose language
+  understanding systems, 2020.
+
+\bibitem[Warstadt et~al.(2018)Warstadt, Singh, and Bowman]{warstadt2018neural}
+Alex Warstadt, Amanpreet Singh, and Samuel~R Bowman.
+\newblock Neural network acceptability judgments.
+\newblock \emph{arXiv preprint arXiv:1805.12471}, 2018.
+
+\bibitem[Williams et~al.(2018)Williams, Nangia, and
+  Bowman]{williams-etal-2018-broad}
+Adina Williams, Nikita Nangia, and Samuel Bowman.
+\newblock A broad-coverage challenge corpus for sentence understanding through
+  inference.
+\newblock In \emph{Proceedings of the 2018 Conference of the North {A}merican
+  Chapter of the Association for Computational Linguistics: Human Language
+  Technologies, Volume 1 (Long Papers)}, pp.\  1112--1122, New Orleans,
+  Louisiana, June 2018. Association for Computational Linguistics.
+\newblock \doi{10.18653/v1/N18-1101}.
+\newblock URL \url{https://www.aclweb.org/anthology/N18-1101}.
+
+\bibitem[Wolf et~al.(2020)Wolf, Debut, Sanh, Chaumond, Delangue, Moi, Cistac,
+  Rault, Louf, Funtowicz, Davison, Shleifer, von Platen, Ma, Jernite, Plu, Xu,
+  Scao, Gugger, Drame, Lhoest, and Rush]{wolf-etal-2020-transformers}
+Thomas Wolf, Lysandre Debut, Victor Sanh, Julien Chaumond, Clement Delangue,
+  Anthony Moi, Pierric Cistac, Tim Rault, Rémi Louf, Morgan Funtowicz, Joe
+  Davison, Sam Shleifer, Patrick von Platen, Clara Ma, Yacine Jernite, Julien
+  Plu, Canwen Xu, Teven~Le Scao, Sylvain Gugger, Mariama Drame, Quentin Lhoest,
+  and Alexander~M. Rush.
+\newblock Transformers: State-of-the-art natural language processing.
+\newblock In \emph{Proceedings of the 2020 Conference on Empirical Methods in
+  Natural Language Processing: System Demonstrations}, pp.\  38--45, Online,
+  October 2020. Association for Computational Linguistics.
+\newblock URL \url{https://www.aclweb.org/anthology/2020.emnlp-demos.6}.
+
+\bibitem[Yang \& Hu(2021)Yang and Hu]{yang_feature_2021}
+Greg Yang and Edward~J. Hu.
+\newblock Feature {Learning} in {Infinite}-{Width} {Neural} {Networks}.
+\newblock \emph{arXiv:2011.14522 [cond-mat]}, May 2021.
+\newblock URL \url{http://arxiv.org/abs/2011.14522}.
+\newblock arXiv: 2011.14522.
+
+\bibitem[Zaken et~al.(2021)Zaken, Ravfogel, and Goldberg]{zaken2021bitfit}
+Elad~Ben Zaken, Shauli Ravfogel, and Yoav Goldberg.
+\newblock Bitfit: Simple parameter-efficient fine-tuning for transformer-based
+  masked language-models, 2021.
+
+\bibitem[Zhang et~al.(2014)Zhang, Chuangsuwanich, and
+  Glass]{zhang2014extracting}
+Yu~Zhang, Ekapol Chuangsuwanich, and James Glass.
+\newblock Extracting deep neural network bottleneck features using low-rank
+  matrix factorization.
+\newblock In \emph{2014 IEEE international conference on acoustics, speech and
+  signal processing (ICASSP)}, pp.\  185--189. IEEE, 2014.
+
+\bibitem[Zhao et~al.(2016)Zhao, Li, and Gong]{zhao2016low}
+Yong Zhao, Jinyu Li, and Yifan Gong.
+\newblock Low-rank plus diagonal adaptation for deep neural networks.
+\newblock In \emph{2016 IEEE International Conference on Acoustics, Speech and
+  Signal Processing (ICASSP)}, pp.\  5005--5009. IEEE, 2016.
+
+\bibitem[Zhong et~al.(2017)Zhong, Xiong, and
+  Socher]{DBLP:journals/corr/abs-1709-00103}
+Victor Zhong, Caiming Xiong, and Richard Socher.
+\newblock Seq2sql: Generating structured queries from natural language using
+  reinforcement learning.
+\newblock \emph{CoRR}, abs/1709.00103, 2017.
+\newblock URL \url{http://arxiv.org/abs/1709.00103}.
+
+\end{thebibliography}

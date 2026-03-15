@@ -1,0 +1,33 @@
+\begin{table}[h]
+    \centering
+    \begin{subtable}[t]{0.38\textwidth}
+        \centering
+        \vspace{-8pt} % 减小标题与表格之间的垂直间距
+        \begin{tabular}{|c|c|}
+            \hline
+            \textbf{Method} & \textbf{Time (s)} \\
+            \hline
+            Docker & 0.12 \\
+            Sandbox & 0.04 \\
+            \hline
+        \end{tabular}
+        \caption{Container startup times}
+        \vspace{-12pt}
+        \label{tab:startup_times}
+    \end{subtable}\hfill
+    \begin{subtable}[t]{0.58\textwidth}
+        \centering
+        \vspace{-8pt}
+        \begin{tabular}{|c|c|}
+            \hline
+            \textbf{Method} & \textbf{Containers/sec} \\
+            \hline
+            Docker & 27 \\
+            Sandbox & 120 \\
+            \hline
+        \end{tabular}
+        \caption{Maximum containers started per second on a 16-core machine}
+        \vspace{-12pt}
+        \label{tab:containers_per_second}
+    \end{subtable}
+\end{table}

@@ -483,6 +483,146 @@ def _clean_cross_refs(text: str) -> str:
     return re.sub(r'(第[0-9.]+[节章])\s*节', r'\1', text)
 
 
+def _drop_braced_args(text: str, n: int) -> str:
+    """
+    Consume exactly n brace-delimited arguments from the start of text,
+    skipping leading whitespace and any optional [...] arguments before each.
+    Returns the remainder of the string after all n args are consumed.
+    """
+    pos = 0
+    for _ in range(n):
+        while pos < len(text) and text[pos] in ' \t\n':
+            pos += 1
+        # skip optional [...]
+        if pos < len(text) and text[pos] == '[':
+            depth = 0
+            while pos < len(text):
+                if   text[pos] == '[': depth += 1
+                elif text[pos] == ']':
+                    depth -= 1
+                    if depth == 0:
+                        pos += 1
+                        break
+                pos += 1
+            while pos < len(text) and text[pos] in ' \t\n':
+                pos += 1
+        # consume mandatory {...}
+        if pos < len(text) and text[pos] == '{':
+            depth = 0
+            while pos < len(text):
+                if   text[pos] == '{': depth += 1
+                elif text[pos] == '}':
+                    depth -= 1
+                    if depth == 0:
+                        pos += 1
+                        break
+                pos += 1
+    return text[pos:]
+
+
+def _clean_title_latex(text: str) -> str:
+    """
+    Strip decorative / layout LaTeX commands from a paper \\title{} string
+    so that only the human-readable title text remains.
+
+    Handles the common pattern:
+        \\raisebox{-0.1\\height}{\\includegraphics[...]{logo.png}} %
+        Kimi k1.5: \\\\Scaling Reinforcement Learning with LLMs
+
+    Steps:
+      1. Remove % line comments.
+      2. Drop \\raisebox{dim}{content} entirely (typically a logo box).
+      3. Drop \\includegraphics[opts]{file} entirely.
+      4. Replace \\\\ (forced line break) with a space.
+      5. Strip \\cmd[opt]{text} -> text  (up to 3 nesting levels).
+      6. Remove bare \\cmd tokens with no arguments.
+      7. Collapse whitespace.
+    """
+    # Step 1: strip % comments (respect escaped \\%)
+    text = re.sub(r'(?<!\\)%[^\n]*', '', text)
+
+    # Step 2: drop \\raisebox{dim}{content} — both args are discarded because
+    # the content is almost always an \\includegraphics, not readable text.
+    def _drop_raisebox(t: str) -> str:
+        out = []
+        i = 0
+        while i < len(t):
+            m = re.search(r'\\raisebox\s*', t[i:])
+            if not m:
+                out.append(t[i:])
+                break
+            out.append(t[i: i + m.start()])
+            rest = _drop_braced_args(t[i + m.end():], 2)
+            i = len(t) - len(rest)
+        return ''.join(out)
+
+    text = _drop_raisebox(text)
+
+    # Step 3: drop \\includegraphics[opts]{file}
+    text = re.sub(
+        r'\\includegraphics\s*(?:\[[^\]]*\])?\s*\{[^}]*\}',
+        '', text,
+    )
+
+    # Step 4: replace forced line breaks with a space
+    text = text.replace('\\\\', ' ')
+
+    # Step 5: strip \\cmd[opt]{inner} -> inner (repeated for nesting)
+    for _ in range(3):
+        text = re.sub(r'\\[a-zA-Z]+\*?(?:\[[^\]]*\])?\{([^{}]*)\}', r'\1', text)
+
+    # Step 6: remove bare \\cmd tokens
+    text = re.sub(r'\\[a-zA-Z]+\*?', '', text)
+
+    # Step 7: collapse whitespace
+    text = re.sub(r'[ \t]+', ' ', text).strip()
+
+    return text
+
+
+# Mapping from deprecated LaTeX2.09 font switches to their modern math-mode
+# equivalents.  Pandoc's internal TeX math parser does not recognise the old
+# commands (\rm, \bf, …) and silently falls back to plain text, so the entire
+# $...$ span ends up as a text run instead of an OMML math node.
+_MATH_FONT_UPGRADES: List[Tuple[str, str]] = [
+    (r"\rm",  r"\mathrm"),
+    (r"\bf",  r"\mathbf"),
+    (r"\it",  r"\mathit"),
+    (r"\sf",  r"\mathsf"),
+    (r"\tt",  r"\mathtt"),
+    (r"\cal", r"\mathcal"),
+]
+
+# Matches a single $...$ span while respecting \$ escapes.
+# Group 1 captures the content between the delimiters.
+_RE_INLINE_MATH = re.compile(r'(?<!\\)\$((?:[^$\\]|\\.)+?)(?<!\\)\$')
+
+
+def _normalize_math_fonts(text: str) -> str:
+    """
+    Replace deprecated LaTeX2.09 font switches inside $...$ with their modern
+    math-mode equivalents so pandoc can render them as OMML math nodes.
+
+    Example: $i^{\\rm th}$  ->  $i^{\\mathrm th}$
+
+    The replacement is restricted to inline math spans only; occurrences
+    outside math (e.g. \\tt in text mode) are left untouched.
+    """
+    def _fix_span(m: re.Match) -> str:
+        inner = m.group(1)
+        for old, new in _MATH_FONT_UPGRADES:
+            # Use a lambda so re.sub does not interpret backslashes in `new`
+            # as escape sequences (e.g. \m would otherwise raise an error).
+            inner = re.sub(
+                re.escape(old) + r'(?=[\s{])',
+                lambda _, _new=new: _new,
+                inner,
+            )
+        return "$" + inner + "$"
+
+    return _RE_INLINE_MATH.sub(_fix_span, text)
+
+
 def _extract_caption(text: str) -> str:
     """Return the content of the first \\caption{...} in text, or empty string."""
     m = re.search(r'\\caption\{((?:[^{}]|\{[^{}]*\})*)\}', text, re.DOTALL)
@@ -521,7 +661,7 @@ def _render_para(doc, latex_text: str,
     Falls back to a stripped plain-text paragraph on pandoc failure.
     Returns True if pandoc succeeded.
     """
-    text = _clean_cross_refs(latex_text).strip()
+    text = _normalize_math_fonts(_clean_cross_refs(latex_text)).strip()
     if not text:
         return True
 
@@ -731,6 +871,7 @@ def render_chapter_title(doc, meta: dict) -> None:
     chapter  = meta.get("chapter", "")
     title_zh = meta.get("title_translation", meta.get("title", ""))
     title_zh = re.sub(r'^#+\s+', '', title_zh)   # strip leading # marks
+    title_zh = _clean_title_latex(title_zh)           # strip decorative LaTeX
     try:
         chapter_cn = _to_chinese_number(int(chapter))
     except (ValueError, TypeError):

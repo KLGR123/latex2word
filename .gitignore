@@ -1,9 +1,9 @@
 pycache/
 __pycache__/
 .DS_Store
-outputs/
-outputs/*
-inputs/
+# outputs/
+# outputs/*
+# inputs/
 source/
 source/*
 

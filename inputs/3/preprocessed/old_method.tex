@@ -1,0 +1,48 @@
+
+
+
+In this section we present our algorithm - direct preference optimization (DPO). Let's assume that we have access to the ground-truth reward function $r(x,y)$ and our goal is to solve the problem \citep{eq:RL}. We have the following Proposition:
+
+
+
+\begin{proposition}\label{prop:main_prop}
+
+The optimal solution to the reinforcement learning problem in Eq. \ref{eq:RL} has the closed-form solution
+
+\begin{equation}\label{eq:op_policy}
+    \pi^*(y|x) = \frac{1}{Z(x)}\pi^{SFT}(y|x)\exp\left(\frac{1}{\beta}r(y|x)\right)
+\end{equation}
+
+where $Z(x) =\sum_{y}\pi^{SFT}(y|x)\exp\left(\frac{1}{\beta}r(y|x)\right)$ is the partition function.
+\end{proposition}
+
+\begin{proof} The proof follows standard arguments \citep{RWR, AWR} We defer the proof to Appendix \ref{app:proofs}.
+\end{proof}
+
+The ground-truth reward function $r(x, y)$ is not known, but we could replace it with the maximum-likelihood estimate $r_{\theta}(x, y)$. Unfortunately, as usual, it's hard to estimate the induced partition function $Z_{\theta}(x)$ as it normalizes over combinatorially many answers. We can do inference with this model, using importance sampling, but it's prohibitively expensive due to the nature of sequential sampling in language models and model sizes. These issues make the form of Eq. \ref{eq:op_policy} hard to use in practice. 
+
+Instead we start with Eq \ref{eq:op_policy}, taking the logarithm of both sides and with some algebra we obtain:
+
+\begin{equation}\label{eq:main_eq}
+    r(y|x) =\beta \log \frac{\pi^*(y|x)}{\pi^{SFT}(y|x)} + \beta \log Z(x)
+\end{equation}
+
+That is, we can re-parameterize the reward function as a function of the optimal model $\pi^*$, the reference model $\pi^{SFT}$ and the unknown partition function $Z(x)$. We can plug this equation back into the preference model Eq. \ref{eq:reward_model} and with some algebra we obtain the following Theorem:
+
+\begin{theorem}\label{thm:main_thm}
+The optimal RLHF policy $\pi^*$ under the Bradley-Terry-Luce model satisfies the preference model:
+\begin{equation}\label{eq:objective}
+    p(y_1\succ y_2|x)=\frac{1}{1 + \exp\left(\beta \log \frac{\pi^*(y_2|x)}{\pi^{SFT}(y_2|x)} - \beta \log \frac{\pi^*(y_1|x)}{\pi^{SFT}(y_1|x)}\right)}
+\end{equation}
+which is equivalent to a Bradley-Terry model with reward function parameterization $r(x, y) = \beta \log \frac{\pi^*(y|x)}{\pi^{SFT}(y|x)} $.
+\end{theorem}
+
+While the Theorem is stated under the Bradley-Terry model, which is what we use in our experiments, it has an equivalence under the more general Plackett-Luce models \citep{plackett1975analysis, luce2012individual} included in Appendix \ref{}. 
+
+The key advantage of Eq. \ref{eq:objective} is that the partition function $Z(x)$ cancels, and the objective is a just a function of the optimal model $\pi^*$ and the reference model $\pi^{SFT}$. Let's assume that the optimal model model belongs to some class of parametric functions $\pi^*(y|x) = \pi_{\theta}(y|x)$, then following Eq \ref{eq:reward_model} framing the problem as a binary classification, we can estimate the model's parameters using maximum likelihood:
+
+\begin{equation}\label{eq:optimum_model}
+    \mathcal{L}_{\pi_{\theta}} = -\mathbb{E}_{(x, y_w, y_l)\sim \mathcal{D}}\left[\log \sigma \left(\beta \log \frac{\pi_{\theta}(y_l|x)}{\pi^{SFT}(y_l|x)} - \beta \log \frac{\pi_{\theta}(y_w|x)}{\pi^{SFT}(y_w|x)}\right)\right]
+\end{equation}
+
+Essentially, we can obtain the parameters of the optimum model using a single maximum likelihood objective, without directly estimating reward models and carrying out complex and expensive reinforcement learning optimization. Moreover since our procedure is equivalent to fitting a re-parameterized Bradley-Terry model, it enjoys certain nice theoretical properties, such as consistencies under suitable assumption of the preference data distribution \cite{bong2022generalized}. 

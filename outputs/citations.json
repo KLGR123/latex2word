@@ -1,0 +1,1198 @@
+{
+  "Bai2024LongBenchVT": {
+    "id": 1,
+    "citation": "Yushi Bai, Shangqing Tu, Jiajie Zhang, et al. LongBench v2: Towards Deeper Understanding and Reasoning on Realistic Long-context Multitasks[EB/OL]. ArXiv, 2024, abs/2412.15204. Available: https://arxiv.org/abs/2412.15204."
+  },
+  "Jain2024LiveCodeBenchHA": {
+    "id": 2,
+    "citation": "Naman Jain, King Han, Alex Gu, et al. LiveCodeBench: Holistic and Contamination Free Evaluation of Large Language Models for Code[EB/OL]. ArXiv, 2024, abs/2403.07974. Available: https://arxiv.org/abs/2403.07974."
+  },
+  "ahmadian2024back": {
+    "id": 3,
+    "citation": "Ahmadian Arash, Cremer Chris, Gall'e Matthias, et al. Back to basics: Revisiting reinforce style optimization for learning from human feedback in llms[EB/OL]. arXiv preprint arXiv:2402.14740, 2024."
+  },
+  "ankner2024critiqueoutloudrewardmodels": {
+    "id": 4,
+    "citation": "Zachary Ankner, Mansheej Paul, Brandon Cui, et al. Critique-out-Loud Reward Models[EB/OL]. 2024. Available: https://arxiv.org/abs/2408.11791."
+  },
+  "chen2024bge": {
+    "id": 5,
+    "citation": "Chen Jianlv, Xiao Shitao, Zhang Peitian, et al. Bge m3-embedding: Multi-lingual, multi-functionality, multi-granularity text embeddings through self-knowledge distillation[EB/OL]. arXiv preprint arXiv:2402.03216, 2024."
+  },
+  "chen2024not": {
+    "id": 6,
+    "citation": "Chen Xingyu, Xu Jiahao, Liang Tian, et al. Do NOT Think That Much for 2+ 3=? On the Overthinking of o1-Like LLMs[EB/OL]. arXiv preprint arXiv:2412.21187, 2024."
+  },
+  "gadre2024datacomp": {
+    "id": 7,
+    "citation": "Gadre Samir Yitzhak, Ilharco Gabriel, Fang Alex, et al. Datacomp: In search of the next generation of multimodal datasets[J]. Advances in Neural Information Processing Systems, 2024, 36."
+  },
+  "geminiteam2024geminifamilyhighlycapable": {
+    "id": 8,
+    "citation": "Gemini Team, Rohan Anil, Sebastian Borgeaud, et al. Gemini: A Family of Highly Capable Multimodal Models[EB/OL]. 2024. Available: https://arxiv.org/abs/2312.11805."
+  },
+  "grattafiori2024llama3herdmodels": {
+    "id": 9,
+    "citation": "Aaron Grattafiori, Abhimanyu Dubey, Abhinav Jauhri, et al. The Llama 3 Herd of Models[EB/OL]. 2024. Available: https://arxiv.org/abs/2407.21783."
+  },
+  "jaech2024openai": {
+    "id": 10,
+    "citation": "Jaech Aaron, Kalai Adam, Lerer Adam, et al. Openai o1 system card[EB/OL]. arXiv preprint arXiv:2412.16720, 2024."
+  },
+  "laurenccon2024obelics": {
+    "id": 11,
+    "citation": "Laurenccon Hugo, Saulnier Lucile, Tronchon L'eo, et al. Obelics: An open web-scale filtered dataset of interleaved image-text documents[J]. Advances in Neural Information Processing Systems, 2024, 36."
+  },
+  "li2024datacomp": {
+    "id": 12,
+    "citation": "Li Jeffrey, Fang Alex, Smyrnis Georgios, et al. Datacomp-lm: In search of the next generation of training sets for language models[EB/OL]. arXiv preprint arXiv:2406.11794, 2024."
+  },
+  "lozhkov2024starcoder2stackv2": {
+    "id": 13,
+    "citation": "Anton Lozhkov, Raymond Li, Loubna Ben Allal, et al. StarCoder 2 and The Stack v2: The Next Generation[EB/OL]. 2024. Available: https://arxiv.org/abs/2402.19173."
+  },
+  "mcaleese2024llmcriticshelpcatch": {
+    "id": 14,
+    "citation": "Nat McAleese, Rai Michael Pokorny, Juan Felipe Ceron Uribe, et al. LLM Critics Help Catch LLM Bugs[EB/OL]. 2024. Available: https://arxiv.org/abs/2407.00215."
+  },
+  "o12024": {
+    "id": 15,
+    "citation": "OpenAI. Learning to reason with LLMs[J]. 2024."
+  },
+  "penedo2024fineweb": {
+    "id": 16,
+    "citation": "Penedo Guilherme, Kydl'ivcek Hynek, Lozhkov Anton, et al. The fineweb datasets: Decanting the web for the finest text data at scale[EB/OL]. arXiv preprint arXiv:2406.17557, 2024."
+  },
+  "qin2024mooncakekvcachecentricdisaggregatedarchitecture": {
+    "id": 17,
+    "citation": "Ruoyu Qin, Zheming Li, Weiran He, et al. Mooncake: A KVCache-centric Disaggregated Architecture for LLM Serving[EB/OL]. 2024. Available: https://arxiv.org/abs/2407.00079."
+  },
+  "rafailov2024direct": {
+    "id": 18,
+    "citation": "Rafailov Rafael, Sharma Archit, Mitchell Eric, et al. Direct preference optimization: Your language model is secretly a reward model[J]. Advances in Neural Information Processing Systems, 2024, 36."
+  },
+  "snell2024scaling": {
+    "id": 19,
+    "citation": "Snell Charlie, Lee Jaehoon, Xu Kelvin, et al. Scaling llm test-time compute optimally can be more effective than scaling model parameters[EB/OL]. arXiv preprint arXiv:2408.03314, 2024."
+  },
+  "su2024nemotron": {
+    "id": 20,
+    "citation": "Su Dan, Kong Kezhi, Lin Ying, et al. Nemotron-CC: Transforming Common Crawl into a Refined Long-Horizon Pretraining Dataset[EB/OL]. arXiv preprint arXiv:2412.02595, 2024."
+  },
+  "su2024roformer": {
+    "id": 21,
+    "citation": "Su Jianlin, Ahmed Murtadha, Lu Yu, et al. Roformer: Enhanced transformer with rotary position embedding[J]. Neurocomputing, 2024, 568: 127063."
+  },
+  "villalobos2024rundatalimitsllm": {
+    "id": 22,
+    "citation": "Pablo Villalobos, Anson Ho, Jaime Sevilla, et al. Will we run out of data? Limits of LLM scaling based on human-generated data[EB/OL]. 2024. Available: https://arxiv.org/abs/2211.04325."
+  },
+  "wang2024measuring": {
+    "id": 23,
+    "citation": "Wang Ke, Pan Junting, Shi Weikang, et al. Measuring multimodal mathematical reasoning with math-vision dataset[EB/OL]. arXiv preprint arXiv:2402.14804, 2024."
+  },
+  "wei2024general": {
+    "id": 24,
+    "citation": "Wei Haoran, Liu Chenglong, Chen Jinyue, et al. General OCR Theory: Towards OCR-2.0 via a Unified End-to-end Model[EB/OL]. arXiv preprint arXiv:2409.01704, 2024."
+  },
+  "wu2024inference": {
+    "id": 25,
+    "citation": "Wu Yangzhen, Sun Zhiqing, Li Shanda, et al. Inference scaling laws: An empirical analysis of compute-optimal inference for problem-solving with language models[EB/OL]. arXiv preprint arXiv:2408.00724, 2024."
+  },
+  "yang2024model": {
+    "id": 26,
+    "citation": "Yang Enneng, Shen Li, Guo Guibing, et al. Model merging in llms, mllms, and beyond: Methods, theories, applications and opportunities[EB/OL]. arXiv preprint arXiv:2408.07666, 2024."
+  },
+  "yao2024tree": {
+    "id": 27,
+    "citation": "Yao Shunyu, Yu Dian, Zhao Jeffrey, et al. Tree of thoughts: Deliberate problem solving with large language models[J]. Advances in Neural Information Processing Systems, 2024, 36."
+  },
+  "yue2024mmmu": {
+    "id": 28,
+    "citation": "Yue Xiang, Ni Yuansheng, Zhang Kai, et al. Mmmu: A massive multi-discipline multimodal understanding and reasoning benchmark for expert agi[C]//Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition. 2024: 9556-9567."
+  },
+  "zhang2408generative": {
+    "id": 29,
+    "citation": "Zhang Lunjun, Hosseini Arian, Bansal Hritik, et al. Generative verifiers: Reward modeling as next-token prediction, 2024[EB/OL]. URL https://arxiv. org/abs/2408.15240, 2024."
+  },
+  "zheng2024sglangefficientexecutionstructured": {
+    "id": 30,
+    "citation": "Lianmin Zheng, Liangsheng Yin, Zhiqiang Xie, et al. SGLang: Efficient Execution of Structured Language Model Programs[EB/OL]. 2024. Available: https://arxiv.org/abs/2312.07104."
+  },
+  "zhu2024multimodal": {
+    "id": 31,
+    "citation": "Zhu Wanrong, Hessel Jack, Awadalla Anas, et al. Multimodal c4: An open, billion-scale corpus of images interleaved with text[J]. Advances in Neural Information Processing Systems, 2024, 36."
+  },
+  "10103177": {
+    "id": 32,
+    "citation": "Cassano Federico, Gouwar John, Nguyen Daniel, et al. MultiPL-E: A Scalable and Polyglot Approach to Benchmarking Neural Code Generation[J]. IEEE Transactions on Software Engineering, 2023, 49(7): 3675-3691. DOI: 10.1109/TSE.2023.3267446."
+  },
+  "Chen2023ExploringTU": {
+    "id": 33,
+    "citation": "Y. Chen, R. Wang, H. Jiang, et al. Exploring the use of large language models for reference-free text quality evaluation: A preliminary empirical study[EB/OL]. ArXiv, 2023."
+  },
+  "Huang2023CEvalAM": {
+    "id": 34,
+    "citation": "Yuzhen Huang, Yuzhuo Bai, Zhihao Zhu, et al. C-Eval: A Multi-Level Multi-Discipline Chinese Evaluation Suite for Foundation Models[EB/OL]. ArXiv, 2023, abs/2305.08322. Available: https://arxiv.org/abs/2305.08322."
+  },
+  "Zhou2023InstructionFollowingEF": {
+    "id": 35,
+    "citation": "Jeffrey Zhou, Tianjian Lu, Swaroop Mishra, et al. Instruction-Following Evaluation for Large Language Models[EB/OL]. ArXiv, 2023, abs/2311.07911. Available: https://arxiv.org/abs/2311.07911."
+  },
+  "biderman2023pythia": {
+    "id": 36,
+    "citation": "S. Biderman, H. Schoelkopf, Q. Anthony, et al. Pythia: A suite for analyzing large language models across training and scaling[M]. 2023."
+  },
+  "bubeck2023sparks": {
+    "id": 37,
+    "citation": "S. Bubeck, V. Chandrasekaran, R. Eldan, et al. Sparks of artificial general intelligence: Early experiments with GPT-4[M]. 2023."
+  },
+  "go2023aligning": {
+    "id": 38,
+    "citation": "D. Go, T. Korbak, G. Kruszewski, et al. Aligning language models with preferences through f-divergence minimization[C]//Proceedings of the 40th International Conference on Machine Learning. 2023."
+  },
+  "gulcehre2023reinforced": {
+    "id": 39,
+    "citation": "Gulcehre Caglar, Paine Tom Le, Srinivasan Srivatsan, et al. Reinforced self-training (rest) for language modeling[EB/OL]. arXiv preprint arXiv:2308.08998, 2023."
+  },
+  "kwon2023efficient": {
+    "id": 40,
+    "citation": "Woosuk Kwon, Zhuohan Li, Siyuan Zhuang, et al. Efficient Memory Management for Large Language Model Serving with PagedAttention[C]//Proceedings of the ACM SIGOPS 29th Symposium on Operating Systems Principles. 2023."
+  },
+  "leandro_von_werra_2023_7790115": {
+    "id": 41,
+    "citation": "L. von Werra, J. Tow, reciprocated, et al. CarperAI/trlx: v0.6.0: LLaMa (Alpaca), Benchmark Util, T5 ILQL, Tests, Mar.[EB/OL]. 2023. Available: https://doi.org/10.5281/zenodo.7790115."
+  },
+  "li2023starcodersourceyou": {
+    "id": 42,
+    "citation": "Raymond Li, Loubna Ben Allal, Yangtian Zi, et al. StarCoder: may the source be with you![EB/OL]. 2023. Available: https://arxiv.org/abs/2305.06161."
+  },
+  "li2023tagging": {
+    "id": 43,
+    "citation": "Li Ming, Zhang Yong, Li Zhitao, et al. From quantity to quality: Boosting llm performance with self-guided data selection for instruction tuning[EB/OL]. arXiv preprint arXiv:2308.12032, 2023."
+  },
+  "lightman2023lets": {
+    "id": 44,
+    "citation": "Lightman Hunter, Kosaraju Vineet, Burda Yura, et al. Let's Verify Step by Step[EB/OL]. arXiv preprint arXiv:2305.20050, 2023."
+  },
+  "liu2023tagging": {
+    "id": 45,
+    "citation": "Liu Wei, Zeng Weihao, He Keqing, et al. What makes good data for alignment? a comprehensive study of automatic data selection in instruction tuning[EB/OL]. arXiv preprint arXiv:2312.15685, 2023."
+  },
+  "lu2023mathvista": {
+    "id": 46,
+    "citation": "Lu Pan, Bansal Hritik, Xia Tony, et al. Mathvista: Evaluating mathematical reasoning of foundation models in visual contexts[EB/OL]. arXiv preprint arXiv:2310.02255, 2023."
+  },
+  "muennighoff2023scalingdataconstrainedlanguagemodels": {
+    "id": 47,
+    "citation": "Niklas Muennighoff, Alexander M. Rush, Boaz Barak, et al. Scaling Data-Constrained Language Models[EB/OL]. 2023. Available: https://arxiv.org/abs/2305.16264."
+  },
+  "paster2023openwebmath": {
+    "id": 48,
+    "citation": "Paster Keiran, Santos Marco Dos, Azerbayev Zhangir, et al. Openwebmath: An open dataset of high-quality mathematical web text[EB/OL]. arXiv preprint arXiv:2310.06786, 2023."
+  },
+  "peng2023yarn": {
+    "id": 49,
+    "citation": "Peng Bowen, Quesnelle Jeffrey, Fan Honglu, et al. Yarn: Efficient context window extension of large language models[EB/OL]. arXiv preprint arXiv:2309.00071, 2023."
+  },
+  "ramamurthy2023is": {
+    "id": 50,
+    "citation": "R. Ramamurthy, P. Ammanabrolu, K. Brantley, et al. Is reinforcement learning (not) for natural language processing: Benchmarks, baselines, and building blocks for natural language policy optimization[C]//The Eleventh International Conference on Learning Representations. 2023. Available: https://openreview.net/forum?id=8aHzds2uUyB."
+  },
+  "ruiz2023dueling": {
+    "id": 51,
+    "citation": "A. Saha, A. Pacchiano, J. Lee. Dueling rl: Reinforcement learning with trajectory preferences[C]//Proceedings of The 26th International Conference on Artificial Intelligence and Statistics. 2023: 6263-6289. Available: https://proceedings.mlr.press/v206/saha23a.html."
+  },
+  "touvron2023llama": {
+    "id": 52,
+    "citation": "H. Touvron, T. Lavril, G. Izacard, et al. Llama: Open and efficient foundation language models[EB/OL]. arXiv preprint arXiv:2302.13971, 2023."
+  },
+  "yue2023mammoth": {
+    "id": 53,
+    "citation": "Yue Xiang, Qu Xingwei, Zhang Ge, et al. Mammoth: Building math generalist models through hybrid instruction tuning[EB/OL]. arXiv preprint arXiv:2309.05653, 2023."
+  },
+  "Cassano2022MultiPLEAS": {
+    "id": 54,
+    "citation": "Federico Cassano, John Gouwar, Daniel Nguyen, et al. MultiPL-E: A Scalable and Extensible Approach to Benchmarking Neural Code Generation[EB/OL]. ArXiv, 2022. Available: https://arxiv.org/abs/2208.08227."
+  },
+  "bai2022constitutional": {
+    "id": 55,
+    "citation": "Y. Bai, S. Kadavath, S. Kundu, et al. Constitutional ai: Harmlessness from ai feedback[M]. 2022."
+  },
+  "bai2022training": {
+    "id": 56,
+    "citation": "Y. Bai, A. Jones, K. Ndousse, et al. Training a helpful and harmless assistant with reinforcement learning from human feedback[M]. 2022."
+  },
+  "bong2022generalized": {
+    "id": 57,
+    "citation": "H. Bong, A. Rinaldo. Generalized results for the existence and consistency of the MLE in the Bradley-Terry-Luce model[J]. International Conference on Machine Learning, 2022."
+  },
+  "chowdhery2022palm": {
+    "id": 58,
+    "citation": "A. Chowdhery, S. Narang, J. Devlin, et al. Palm: Scaling language modeling with pathways[EB/OL]. arXiv preprint arXiv:2204.02311, 2022."
+  },
+  "chung2022scaling": {
+    "id": 59,
+    "citation": "H. W. Chung, L. Hou, S. Longpre, et al. Scaling instruction-finetuned language models[M]. 2022."
+  },
+  "hoffmann2022trainingcomputeoptimallargelanguage": {
+    "id": 60,
+    "citation": "Jordan Hoffmann, Sebastian Borgeaud, Arthur Mensch, et al. Training Compute-Optimal Large Language Models[EB/OL]. 2022. Available: https://arxiv.org/abs/2203.15556."
+  },
+  "korbak2022reinforcement": {
+    "id": 61,
+    "citation": "T. Korbak, H. Elsahar, G. Kruszewski, et al. On reinforcement learning and distribution matching for fine-tuning language models with no catastrophic forgetting[C]//Advances in Neural Information Processing Systems. 2022: 16203-16220. Available: https://proceedings.neurips.cc/paper_files/paper/2022/file/67496dfa96afddab795530cc7c69b57a-Paper-Conference.pdf."
+  },
+  "mishra-etal-2022-cross": {
+    "id": 62,
+    "citation": "S. Mishra, D. Khashabi, C. Baral, et al. Cross-task generalization via natural language crowdsourcing instructions[C]//Proceedings of the 60th Annual Meeting of the Association for Computational Linguistics (Volume 1: Long Papers). 2022: 3470-3487. DOI: 10.18653/v1/2022.acl-long.244."
+  },
+  "ouyang2022training": {
+    "id": 63,
+    "citation": "Ouyang Long, Wu Jeffrey, Jiang Xu, et al. Training language models to follow instructions with human feedback[J]. Advances in neural information processing systems, 2022, 35: 27730-27744."
+  },
+  "pan2022the": {
+    "id": 64,
+    "citation": "Alexander Pan, Kush Bhatia, Jacob Steinhardt. The Effects of Reward Misspecification: Mapping and Mitigating Misaligned Models[C]//International Conference on Learning Representations. 2022. Available: https://openreview.net/forum?id=JYtwGwIL7ye."
+  },
+  "sanh2022multitask": {
+    "id": 65,
+    "citation": "V. Sanh, A. Webson, C. Raffel, et al. Multitask prompted training enables zero-shot task generalization[C]//International Conference on Learning Representations. 2022. Available: https://openreview.net/forum?id=9Vrb9D0WI4."
+  },
+  "schuhmann2022laion": {
+    "id": 66,
+    "citation": "Schuhmann Christoph, Beaumont Romain, Vencu Richard, et al. Laion-5b: An open large-scale dataset for training next generation image-text models[J]. Advances in Neural Information Processing Systems, 2022, 35: 25278-25294."
+  },
+  "stiennon2022learning": {
+    "id": 67,
+    "citation": "N. Stiennon, L. Ouyang, J. Wu, et al. Learning to summarize from human feedback[M]. 2022."
+  },
+  "thoppilan2022lamda": {
+    "id": 68,
+    "citation": "R. Thoppilan, D. D. Freitas, J. Hall, et al. Lamda: Language models for dialog applications[M]. 2022."
+  },
+  "wei2022chain": {
+    "id": 69,
+    "citation": "Wei Jason, Wang Xuezhi, Schuurmans Dale, et al. Chain-of-thought prompting elicits reasoning in large language models[J]. Advances in neural information processing systems, 2022, 35: 24824-24837."
+  },
+  "yan2022human": {
+    "id": 70,
+    "citation": "X. Yan, C. Luo, C. L. A. Clarke, et al. Human preferences as dueling bandits[C]//Proceedings of the 45th International ACM SIGIR Conference on Research and Development in Information Retrieval. 2022: 567-577. DOI: 10.1145/3477495.3531991."
+  },
+  "everitt2021rewardtamperingproblemssolutions": {
+    "id": 71,
+    "citation": "Tom Everitt, Marcus Hutter, Ramana Kumar, et al. Reward Tampering Problems and Solutions in Reinforcement Learning: A Causal Influence Diagram Perspective[EB/OL]. 2021. Available: https://arxiv.org/abs/1908.04734."
+  },
+  "gpt-j": {
+    "id": 72,
+    "citation": "B. Wang, A. Komatsuzaki. GPT-J-6B: A 6 Billion Parameter Autoregressive Language Model[EB/OL]. 2021. Available: https://github.com/kingoflolz/mesh-transformer-jax."
+  },
+  "He2020DeBERTaDB": {
+    "id": 73,
+    "citation": "Pengcheng He, Xiaodong Liu, Jianfeng Gao, et al. DeBERTa: Decoding-enhanced BERT with Disentangled Attention[M]. 2021."
+  },
+  "he2021deberta": {
+    "id": 73,
+    "citation": "Pengcheng He, Xiaodong Liu, Jianfeng Gao, et al. DeBERTa: Decoding-enhanced BERT with Disentangled Attention[M]. 2021."
+  },
+  "horn2021translational": {
+    "id": 74,
+    "citation": "Horn Max, Shridhar Kumar, Groenewald Elrich, et al. Translational Equivariance in Kernelizable Attention[EB/OL]. arXiv preprint arXiv:2102.07680, 2021."
+  },
+  "khodak2021initialization": {
+    "id": 75,
+    "citation": "Mikhail Khodak, Neil Tenenholtz, Lester Mackey, et al. Initialization and Regularization of Factorized Neural Layers[M]. 2021."
+  },
+  "lester_power_2021": {
+    "id": 76,
+    "citation": "Lester Brian, Al-Rfou Rami, Constant Noah. The Power of Scale for Parameter-Efficient Prompt Tuning[EB/OL]. arXiv:2104.08691 [cs], 2021. Available: http://arxiv.org/abs/2104.08691."
+  },
+  "li_prefix-tuning_2021": {
+    "id": 77,
+    "citation": "Li Xiang Lisa, Liang Percy. Prefix-Tuning: Optimizing Continuous Prompts for Generation[EB/OL]. arXiv:2101.00190 [cs], 2021. Available: http://arxiv.org/abs/2101.00190."
+  },
+  "liu_gpt_2021": {
+    "id": 78,
+    "citation": "Liu Xiao, Zheng Yanan, Du Zhengxiao, et al. GPT Understands, Too[EB/OL]. arXiv:2103.10385 [cs], 2021. Available: http://arxiv.org/abs/2103.10385."
+  },
+  "liutkus2021relative": {
+    "id": 79,
+    "citation": "Liutkus Antoine, Cifka Ondrej, Wu Shih-Lun, et al. Relative Positional Encoding for Transformers with Linear Complexity[EB/OL]. arXiv preprint arXiv:2105.08399, 2021."
+  },
+  "mahabadi2021compacter": {
+    "id": 80,
+    "citation": "Rabeeh Karimi Mahabadi, James Henderson, Sebastian Ruder. Compacter: Efficient Low-Rank Hypercomplex Adapter Layers[M]. 2021."
+  },
+  "megatron": {
+    "id": 81,
+    "citation": "D. Narayanan, M. Shoeybi, J. Casper, et al. Efficient large-scale language model training on gpu clusters using megatron-lm[C]//Proceedings of the International Conference for High Performance Computing, Networking, Storage and Analysis. 2021. DOI: 10.1145/3458817.3476209."
+  },
+  "pfeiffer2021adapterfusion": {
+    "id": 82,
+    "citation": "Jonas Pfeiffer, Aishwarya Kamath, Andreas Rücklé, et al. AdapterFusion: Non-Destructive Task Composition for Transfer Learning[M]. 2021."
+  },
+  "schlag2021linear": {
+    "id": 83,
+    "citation": "Schlag Imanol, Irie Kazuki, Schmidhuber J\"urgen. Linear transformers are secretly fast weight memory systems[EB/OL]. arXiv preprint arXiv:2102.11174, 2021."
+  },
+  "shen2021efficient": {
+    "id": 84,
+    "citation": "Shen Zhuoran, Zhang Mingyuan, Zhao Haiyu, et al. Efficient attention: Attention with linear complexities[C]//Proceedings of the IEEE/CVF Winter Conference on Applications of Computer Vision. 2021: 3531-3539."
+  },
+  "wikidump": {
+    "id": 86,
+    "citation": "Wikimedia Foundation. Wikimedia downloads, urlhttps://dumps.wikimedia.org[EB/OL]. 2021. Available: https://dumps.wikimedia.org."
+  },
+  "yang_feature_2021": {
+    "id": 87,
+    "citation": "Yang Greg, Hu Edward J.. Feature Learning in Infinite-Width Neural Networks[EB/OL]. arXiv:2011.14522 [cond-mat], 2021. Available: http://arxiv.org/abs/2011.14522."
+  },
+  "zaken2021bitfit": {
+    "id": 88,
+    "citation": "Elad Ben Zaken, Shauli Ravfogel, Yoav Goldberg. BitFit: Simple Parameter-efficient Fine-tuning for Transformer-based Masked Language-models[M]. 2021."
+  },
+  "Hendrycks2020MeasuringMM": {
+    "id": 89,
+    "citation": "Dan Hendrycks, Collin Burns, Steven Basart, et al. Measuring Massive Multitask Language Understanding[EB/OL]. ArXiv, 2020, abs/2009.03300. Available: https://arxiv.org/abs/2009.03300."
+  },
+  "Islam2020HowMP": {
+    "id": 90,
+    "citation": "Md. Amirul Islam, Sen Jia, Neil D. B. Bruce. How Much Position Information Do Convolutional Neural Networks Encode?[EB/OL]. ArXiv, 2020, abs/2001.08248."
+  },
+  "ke2021rethinking": {
+    "id": 91,
+    "citation": "Guolin Ke, Di He, T. Liu. Rethinking Positional Encoding in Language Pre-training[EB/OL]. ArXiv, 2020, abs/2006.15595."
+  },
+  "Ke2020RethinkingPE": {
+    "id": 91,
+    "citation": "Guolin Ke, Di He, T. Liu. Rethinking Positional Encoding in Language Pre-training[EB/OL]. ArXiv, 2020, abs/2006.15595."
+  },
+  "Lan2020ALBERT:2020": {
+    "id": 92,
+    "citation": "Zhenzhong Lan, Mingda Chen, Sebastian Goodman, et al. ALBERT: A Lite BERT for Self-supervised Learning of Language Representations[C]//International Conference on Learning Representations. 2020. Available: https://openreview.net/forum?id=H1eA7AEtvS."
+  },
+  "LiuYDH:2020": {
+    "id": 93,
+    "citation": "Xuanqing Liu, Hsiang-Fu Yu, Inderjit S. Dhillon, et al. Learning to Encode Position for Transformer with Continuous Dynamical Model[C]//Proceedings of the 37th International Conference on Machine Learning, ICML 2020, 13-18 July 2020, Virtual Event. 2020: 6327-6335. Available: http://proceedings.mlr.press/v119/liu20n.html."
+  },
+  "Raffel2020ExploringTL": {
+    "id": 94,
+    "citation": "Colin Raffel, Noam Shazeer, Adam Roberts, et al. Exploring the Limits of Transfer Learning with a Unified Text-to-Text Transformer[J]. J. Mach. Learn. Res., 2020, 21: 140:1-140:67."
+  },
+  "Wang2020Encoding": {
+    "id": 95,
+    "citation": "Benyou Wang, Donghao Zhao, Christina Lioma, et al. Encoding word order in complex embeddings[C]//International Conference on Learning Representations. 2020. Available: https://openreview.net/forum?id=Hke-WTVtwr."
+  },
+  "Xu2020CLUEAC": {
+    "id": 96,
+    "citation": "Liang Xu, Xuanwei Zhang, Lu Li, et al. CLUE: A Chinese Language Understanding Evaluation Benchmark[C]//International Conference on Computational Linguistics. 2020. Available: https://arxiv.org/abs/2004.05986."
+  },
+  "Yun2020Are": {
+    "id": 97,
+    "citation": "Chulhee Yun, Srinadh Bhojanapalli, Ankit Singh Rawat, et al. Are Transformers universal approximators of sequence-to-sequence functions?[C]//International Conference on Learning Representations. 2020. Available: https://openreview.net/forum?id=ByxRM0Ntvr."
+  },
+  "aghajanyan_intrinsic_2020": {
+    "id": 98,
+    "citation": "Aghajanyan Armen, Zettlemoyer Luke, Gupta Sonal. Intrinsic Dimensionality Explains the Effectiveness of Language Model Fine-Tuning[EB/OL]. arXiv:2012.13255 [cs], 2020. Available: http://arxiv.org/abs/2012.13255."
+  },
+  "allen2020backward": {
+    "id": 99,
+    "citation": "Allen-Zhu Zeyuan, Li Yuanzhi. Backward Feature Correction: How Deep Learning Performs Deep Learning[EB/OL]. arXiv preprint arXiv:2001.04413, 2020."
+  },
+  "allen2020feature": {
+    "id": 100,
+    "citation": "Allen-Zhu Zeyuan, Li Yuanzhi. Feature purification: How adversarial training performs robust deep learning[EB/OL]. arXiv preprint arXiv:2005.10190, 2020."
+  },
+  "brown_language_2020": {
+    "id": 101,
+    "citation": "Brown Tom B., Mann Benjamin, Ryder Nick, et al. Language Models are Few-Shot Learners[EB/OL]. arXiv:2005.14165 [cs], 2020. Available: http://arxiv.org/abs/2005.14165."
+  },
+  "gpt3": {
+    "id": 101,
+    "citation": "Brown Tom B., Mann Benjamin, Ryder Nick, et al. Language Models are Few-Shot Learners[EB/OL]. arXiv:2005.14165 [cs], 2020. Available: http://arxiv.org/abs/2005.14165."
+  },
+  "brown2020language": {
+    "id": 101,
+    "citation": "Brown Tom B., Mann Benjamin, Ryder Nick, et al. Language Models are Few-Shot Learners[EB/OL]. arXiv:2005.14165 [cs], 2020. Available: http://arxiv.org/abs/2005.14165."
+  },
+  "carion2020end": {
+    "id": 102,
+    "citation": "Carion Nicolas, Massa Francisco, Synnaeve Gabriel, et al. End-to-end object detection with transformers[C]//European Conference on Computer Vision. Springer, 2020: 213-229."
+  },
+  "clark2020electra": {
+    "id": 103,
+    "citation": "Kevin Clark, Minh-Thang Luong, Quoc V. Le, et al. ELECTRA: Pre-training Text Encoders as Discriminators Rather Than Generators[C]//ICLR. 2020. Available: https://openreview.net/pdf?id=r1xMH1BtvB."
+  },
+  "ghorbani2020neural": {
+    "id": 104,
+    "citation": "Ghorbani Behrooz, Mei Song, Misiakiewicz Theodor, et al. When do neural networks outperform kernel methods?[EB/OL]. arXiv preprint arXiv:2006.13409, 2020."
+  },
+  "hambardzumyan_warp_2020": {
+    "id": 105,
+    "citation": "Hambardzumyan Karen, Khachatrian Hrant, May Jonathan. WARP: Word-level Adversarial ReProgramming[EB/OL]. arXiv:2101.00121 [cs], 2020. Available: http://arxiv.org/abs/2101.00121."
+  },
+  "huang-etal-2020-improve": {
+    "id": 106,
+    "citation": "Huang Zhiheng, Liang Davis, Xu Peng, et al. Improve Transformer Models with Better Relative Position Embeddings[C]//Findings of the Association for Computational Linguistics: EMNLP 2020. Online: 2020: 3327-3335. DOI: 10.18653/v1/2020.findings-emnlp.298."
+  },
+  "kaplan2020scalinglawsneurallanguage": {
+    "id": 107,
+    "citation": "Jared Kaplan, Sam McCandlish, Tom Henighan, et al. Scaling Laws for Neural Language Models[EB/OL]. 2020. Available: https://arxiv.org/abs/2001.08361."
+  },
+  "katharopoulos2020transformers": {
+    "id": 108,
+    "citation": "Katharopoulos Angelos, Vyas Apoorv, Pappas Nikolaos, et al. Transformers are rnns: Fast autoregressive transformers with linear attention[C]//International Conference on Machine Learning. PMLR, 2020: 5156-5165."
+  },
+  "lepikhin2020gshard": {
+    "id": 109,
+    "citation": "Dmitry Lepikhin, HyoukJoong Lee, Yuanzhong Xu, et al. GShard: Scaling Giant Models with Conditional Computation and Automatic Sharding[M]. 2020."
+  },
+  "lin-etal-2020-exploring": {
+    "id": 110,
+    "citation": "Lin Zhaojiang, Madotto Andrea, Fung Pascale. Exploring Versatile Generative Language Model Via Parameter-Efficient Transfer Learning[C]//Findings of the Association for Computational Linguistics: EMNLP 2020. Online: 2020: 441-459. DOI: 10.18653/v1/2020.findings-emnlp.41."
+  },
+  "nan2020dart": {
+    "id": 111,
+    "citation": "Nan Linyong, Radev Dragomir, Zhang Rui, et al. Dart: Open-domain structured data record to text generation[EB/OL]. arXiv preprint arXiv:2007.02871, 2020."
+  },
+  "performer": {
+    "id": 112,
+    "citation": "Krzysztof Choromanski, Valerii Likhosherstov, David Dohan, et al. Rethinking Attention with Performers[EB/OL]. ArXiv, 2020, abs/2009.14794."
+  },
+  "press2020shortformer": {
+    "id": 113,
+    "citation": "Press Ofir, Smith Noah A, Lewis Mike. Shortformer: Better Language Modeling using Shorter Inputs[EB/OL]. arXiv preprint arXiv:2012.15832, 2020."
+  },
+  "ruckle2020adapterdrop": {
+    "id": 114,
+    "citation": "Andreas Rücklé, Gregor Geigle, Max Glockner, et al. AdapterDrop: On the Efficiency of Adapters in Transformers[M]. 2020."
+  },
+  "sellam2020bleurt": {
+    "id": 115,
+    "citation": "Sellam Thibault, Das Dipanjan, Parikh Ankur P. BLEURT: Learning robust metrics for text generation[EB/OL]. arXiv preprint arXiv:2004.04696, 2020."
+  },
+  "shoeybi2020megatronlm": {
+    "id": 116,
+    "citation": "Mohammad Shoeybi, Mostofa Patwary, Raul Puri, et al. Megatron-LM: Training Multi-Billion Parameter Language Models Using Model Parallelism[EB/OL]. 2020. Available: https://arxiv.org/abs/1909.08053."
+  },
+  "shoeybi2020megatronlmtrainingmultibillionparameter": {
+    "id": 116,
+    "citation": "Mohammad Shoeybi, Mostofa Patwary, Raul Puri, et al. Megatron-LM: Training Multi-Billion Parameter Language Models Using Model Parallelism[EB/OL]. 2020. Available: https://arxiv.org/abs/1909.08053."
+  },
+  "tomar2020mirror": {
+    "id": 117,
+    "citation": "Tomar Manan, Shani Lior, Efroni Yonathan, et al. Mirror descent policy optimization[EB/OL]. arXiv preprint arXiv:2005.09814, 2020."
+  },
+  "wang2020superglue": {
+    "id": 118,
+    "citation": "Alex Wang, Yada Pruksachatkun, Nikita Nangia, et al. SuperGLUE: A Stickier Benchmark for General-Purpose Language Understanding Systems[M]. 2020."
+  },
+  "wolf-etal-2020-transformers": {
+    "id": 119,
+    "citation": "Thomas Wolf, Lysandre Debut, Victor Sanh, et al. Transformers: State-of-the-Art Natural Language Processing[C]//Proceedings of the 2020 Conference on Empirical Methods in Natural Language Processing: System Demonstrations. Online: 2020: 38-45. Available: https://www.aclweb.org/anthology/2020.emnlp-demos.6."
+  },
+  "zhuiyipretrainedmodels": {
+    "id": 120,
+    "citation": "Jianlin Su. WoBERT: Word-based Chinese BERT model - ZhuiyiAI[R]. 2020. Available: https://github.com/ZhuiyiTechnology/WoBERT."
+  },
+  "ziegler2020finetuning": {
+    "id": 121,
+    "citation": "D. M. Ziegler, N. Stiennon, J. Wu, et al. Fine-tuning language models from human preferences, 2020. endthebibliography[M]. 2020."
+  },
+  "AL2019-resnet": {
+    "id": 122,
+    "citation": "Allen-Zhu Zeyuan, Li Yuanzhi. What Can ResNet Learn Efficiently, Going Beyond Kernels?[C]//NeurIPS. 2019. Available: http://arxiv.org/abs/1905.10337."
+  },
+  "DBLP:journals/corr/abs-1911-12237": {
+    "id": 123,
+    "citation": "Bogdan Gliwa, Iwona Mochol, Maciej Biesek, et al. SAMSum Corpus: A Human-annotated Dialogue Dataset for Abstractive Summarization[J]. CoRR, 2019, abs/1911.12237."
+  },
+  "Dai2019TransformerXLAL": {
+    "id": 124,
+    "citation": "Zihang Dai, Z. Yang, Yiming Yang, et al. Transformer-XL: Attentive Language Models Beyond a Fixed-Length Context[C]//ACL. 2019."
+  },
+  "Dua2019DROPAR": {
+    "id": 125,
+    "citation": "Dheeru Dua, Yizhong Wang, Pradeep Dasigi, et al. DROP: A Reading Comprehension Benchmark Requiring Discrete Reasoning Over Paragraphs[C]//North American Chapter of the Association for Computational Linguistics. 2019. Available: https://arxiv.org/abs/1903.00161."
+  },
+  "Yang2019XLNetGA": {
+    "id": 126,
+    "citation": "Z. Yang, Zihang Dai, Yiming Yang, et al. XLNet: Generalized Autoregressive Pretraining for Language Understanding[C]//NeurIPS. 2019."
+  },
+  "abbasi2019politex": {
+    "id": 127,
+    "citation": "Abbasi-Yadkori Yasin, Bartlett Peter, Bhatia Kush, et al. Politex: Regret bounds for policy iteration using expert prediction[C]//International Conference on Machine Learning. PMLR, 2019: 3692-3702."
+  },
+  "als18dnn": {
+    "id": 128,
+    "citation": "Allen-Zhu Zeyuan, Li Yuanzhi, Song Zhao. A Convergence Theory for Deep Learning via Over-Parameterization[C]//ICML. 2019. Available: http://arxiv.org/abs/1811.03962."
+  },
+  "berner2019dota": {
+    "id": 129,
+    "citation": "Berner Christopher, Brockman Greg, Chan Brooke, et al. Dota 2 with large scale deep reinforcement learning[EB/OL]. arXiv preprint arXiv:1912.06680, 2019."
+  },
+  "cail2019scm": {
+    "id": 130,
+    "citation": "Xiao Chaojun, Zhong Haoxi, Guo Zhipeng, et al. CAIL2019-SCM: A Dataset of Similar Case Matching in Legal Domain[C]//2019."
+  },
+  "devlin_bert_2019": {
+    "id": 131,
+    "citation": "Devlin Jacob, Chang Ming-Wei, Lee Kenton, et al. BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding[EB/OL]. arXiv:1810.04805 [cs], 2019. Available: http://arxiv.org/abs/1810.04805."
+  },
+  "devlin2019bert": {
+    "id": 131,
+    "citation": "Devlin Jacob, Chang Ming-Wei, Lee Kenton, et al. BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding[EB/OL]. arXiv:1810.04805 [cs], 2019. Available: http://arxiv.org/abs/1810.04805."
+  },
+  "Devlin2019BERTPO": {
+    "id": 131,
+    "citation": "Devlin Jacob, Chang Ming-Wei, Lee Kenton, et al. BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding[EB/OL]. arXiv:1810.04805 [cs], 2019. Available: http://arxiv.org/abs/1810.04805."
+  },
+  "fairseq": {
+    "id": 132,
+    "citation": "Ott Myle, Edunov Sergey, Baevski Alexei, et al. fairseq: A Fast, Extensible Toolkit for Sequence Modeling[C]//2019: 48-53. DOI: 10.18653/v1/N19-4009."
+  },
+  "pmlr-v97-houlsby19a": {
+    "id": 133,
+    "citation": "Houlsby Neil, Giurgiu Andrei, Jastrzebski Stanislaw, et al. Parameter-Efficient Transfer Learning for NLP[EB/OL]. arXiv:1902.00751 [cs, stat], 2019. Available: http://arxiv.org/abs/1902.00751."
+  },
+  "houlsby_parameter-efficient_2019": {
+    "id": 133,
+    "citation": "Houlsby Neil, Giurgiu Andrei, Jastrzebski Stanislaw, et al. Parameter-Efficient Transfer Learning for NLP[EB/OL]. arXiv:1902.00751 [cs, stat], 2019. Available: http://arxiv.org/abs/1902.00751."
+  },
+  "hsu_re-evaluating_2019": {
+    "id": 134,
+    "citation": "Hsu Yen-Chang, Liu Yen-Cheng, Ramasamy Anita, et al. Re-evaluating Continual Learning Scenarios: A Categorization and Case for Strong Baselines[EB/OL]. arXiv:1810.12488 [cs], 2019. Available: http://arxiv.org/abs/1810.12488."
+  },
+  "irie2019language": {
+    "id": 135,
+    "citation": "Irie Kazuki, Zeyer Albert, Schl\"uter Ralf, et al. Language modeling with deep transformers[EB/OL]. arXiv preprint arXiv:1905.04226, 2019."
+  },
+  "kool2019buy": {
+    "id": 136,
+    "citation": "Kool Wouter, van Hoof Herke, Welling Max. Buy 4 reinforce samples, get a baseline for free![J]. 2019."
+  },
+  "liu2019roberta": {
+    "id": 137,
+    "citation": "Yinhan Liu, Myle Ott, Naman Goyal, et al. RoBERTa: A Robustly Optimized BERT Pretraining Approach[M]. 2019."
+  },
+  "adamw": {
+    "id": 138,
+    "citation": "Ilya Loshchilov, Frank Hutter. Decoupled Weight Decay Regularization[M]. 2019."
+  },
+  "loshchilov2017decoupled": {
+    "id": 138,
+    "citation": "Ilya Loshchilov, Frank Hutter. Decoupled Weight Decay Regularization[M]. 2019."
+  },
+  "loshchilov2019decoupled": {
+    "id": 138,
+    "citation": "Ilya Loshchilov, Frank Hutter. Decoupled Weight Decay Regularization[M]. 2019."
+  },
+  "mei2019principled": {
+    "id": 139,
+    "citation": "Mei Jincheng, Xiao Chenjun, Huang Ruitong, et al. On principled entropy exploration in policy optimization[C]//Proceedings of the 28th International Joint Conference on Artificial Intelligence. 2019: 3130-3136."
+  },
+  "michel_are_2019": {
+    "id": 140,
+    "citation": "Michel Paul, Levy Omer, Neubig Graham. Are Sixteen Heads Really Better than One?[EB/OL]. arXiv:1905.10650 [cs], 2019. Available: http://arxiv.org/abs/1905.10650."
+  },
+  "nezha": {
+    "id": 141,
+    "citation": "Wei Victor Junqiu, Ren Xiaozhe, Li Xiaoguang, et al. NEZHA: Neural Contextualized Representation for Chinese Language Understanding[C]//2019."
+  },
+  "noauthor_better_2019": {
+    "id": 142,
+    "citation": "Better Language Models and Their Implications[EB/OL]. 2019. Available: https://openai.com/blog/better-language-models/."
+  },
+  "oymak2019generalization": {
+    "id": 143,
+    "citation": "Oymak Samet, Fabian Zalan, Li Mingchen, et al. Generalization guarantees for neural networks via harnessing the low-rank structure of the jacobian[EB/OL]. arXiv preprint arXiv:1906.05392, 2019."
+  },
+  "vinyals2019grandmaster": {
+    "id": 144,
+    "citation": "Vinyals Oriol, Babuschkin Igor, Czarnecki Wojciech M, et al. Grandmaster level in StarCraft II using multi-agent reinforcement learning[J]. nature, 2019, 575(7782): 350-354."
+  },
+  "wang2019glue": {
+    "id": 145,
+    "citation": "Alex Wang, Amanpreet Singh, Julian Michael, et al. GLUE: A Multi-Task Benchmark and Analysis Platform for Natural Language Understanding[M]. 2019."
+  },
+  "glue": {
+    "id": 145,
+    "citation": "Alex Wang, Amanpreet Singh, Julian Michael, et al. GLUE: A Multi-Task Benchmark and Analysis Platform for Natural Language Understanding[M]. 2019."
+  },
+  "wang-etal:2018:_glue": {
+    "id": 145,
+    "citation": "Alex Wang, Amanpreet Singh, Julian Michael, et al. GLUE: A Multi-Task Benchmark and Analysis Platform for Natural Language Understanding[M]. 2019."
+  },
+  "ChenRBD:2018": {
+    "id": 146,
+    "citation": "Tian Qi Chen, Yulia Rubanova, Jesse Bettencourt, et al. Neural Ordinary Differential Equations[C]//Advances in Neural Information Processing Systems 31: Annual Conference on Neural Information Processing Systems 2018, NeurIPS 2018, December 3-8, 2018, Montr'eal, Canada. 2018: 6572-6583. Available: https://proceedings.neurips.cc/paper/2018/hash/69386f6bb1dfed68692a24c8686939b9-Abstract.html."
+  },
+  "DBLP:journals/corr/abs-1806-03822": {
+    "id": 147,
+    "citation": "Pranav Rajpurkar, Robin Jia, Percy Liang. Know What You Don't Know: Unanswerable Questions for SQuAD[J]. CoRR, 2018, abs/1806.03822."
+  },
+  "DBLP:journals/corr/abs-1808-07042": {
+    "id": 148,
+    "citation": "Siva Reddy, Danqi Chen, Christopher D. Manning. CoQA: A Conversational Question Answering Challenge[J]. CoRR, 2018, abs/1808.07042."
+  },
+  "Huang2018MusicT": {
+    "id": 150,
+    "citation": "Cheng-Zhi Anna Huang, Ashish Vaswani, Jakob Uszkoreit, et al. Music transformer[EB/OL]. arXiv: Learning, 2018."
+  },
+  "Shaw2018SelfAttentionWR": {
+    "id": 151,
+    "citation": "Peter Shaw, Jakob Uszkoreit, Ashish Vaswani. Self-Attention with Relative Position Representations[C]//NAACL-HLT. 2018."
+  },
+  "akbik2018contextual": {
+    "id": 152,
+    "citation": "Alan Akbik, Duncan Blythe, Roland Vollgraf. 2018. Contextual string embeddings for sequence labeling[C]//Proceedings of the 27th International Conference on Computational Linguistics. 2018: 1638-1649."
+  },
+  "chen-etal:2018:_quora": {
+    "id": 153,
+    "citation": "Z. Chen, H. Zhang, X. Zhang, et al. href https://data.quora.com/First-Quora-Dataset-Release-Question-Pairs Quora question pairs[EB/OL]. 2018. Available: https://data.quora.com/First-Quora-Dataset-Release-Question-Pairs."
+  },
+  "clark-gardner:2018:_simpl": {
+    "id": 154,
+    "citation": "Christopher Clark, Matt Gardner. 2018. Simple and effective multi-paragraph reading comprehension[C]//ACL. 2018."
+  },
+  "clark2018semi": {
+    "id": 155,
+    "citation": "Kevin Clark, Minh-Thang Luong, Christopher D Manning, et al. Semi-supervised sequence modeling with cross-view training[C]//Proceedings of the 2018 Conference on Empirical Methods in Natural Language Processing. 2018: 1914-1925."
+  },
+  "hadash2018estimate": {
+    "id": 156,
+    "citation": "Hadash Guy, Kermany Einat, Carmeli Boaz, et al. Estimate and Replace: A Novel Approach to Integrating Deep Neural Networks with Existing Applications[EB/OL]. arXiv preprint arXiv:1804.09028, 2018."
+  },
+  "howard-ruder:2018": {
+    "id": 157,
+    "citation": "Jeremy Howard, Sebastian Ruder. 2018. href http://arxiv.org/abs/1801.06146 Universal language model fine-tuning for text classification[C]//ACL. 2018. Available: http://arxiv.org/abs/1801.06146."
+  },
+  "hu2017reinforced": {
+    "id": 158,
+    "citation": "Minghao Hu, Yuxing Peng, Zhen Huang, et al. Reinforced mnemonic reader for machine reading comprehension[C]//IJCAI. 2018."
+  },
+  "kreutzer-etal-2018-reliability": {
+    "id": 159,
+    "citation": "J. Kreutzer, J. Uyheng, S. Riezler. Reliability and learnability of human bandit feedback for sequence-to-sequence reinforcement learning[C]//Proceedings of the 56th Annual Meeting of the Association for Computational Linguistics (Volume 1: Long Papers). 2018: 1777-1788. DOI: 10.18653/v1/P18-1165."
+  },
+  "kupcsik2018learning": {
+    "id": 160,
+    "citation": "A. Kupcsik, D. Hsu, W. S. Lee. Learning Dynamic Robot-to-Human Object Handover from Human Feedback, pages 161–176[M]. 2018."
+  },
+  "levine2018reinforcement": {
+    "id": 161,
+    "citation": "S. Levine. Reinforcement learning and control as probabilistic inference: Tutorial and review[M]. 2018."
+  },
+  "li2018algorithmic": {
+    "id": 162,
+    "citation": "Li Yuanzhi, Ma Tengyu, Zhang Hongyang. Algorithmic regularization in over-parameterized matrix sensing and neural networks with quadratic activations[C]//Conference On Learning Theory. PMLR, 2018: 2-47."
+  },
+  "li2018learning": {
+    "id": 163,
+    "citation": "Li Yuanzhi, Liang Yingyu. Learning Overparameterized Neural Networks via Stochastic Gradient Descent on Structured Data[C]//Advances in Neural Information Processing Systems. 2018."
+  },
+  "li_measuring_2018": {
+    "id": 164,
+    "citation": "Li Chunyuan, Farkhoor Heerad, Liu Rosanne, et al. Measuring the Intrinsic Dimension of Objective Landscapes[EB/OL]. arXiv:1804.08838 [cs, stat], 2018. Available: http://arxiv.org/abs/1804.08838."
+  },
+  "logeswaran2018an": {
+    "id": 165,
+    "citation": "Lajanugen Logeswaran, Honglak Lee. 2018. href https://openreview.net/forum?id=rJvJXZb0W An efficient framework for learning sentence representations[C]//International Conference on Learning Representations. 2018. Available: https://openreview.net/forum?id=rJvJXZb0W."
+  },
+  "paulus2018a": {
+    "id": 166,
+    "citation": "R. Paulus, C. Xiong, R. Socher. A deep reinforced model for abstractive summarization[C]//International Conference on Learning Representations. 2018. Available: https://openreview.net/forum?id=HkAClQgA-."
+  },
+  "peters-etal:2018:_deep": {
+    "id": 167,
+    "citation": "Matthew Peters, Mark Neumann, Mohit Iyyer, et al. Deep contextualized word representations[C]//NAACL. 2018."
+  },
+  "peters2018dissecting": {
+    "id": 168,
+    "citation": "Matthew Peters, Mark Neumann, Luke Zettlemoyer, et al. Dissecting contextual word embeddings: Architecture and representation[C]//Proceedings of the 2018 Conference on Empirical Methods in Natural Language Processing. 2018: 1499-1509."
+  },
+  "povey2018semi": {
+    "id": 170,
+    "citation": "Daniel Povey, Gaofeng Cheng, Yiming Wang, et al. Semi-orthogonal low-rank matrix factorization for deep neural networks[C]//Interspeech. 2018."
+  },
+  "qqp": {
+    "id": 171,
+    "citation": "Chen Z., Zhang H., Zhang X.and Zhao, L.. Quora question pairs.[EB/OL]. 2018. Available: https://www.kaggle.com/c/quora-question-pairs."
+  },
+  "radford-etal:2018": {
+    "id": 172,
+    "citation": "Alec Radford, Karthik Narasimhan, Tim Salimans, et al. Improving language understanding with unsupervised learning[M]. 2018."
+  },
+  "slqa": {
+    "id": 173,
+    "citation": "Wei Wang, Ming Yan, Chen Wu. 2018. Multi-granularity hierarchical attention fusion networks for reading comprehension and question answering[C]//Proceedings of the 56th Annual Meeting of the Association for Computational Linguistics (Volume 1: Long Papers). 2018."
+  },
+  "warstadt-singh-bowman:2018:_corpus": {
+    "id": 174,
+    "citation": "Warstadt Alex, Singh Amanpreet, Bowman Samuel R. Neural Network Acceptability Judgments[EB/OL]. arXiv preprint arXiv:1805.12471, 2018."
+  },
+  "warstadt2018neural": {
+    "id": 174,
+    "citation": "Warstadt Alex, Singh Amanpreet, Bowman Samuel R. Neural Network Acceptability Judgments[EB/OL]. arXiv preprint arXiv:1805.12471, 2018."
+  },
+  "williams-nangia-bowman:2018": {
+    "id": 175,
+    "citation": "Williams Adina, Nangia Nikita, Bowman Samuel. A Broad-Coverage Challenge Corpus for Sentence Understanding through Inference[C]//Proceedings of the 2018 Conference of the North American Chapter of the Association for Computational Linguistics: Human Language Technologies, Volume 1 (Long Papers). New Orleans, Louisiana: 2018: 1112-1122. DOI: 10.18653/v1/N18-1101."
+  },
+  "mnli": {
+    "id": 175,
+    "citation": "Williams Adina, Nangia Nikita, Bowman Samuel. A Broad-Coverage Challenge Corpus for Sentence Understanding through Inference[C]//Proceedings of the 2018 Conference of the North American Chapter of the Association for Computational Linguistics: Human Language Technologies, Volume 1 (Long Papers). New Orleans, Louisiana: 2018: 1112-1122. DOI: 10.18653/v1/N18-1101."
+  },
+  "williams-etal-2018-broad": {
+    "id": 175,
+    "citation": "Williams Adina, Nangia Nikita, Bowman Samuel. A Broad-Coverage Challenge Corpus for Sentence Understanding through Inference[C]//Proceedings of the 2018 Conference of the North American Chapter of the Association for Computational Linguistics: Human Language Technologies, Volume 1 (Long Papers). New Orleans, Louisiana: 2018: 1112-1122. DOI: 10.18653/v1/N18-1101."
+  },
+  "wu2018learning": {
+    "id": 176,
+    "citation": "Y. Wu, B. Hu. Learning to extract coherent summary via deep reinforcement learning[C]//Proceedings of the Thirty-Second AAAI Conference on Artificial Intelligence and Thirtieth Innovative Applications of Artificial Intelligence Conference and Eighth AAAI Symposium on Educational Advances in Artificial Intelligence. 2018."
+  },
+  "yu-etal:2018:_qanet": {
+    "id": 177,
+    "citation": "Adams Wei Yu, David Dohan, Minh-Thang Luong, et al. QANet: Combining local convolution with global self-attention for reading comprehension[C]//ICLR. 2018."
+  },
+  "zellers2018swag": {
+    "id": 178,
+    "citation": "Rowan Zellers, Yonatan Bisk, Roy Schwartz, et al. Swag: A large-scale adversarial dataset for grounded commonsense inference[C]//Proceedings of the 2018 Conference on Empirical Methods in Natural Language Processing (EMNLP). 2018."
+  },
+  "Cer_2017": {
+    "id": 179,
+    "citation": "Cer Daniel, Diab Mona, Agirre Eneko, et al. SemEval-2017 Task 1: Semantic Textual Similarity Multilingual and Crosslingual Focused Evaluation[J]. Proceedings of the 11th International Workshop on Semantic Evaluation (SemEval-2017), 2017. DOI: 10.18653/v1/s17-2001."
+  },
+  "DBLP:journals/corr/JerniteBS17": {
+    "id": 180,
+    "citation": "Yacine Jernite, Samuel R. Bowman, David Sontag. 2017. href http://arxiv.org/abs/1705.00557 Discourse-based objectives for fast unsupervised sentence representation learning[EB/OL]. CoRR, 2017. Available: http://arxiv.org/abs/1705.00557."
+  },
+  "DBLP:journals/corr/abs-1709-00103": {
+    "id": 181,
+    "citation": "Victor Zhong, Caiming Xiong, Richard Socher. Seq2SQL: Generating Structured Queries from Natural Language using Reinforcement Learning[J]. CoRR, 2017, abs/1709.00103."
+  },
+  "Gehring:2017": {
+    "id": 182,
+    "citation": "Gehring Jonas, Auli Michael, Grangier David, et al. Convolutional sequence to sequence learning[C]//International Conference on Machine Learning. PMLR, 2017: 1243-1252."
+  },
+  "bidaf": {
+    "id": 183,
+    "citation": "Minjoon Seo, Aniruddha Kembhavi, Ali Farhadi, et al. Bidirectional attention flow for machine comprehension[C]//ICLR. 2017."
+  },
+  "cer-etal:2017": {
+    "id": 184,
+    "citation": "Daniel Cer, Mona Diab, Eneko Agirre, et al. href https://doi.org/10.18653/v1/S17-2001 Semeval-2017 task 1: Semantic textual similarity multilingual and crosslingual focused evaluation[C]//Proceedings of the 11th International Workshop on Semantic Evaluation (SemEval-2017). 2017: 1-14. Available: https://doi.org/10.18653/v1/S17-2001."
+  },
+  "christiano2017deep": {
+    "id": 185,
+    "citation": "P. F. Christiano, J. Leike, T. Brown, et al. Deep reinforcement learning from human preferences[C]//Advances in Neural Information Processing Systems. 2017. Available: https://proceedings.neurips.cc/paper_files/paper/2017/file/d5e2c0adad503c91f91df240d0cd4e49-Paper.pdf."
+  },
+  "conneau-EtAl:2017:EMNLP2017": {
+    "id": 186,
+    "citation": "Alexis Conneau, Douwe Kiela, Holger Schwenk, et al. href https://www.aclweb.org/anthology/D17-1070 Supervised learning of universal sentence representations from natural language inference data[C]//Proceedings of the 2017 Conference on Empirical Methods in Natural Language Processing. 2017: 670-680. Available: https://www.aclweb.org/anthology/D17-1070."
+  },
+  "gardent2017webnlg": {
+    "id": 187,
+    "citation": "Gardent Claire, Shimorina Anastasia, Narayan Shashi, et al. The WebNLG challenge: Generating text from RDF data[C]//Proceedings of the 10th International Conference on Natural Language Generation. 2017: 124-133."
+  },
+  "jaques2017sequence": {
+    "id": 188,
+    "citation": "N. Jaques, S. Gu, D. Bahdanau, et al. Sequence tutor: Conservative fine-tuning of sequence generation models with kl-control[C]//International Conference on Machine Learning. 2017: 1645-1654."
+  },
+  "joshi-etal:2017:_triviaq": {
+    "id": 189,
+    "citation": "Mandar Joshi, Eunsol Choi, Daniel S Weld, et al. Triviaqa: A large scale distantly supervised challenge dataset for reading comprehension[C]//ACL. 2017."
+  },
+  "kingma2017adam": {
+    "id": 190,
+    "citation": "Diederik P. Kingma, Jimmy Ba. Adam: A Method for Stochastic Optimization[M]. 2017."
+  },
+  "kirkpatrick_overcoming_2017": {
+    "id": 191,
+    "citation": "Kirkpatrick James, Pascanu Razvan, Rabinowitz Neil, et al. Overcoming catastrophic forgetting in neural networks[EB/OL]. arXiv:1612.00796 [cs, stat], 2017. Available: http://arxiv.org/abs/1612.00796."
+  },
+  "mccann-etal:2017:_learn_trans": {
+    "id": 192,
+    "citation": "Bryan McCann, James Bradbury, Caiming Xiong, et al. Learned in translation: Contextualized word vectors[C]//NIPS. 2017."
+  },
+  "nachum2017bridging": {
+    "id": 193,
+    "citation": "Nachum Ofir, Norouzi Mohammad, Xu Kelvin, et al. Bridging the gap between value and policy based reinforcement learning[J]. Advances in neural information processing systems, 2017, 30."
+  },
+  "novikova2017e2e": {
+    "id": 194,
+    "citation": "Novikova Jekaterina, Duvsek Ondvrej, Rieser Verena. The E2E dataset: New challenges for end-to-end generation[EB/OL]. arXiv preprint arXiv:1706.09254, 2017."
+  },
+  "peters-etal:2017:_semi": {
+    "id": 195,
+    "citation": "Matthew Peters, Waleed Ammar, Chandra Bhagavatula, et al. Semi-supervised sequence tagging with bidirectional language models[C]//ACL. 2017."
+  },
+  "rebuffi_learning_2017": {
+    "id": 196,
+    "citation": "Rebuffi Sylvestre-Alvise, Bilen Hakan, Vedaldi Andrea. Learning multiple visual domains with residual adapters[EB/OL]. arXiv:1705.08045 [cs, stat], 2017. Available: http://arxiv.org/abs/1705.08045."
+  },
+  "sadigh2017active": {
+    "id": 197,
+    "citation": "D. Sadigh, A. D. Dragan, S. Sastry, et al. Active preference-based learning of reward functions[C]//Robotics: Science and Systems (RSS). 2017."
+  },
+  "schulman2017proximal": {
+    "id": 198,
+    "citation": "J. Schulman, F. Wolski, P. Dhariwal, et al. Proximal policy optimization algorithms[M]. 2017."
+  },
+  "silver2017mastering": {
+    "id": 199,
+    "citation": "Silver David, Schrittwieser Julian, Simonyan Karen, et al. Mastering the game of go without human knowledge[J]. nature, 2017, 550(7676): 354-359."
+  },
+  "stsb": {
+    "id": 200,
+    "citation": "Al-Natsheh Hussein. UdL at SemEval-2017 Task 1: Semantic Textual Similarity Estimation of English Sentence Pairs Using Regression Model over Pairwise Features[C]//2017."
+  },
+  "Vaswani:2017": {
+    "id": 201,
+    "citation": "Vaswani Ashish, Shazeer Noam, Parmar Niki, et al. Attention is All you Need[C]//Advances in Neural Information Processing Systems. 2017. Available: https://proceedings.neurips.cc/paper_files/paper/2017/file/3f5ee243547dee91fbd053c1c4a845aa-Paper.pdf."
+  },
+  "transformer": {
+    "id": 201,
+    "citation": "Vaswani Ashish, Shazeer Noam, Parmar Niki, et al. Attention is All you Need[C]//Advances in Neural Information Processing Systems. 2017. Available: https://proceedings.neurips.cc/paper_files/paper/2017/file/3f5ee243547dee91fbd053c1c4a845aa-Paper.pdf."
+  },
+  "vaswani-etal:2017:_atten": {
+    "id": 201,
+    "citation": "Vaswani Ashish, Shazeer Noam, Parmar Niki, et al. Attention is All you Need[C]//Advances in Neural Information Processing Systems. 2017. Available: https://proceedings.neurips.cc/paper_files/paper/2017/file/3f5ee243547dee91fbd053c1c4a845aa-Paper.pdf."
+  },
+  "vaswani2017attention": {
+    "id": 201,
+    "citation": "Vaswani Ashish, Shazeer Noam, Parmar Niki, et al. Attention is All you Need[C]//Advances in Neural Information Processing Systems. 2017. Available: https://proceedings.neurips.cc/paper_files/paper/2017/file/3f5ee243547dee91fbd053c1c4a845aa-Paper.pdf."
+  },
+  "volske-etal-2017-tl": {
+    "id": 202,
+    "citation": "M. V\"olske, M. Potthast, S. Syed, et al. TL;DR: Mining Reddit to learn automatic summarization[C]//Proceedings of the Workshop on New Frontiers in Summarization. 2017: 59-63. DOI: 10.18653/v1/W17-4508."
+  },
+  "parikh-etal:2016": {
+    "id": 203,
+    "citation": "Ankur P. Parikh, Oscar T\"ackstr\"om, Dipanjan Das, et al. A Decomposable Attention Model for Natural Language Inference[C]//EMNLP. 2016."
+  },
+  "Parikh2016ADA": {
+    "id": 203,
+    "citation": "Ankur P. Parikh, Oscar T\"ackstr\"om, Dipanjan Das, et al. A Decomposable Attention Model for Natural Language Inference[C]//EMNLP. 2016."
+  },
+  "ba2016layer": {
+    "id": 204,
+    "citation": "Jimmy Lei Ba, Jamie Ryan Kiros, Geoffrey E. Hinton. Layer Normalization[M]. 2016."
+  },
+  "hendrycks:2016": {
+    "id": 205,
+    "citation": "Dan Hendrycks, Kevin Gimpel. 2016. href http://arxiv.org/abs/1606.08415 Bridging nonlinearities and stochastic regularizers with gaussian error linear units[EB/OL]. CoRR, 2016. Available: http://arxiv.org/abs/1606.08415."
+  },
+  "hill16": {
+    "id": 206,
+    "citation": "Felix Hill, Kyunghyun Cho, Anna Korhonen. 2016. Learning distributed representations of sentences from unlabelled data[C]//Proceedings of the 2016 Conference of the North American Chapter of the Association for Computational Linguistics: Human Language Technologies. 2016."
+  },
+  "joulin2016bag": {
+    "id": 207,
+    "citation": "Joulin Armand, Grave Edouard, Bojanowski Piotr, et al. Bag of tricks for efficient text classification[EB/OL]. arXiv preprint arXiv:1607.01759, 2016."
+  },
+  "li2016recovery": {
+    "id": 208,
+    "citation": "Li Yuanzhi, Liang Yingyu, Risteski Andrej. Recovery guarantee of weighted low-rank approximation via alternating minimization[C]//International Conference on Machine Learning. PMLR, 2016: 2358-2367."
+  },
+  "melamud2016context2vec": {
+    "id": 209,
+    "citation": "Oren Melamud, Jacob Goldberger, Ido Dagan. 2016. context2vec: Learning generic context embedding with bidirectional LSTM[C]//CoNLL. 2016."
+  },
+  "nallapati-etal-2016-abstractive": {
+    "id": 210,
+    "citation": "R. Nallapati, B. Zhou, C. dos Santos, et al. Abstractive text summarization using sequence-to-sequence RNNs and beyond[C]//Proceedings of the 20th SIGNLL. 2016: 280-290. DOI: 10.18653/v1/K16-1028."
+  },
+  "qnli": {
+    "id": 211,
+    "citation": "Rajpurkar Pranav, Zhang Jian, Lopyrev Konstantin, et al. SQuAD: 100,000+ Questions for Machine Comprehension of Text[C]//2016: 2383-2392. DOI: 10.18653/v1/D16-1264."
+  },
+  "rajpurkar-etal:2016:_squad": {
+    "id": 211,
+    "citation": "Rajpurkar Pranav, Zhang Jian, Lopyrev Konstantin, et al. SQuAD: 100,000+ Questions for Machine Comprehension of Text[C]//2016: 2383-2392. DOI: 10.18653/v1/D16-1264."
+  },
+  "wu-etal:2016:_googl": {
+    "id": 212,
+    "citation": "Yonghui Wu, Mike Schuster, Zhifeng Chen, et al. Google's neural machine translation system: Bridging the gap between human and machine translation[EB/OL]. arXiv preprint arXiv:1609.08144, 2016."
+  },
+  "zhao2016low": {
+    "id": 213,
+    "citation": "Zhao Yong, Li Jinyu, Gong Yifan. Low-rank plus diagonal adaptation for deep neural networks[C]//2016 IEEE International Conference on Acoustics, Speech and Signal Processing (ICASSP). IEEE, 2016: 5005-5009."
+  },
+  "Chorowski2015AttentionBasedMF": {
+    "id": 214,
+    "citation": "J. Chorowski, Dzmitry Bahdanau, Dmitriy Serdyuk, et al. Attention-Based Models for Speech Recognition[C]//NIPS. 2015."
+  },
+  "Ranzato2015SequenceLT": {
+    "id": 215,
+    "citation": "M. Ranzato, S. Chopra, M. Auli, et al. Sequence level training with recurrent neural networks[EB/OL]. CoRR, 2015."
+  },
+  "bowman-etal:2015": {
+    "id": 216,
+    "citation": "Samuel R. Bowman, Gabor Angeli, Christopher Potts, et al. A large annotated corpus for learning natural language inference[C]//EMNLP. 2015."
+  },
+  "bpe": {
+    "id": 217,
+    "citation": "Sennrich Rico, Haddow Barry, Birch Alexandra. Neural Machine Translation of Rare Words with Subword Units[J]. 2015."
+  },
+  "dai-le:2015:_semi": {
+    "id": 218,
+    "citation": "Andrew M Dai, Quoc V Le. 2015. Semi-supervised sequence learning[C]//Advances in neural information processing systems. 2015: 3079-3087."
+  },
+  "dudik2015contextual": {
+    "id": 219,
+    "citation": "M. Dudík, K. Hofmann, R. E. Schapire, et al. Contextual dueling bandits[C]//Proceedings of The 28th Conference on Learning Theory. 2015: 563-587. Available: https://proceedings.mlr.press/v40/Dudik15.html."
+  },
+  "kiros-etal:2015:_skip": {
+    "id": 220,
+    "citation": "Ryan Kiros, Yukun Zhu, Ruslan R Salakhutdinov, et al. Skip-thought vectors[C]//Advances in neural information processing systems. 2015: 3294-3302."
+  },
+  "zhu:2015": {
+    "id": 221,
+    "citation": "Yukun Zhu, Ryan Kiros, Richard Zemel, et al. Aligning Books and Movies: Towards Story-like Visual Explanations by Watching Movies and Reading Books[C]//arXiv preprint arXiv:1506.06724. 2015."
+  },
+  "moviebook": {
+    "id": 221,
+    "citation": "Yukun Zhu, Ryan Kiros, Richard Zemel, et al. Aligning Books and Movies: Towards Story-like Visual Explanations by Watching Movies and Reading Books[C]//arXiv preprint arXiv:1506.06724. 2015."
+  },
+  "BusaFekete2014": {
+    "id": 222,
+    "citation": "R. Busa-Fekete, B. Sz\"or'enyi, P. Weng, et al. Preference-based reinforcement learning: evolutionary direct policy search using a preference-based racing algorithm[J]. Machine Learning, 2014, 97(3): 327-351. DOI: 10.1007/s10994-014-5458-8."
+  },
+  "denil2014predicting": {
+    "id": 223,
+    "citation": "Misha Denil, Babak Shakibi, Laurent Dinh, et al. Predicting Parameters in Deep Learning[M]. 2014."
+  },
+  "jaderberg2014speeding": {
+    "id": 224,
+    "citation": "Jaderberg Max, Vedaldi Andrea, Zisserman Andrew. Speeding up convolutional neural networks with low rank expansions[EB/OL]. arXiv preprint arXiv:1405.3866, 2014."
+  },
+  "kour2014fast": {
+    "id": 225,
+    "citation": "Kour George, Saabne Raid. Fast classification of handwritten on-line Arabic characters[C]//Soft Computing and Pattern Recognition (SoCPaR), 2014 6th International Conference of. IEEE, 2014: 312-318. DOI: 10.1109/SOCPAR.2014.7008025."
+  },
+  "kour2014real": {
+    "id": 226,
+    "citation": "Kour George, Saabne Raid. Real-time segmentation of on-line handwritten arabic script[C]//Frontiers in Handwriting Recognition (ICFHR), 2014 14th International Conference on. IEEE, 2014: 417-422."
+  },
+  "le-mikolov:2014:_distr": {
+    "id": 227,
+    "citation": "Quoc Le, Tomas Mikolov. 2014. Distributed representations of sentences and documents[C]//International Conference on Machine Learning. 2014: 1188-1196."
+  },
+  "mtdataset": {
+    "id": 228,
+    "citation": "Bojar Ondrej, Buck Christian, Federmann Christian, et al. Findings of the 2014 Workshop on Statistical Machine Translation[C]//2014: 12-58. DOI: 10.3115/v1/W14-3302."
+  },
+  "pennington-socher-manning:2014:_glove": {
+    "id": 229,
+    "citation": "Jeffrey Pennington, Richard Socher, Christopher D. Manning. 2014. href http://www.aclweb.org/anthology/D14-1162 Glove: Global vectors for word representation[C]//Empirical Methods in Natural Language Processing (EMNLP). 2014: 1532-1543. Available: http://www.aclweb.org/anthology/D14-1162."
+  },
+  "yosinski2014transferable": {
+    "id": 230,
+    "citation": "Jason Yosinski, Jeff Clune, Yoshua Bengio, et al. How transferable are features in deep neural networks?[C]//Advances in neural information processing systems. 2014: 3320-3328."
+  },
+  "zhang2014extracting": {
+    "id": 231,
+    "citation": "Zhang Yu, Chuangsuwanich Ekapol, Glass James. Extracting deep neural network bottleneck features using low-rank matrix factorization[C]//2014 IEEE international conference on acoustics, speech and signal processing (ICASSP). IEEE, 2014: 185-189."
+  },
+  "chelba-etal:2013:_one": {
+    "id": 232,
+    "citation": "Ciprian Chelba, Tomas Mikolov, Mike Schuster, et al. One billion word benchmark for measuring progress in statistical language modeling[EB/OL]. arXiv preprint arXiv:1312.3005, 2013."
+  },
+  "grasedyck2013literature": {
+    "id": 233,
+    "citation": "Grasedyck Lars, Kressner Daniel, Tobler Christine. A literature survey of low-rank tensor approximation techniques[J]. GAMM-Mitteilungen, 2013, 36(1): 53-78."
+  },
+  "jain2013learning": {
+    "id": 234,
+    "citation": "A. Jain, B. Wojcik, T. Joachims, et al. Learning trajectory preferences for manipulators via iterative improvement[C]//Advances in Neural Information Processing Systems. 2013. Available: https://proceedings.neurips.cc/paper_files/paper/2013/file/c058f544c737782deacefa532d9add4c-Paper.pdf."
+  },
+  "mikolov-etal:2013": {
+    "id": 235,
+    "citation": "Tomas Mikolov, Ilya Sutskever, Kai Chen, et al. Distributed representations of words and phrases and their compositionality[C]//Advances in Neural Information Processing Systems 26. 2013: 3111-3119."
+  },
+  "sainath2013low": {
+    "id": 236,
+    "citation": "Sainath Tara N, Kingsbury Brian, Sindhwani Vikas, et al. Low-rank matrix factorization for deep neural network training with high-dimensional output targets[C]//2013 IEEE international conference on acoustics, speech and signal processing. IEEE, 2013: 6655-6659."
+  },
+  "socher-etal:2013:_recur": {
+    "id": 237,
+    "citation": "Socher Richard, Perelygin Alex, Wu Jean, et al. Recursive Deep Models for Semantic Compositionality Over a Sentiment Treebank[C]//Proceedings of the 2013 Conference on Empirical Methods in Natural Language Processing. Seattle, Washington, USA: 2013: 1631-1642. Available: https://aclanthology.org/D13-1170."
+  },
+  "sst2": {
+    "id": 237,
+    "citation": "Socher Richard, Perelygin Alex, Wu Jean, et al. Recursive Deep Models for Semantic Compositionality Over a Sentiment Treebank[C]//Proceedings of the 2013 Conference on Empirical Methods in Natural Language Processing. Seattle, Washington, USA: 2013: 1631-1642. Available: https://aclanthology.org/D13-1170."
+  },
+  "socher-etal-2013-recursive": {
+    "id": 237,
+    "citation": "Socher Richard, Perelygin Alex, Wu Jean, et al. Recursive Deep Models for Semantic Compositionality Over a Sentiment Treebank[C]//Proceedings of the 2013 Conference on Empirical Methods in Natural Language Processing. Seattle, Washington, USA: 2013: 1631-1642. Available: https://aclanthology.org/D13-1170."
+  },
+  "luce2012individual": {
+    "id": 238,
+    "citation": "R. D. Luce. Individual choice behavior: A theoretical analysis[J]. Courier Corporation, 2012."
+  },
+  "yue2012karmed": {
+    "id": 239,
+    "citation": "Y. Yue, J. Broder, R. Kleinberg, et al. The k-armed dueling bandits problem[J]. Journal of Computer and System Sciences, 2012, 78(5): 1538-1556. DOI: 10.1016/j.jcss.2011.12.028."
+  },
+  "levesque-davis-morgenstern:2011:_winog": {
+    "id": 240,
+    "citation": "Hector J Levesque, Ernest Davis, Leora Morgenstern. 2011. The winograd schema challenge[C]//Aaai spring symposium: Logical formalizations of commonsense reasoning. 2011."
+  },
+  "maas-EtAl:2011:ACL-HLT2011": {
+    "id": 241,
+    "citation": "A. L. Maas, R. E. Daly, P. T. Pham, et al. Learning word vectors for sentiment analysis[C]//Proceedings of the 49th Annual Meeting of the Association for Computational Linguistics: Human Language Technologies. 2011: 142-150. Available: http://www.aclweb.org/anthology/P11-1015."
+  },
+  "cai2010singular": {
+    "id": 242,
+    "citation": "Cai Jian-Feng, Cand`es Emmanuel J, Shen Zuowei. A singular value thresholding algorithm for matrix completion[J]. SIAM Journal on optimization, 2010, 20(4): 1956-1982."
+  },
+  "jaques2020human": {
+    "id": 243,
+    "citation": "N. Jaques, J. H. Shen, A. Ghandeharioun, et al. Human-centric dialog training via offline reinforcement learning[EB/OL]. arXiv preprint arXiv:2010.05848, 2010."
+  },
+  "turian-ratinov-bengio:2010:_word_repres": {
+    "id": 244,
+    "citation": "Joseph Turian, Lev Ratinov, Yoshua Bengio. 2010. Word representations: A simple and general method for semi-supervised learning[C]//Proceedings of the 48th Annual Meeting of the Association for Computational Linguistics. 2010: 384-394."
+  },
+  "bentivogli-etal:2009": {
+    "id": 245,
+    "citation": "Luisa Bentivogli, Bernardo Magnini, Ido Dagan, et al. The fifth PASCAL recognizing textual entailment challenge[C]//TAC. 2009."
+  },
+  "imagenet_cvpr09": {
+    "id": 246,
+    "citation": "J. Deng, W. Dong, R. Socher, et al. ImageNet: A Large-Scale Hierarchical Image Database[C]//CVPR09. 2009."
+  },
+  "minh09": {
+    "id": 247,
+    "citation": "Andriy Mnih, Geoffrey E Hinton. 2009. href http://papers.nips.cc/paper/3583-a-scalable-hierarchical-distributed-language-model.pdf A scalable hierarchical distributed language model[C]//Advances in Neural Information Processing Systems 21. 2009: 1081-1088. Available: http://papers.nips.cc/paper/3583-a-scalable-hierarchical-distributed-language-model.pdf."
+  },
+  "collobert-weston:2008": {
+    "id": 248,
+    "citation": "Collobert Ronan, Weston Jason. A unified architecture for natural language processing: deep neural networks with multitask learning[C]//Proceedings of the 25th international conference on Machine learning. New York, NY, USA: 2008: 160-167. DOI: 10.1145/1390156.1390177."
+  },
+  "collobert_unified_2008": {
+    "id": 248,
+    "citation": "Collobert Ronan, Weston Jason. A unified architecture for natural language processing: deep neural networks with multitask learning[C]//Proceedings of the 25th international conference on Machine learning. New York, NY, USA: 2008: 160-167. DOI: 10.1145/1390156.1390177."
+  },
+  "dist": {
+    "id": 249,
+    "citation": "Jihun Ham, Daniel D. Lee. Grassmann discriminant analysis: a unifying view on subspace-based learning[C]//ICML. 2008: 376-383. Available: https://doi.org/10.1145/1390156.1390204."
+  },
+  "vincent:2008": {
+    "id": 250,
+    "citation": "Pascal Vincent, Hugo Larochelle, Yoshua Bengio, et al. Extracting and composing robust features with denoising autoencoders[C]//Proceedings of the 25th international conference on Machine learning. 2008: 1096-1103."
+  },
+  "peters2007reinforcement": {
+    "id": 251,
+    "citation": "J. Peters, S. Schaal. Reinforcement learning by reward-weighted regression for operational space control[C]//Proceedings of the 24th international conference on Machine learning. 2007: 745-750."
+  },
+  "blitzer-mcdonald-pereira:2006:_domain": {
+    "id": 252,
+    "citation": "John Blitzer, Ryan McDonald, Fernando Pereira. 2006. Domain adaptation with structural correspondence learning[C]//Proceedings of the 2006 conference on empirical methods in natural language processing. 2006: 120-128."
+  },
+  "coulom2006efficient": {
+    "id": 253,
+    "citation": "Coulom R'emi. Efficient selectivity and backup operators in Monte-Carlo tree search[C]//International conference on computers and games. Springer, 2006: 72-83."
+  },
+  "enwik8": {
+    "id": 255,
+    "citation": "Matt Mahoney. Large text compression benchmark, urlhttp://www.mattmahoney.net/dc/text.html[EB/OL]. 2006. Available: http://www.mattmahoney.net/dc/text.html."
+  },
+  "kocsis2006bandit": {
+    "id": 256,
+    "citation": "Kocsis Levente, Szepesv'ari Csaba. Bandit based monte-carlo planning[C]//European conference on machine learning. Springer, 2006: 282-293."
+  },
+  "mrpc": {
+    "id": 257,
+    "citation": "Dolan William B., Brockett Chris. Automatically Constructing a Corpus of Sentential Paraphrases[C]//Proceedings of the Third International Workshop on Paraphrasing (IWP2005). 2005. Available: https://aclanthology.org/I05-5002."
+  },
+  "dolan-brockett-2005-automatically": {
+    "id": 257,
+    "citation": "Dolan William B., Brockett Chris. Automatically Constructing a Corpus of Sentential Paraphrases[C]//Proceedings of the Third International Workshop on Paraphrasing (IWP2005). 2005. Available: https://aclanthology.org/I05-5002."
+  },
+  "dolan-brockett:2005:_autom": {
+    "id": 257,
+    "citation": "Dolan William B., Brockett Chris. Automatically Constructing a Corpus of Sentential Paraphrases[C]//Proceedings of the Third International Workshop on Paraphrasing (IWP2005). 2005. Available: https://aclanthology.org/I05-5002."
+  },
+  "tjong-de:2003": {
+    "id": 258,
+    "citation": "Erik F Tjong Kim Sang, Fien De Meulder. 2003. Introduction to the conll-2003 shared task: Language-independent named entity recognition[C]//CoNLL. 2003."
+  },
+  "bleu": {
+    "id": 259,
+    "citation": "Papineni Kishore, Roukos Salim, Ward Todd, et al. BLEU: a Method for Automatic Evaluation of Machine Translation[J]. 2002. DOI: 10.3115/1073083.1073135."
+  },
+  "brown-etal:1992:_class": {
+    "id": 260,
+    "citation": "Peter F Brown, Peter V Desouza, Robert L Mercer, et al. Class-based n-gram models of natural language[J]. Computational linguistics, 1992, 18(4): 467-479."
+  },
+  "williams1992reinforce": {
+    "id": 261,
+    "citation": "R. J. Williams. Simple statistical gradient-following algorithms for connectionist reinforcement learning[J]. Mach. Learn., 1992, 8(3–4): 229-256. DOI: 10.1007/BF00992696."
+  },
+  "plackett1975analysis": {
+    "id": 262,
+    "citation": "R. L. Plackett. The analysis of permutations[J]. Journal of the Royal Statistical Society. Series C (Applied Statistics), 1975, 24(2): 193-202. DOI: 10.2307/2346567."
+  },
+  "hart1968formal": {
+    "id": 263,
+    "citation": "Hart Peter E, Nilsson Nils J, Raphael Bertram. A formal basis for the heuristic determination of minimum cost paths[J]. IEEE transactions on Systems Science and Cybernetics, 1968, 4(2): 100-107."
+  },
+  "taylor:1953:_cloze": {
+    "id": 264,
+    "citation": "Wilson L Taylor. 1953. “Cloze procedure”: A new tool for measuring readability[J]. Journalism Bulletin, 1953, 30(4): 415-433."
+  },
+  "bradley1952rankanalysis": {
+    "id": 265,
+    "citation": "R. A. Bradley, M. E. Terry. Rank analysis of incomplete block designs: I. the method of paired comparisons[J]. Biometrika, 1952, 39(3/4): 324-345. DOI: 10.2307/2334029."
+  },
+  "peng2019advantage": {
+    "id": 266,
+    "citation": "X. B. Peng, A. Kumar, G. Zhang, et al. Advantage-weighted regression: Simple and scalable off-policy reinforcement learning[EB/OL]. arXiv preprint arXiv:1910.00177, 1910."
+  },
+  "welleck2019neural": {
+    "id": 267,
+    "citation": "S. Welleck, I. Kulikov, S. Roller, et al. Neural text generation with unlikelihood training[EB/OL]. arXiv preprint arXiv:1908.04319, 1908."
+  },
+  "ando-zhang:2005": {
+    "id": 268,
+    "citation": "Rie Kubota Ando, Tong Zhang. 2005. A framework for learning predictive structures from multiple tasks and unlabeled data[J]. Journal of Machine Learning Research, 1817, 6(Nov): 1817-1853."
+  },
+  "unet": {
+    "id": 269,
+    "citation": "Fu Sun, Linyang Li, Xipeng Qiu, et al. U-net: Machine reading comprehension with unanswerable questions[EB/OL]. arXiv preprint arXiv:1810.06638, 1810."
+  },
+  "alrfou:2018": {
+    "id": 270,
+    "citation": "Rami Al-Rfou, Dokook Choe, Noah Constant, et al. Character-level language modeling with deeper self-attention[EB/OL]. arXiv preprint arXiv:1808.04444, 1808."
+  },
+  "fedus2018maskgan": {
+    "id": 271,
+    "citation": "William Fedus, Ian Goodfellow, Andrew M Dai. 2018. Maskgan: Better text generation via filling in the_[EB/OL]. arXiv preprint arXiv:1801.07736, 1801."
+  },
+  "radford_improving_nodate": {
+    "id": 272,
+    "citation": "Radford Alec, Narasimhan Karthik, Salimans Tim, et al. Improving Language Understanding by Generative Pre-Training[J]."
+  },
+  "Radford2018ImprovingLU:2018": {
+    "id": 272,
+    "citation": "Radford Alec, Narasimhan Karthik, Salimans Tim, et al. Improving Language Understanding by Generative Pre-Training[J]."
+  },
+  "radford_language_nodate": {
+    "id": 273,
+    "citation": "Radford Alec, Wu Jeffrey, Child Rewon, et al. Language Models are Unsupervised Multitask Learners[J]."
+  },
+  "radford_language_nodate-1": {
+    "id": 273,
+    "citation": "Radford Alec, Wu Jeffrey, Child Rewon, et al. Language Models are Unsupervised Multitask Learners[J]."
+  },
+  "radford2019language": {
+    "id": 273,
+    "citation": "Radford Alec, Wu Jeffrey, Child Rewon, et al. Language Models are Unsupervised Multitask Learners[J]."
+  },
+  "Radford2019LanguageMA": {
+    "id": 273,
+    "citation": "Radford Alec, Wu Jeffrey, Child Rewon, et al. Language Models are Unsupervised Multitask Learners[J]."
+  }
+}
