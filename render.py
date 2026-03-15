@@ -672,7 +672,7 @@ _RE_EQUATION = re.compile(
 
 _RE_MATHENV = re.compile(
     r'\\begin\{'
-    r'(?:definition|lemma|theorem|corollary|proposition'
+    r'(definition|lemma|theorem|corollary|proposition'
     r'|remark|claim|example|fact'
     r')\*?\}',
     re.IGNORECASE
