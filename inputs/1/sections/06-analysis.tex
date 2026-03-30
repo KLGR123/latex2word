@@ -1,0 +1,79 @@
+\section{Analysis of Agent-Discovered Optimizations}
+\label{sec:analysis}
+
+The 40-version AVO evolution produced multi-level optimizations that individually yield measurable throughput gains and collectively account for the improvements reported in Section~\ref{sec:experiments}.
+We examine three representative optimizations to illustrate the nature and depth of the agent's hardware reasoning.
+For each, we describe the bottleneck the agent identified in its own kernel, the change it made, and its measured impact (ablation between the version immediately before and after).
+Table~\ref{tab:opt_summary} provides a summary.
+
+\begin{table}[t]
+  \caption{Summary of agent-discovered optimizations and their measured ablation gains (geomean TFLOPS improvement over the preceding version, across all benchmark configurations).}
+  \label{tab:opt_summary}
+  \centering
+  \small
+  \begin{tabular}{llcc}
+    \toprule
+    Optimization & Versions & Non-causal & Causal \\
+    \midrule
+    Branchless accumulator rescaling & v19 $\to$ v20 & $+8.1\%$ & $+1.6\%$ \\
+    Correction/MMA pipeline overlap & v29 $\to$ v30 & $+1.1\%$ & $+0.4\%$ \\
+    Register rebalancing across warp groups & v32 $\to$ v33 & $+2.1\%$ & $\sim 0\%$ \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\subsection{Branchless Accumulator Rescaling}
+\label{sec:analysis_branchless}
+
+\paragraph{Bottleneck.}
+In the online softmax algorithm, the running row-maximum may change as new key blocks are processed.
+When it does, the output accumulator $O$ must be rescaled to account for the updated maximum.
+In version 19 of the AVO kernel, this rescaling was implemented with a conditional branch: the kernel first checked whether any thread in the warp required rescaling, and skipped the operation entirely when the maximum was unchanged.
+While this avoids unnecessary computation, the branch introduces warp synchronization overhead on every iteration of the key-block loop (see Section~\ref{sec:background_attention}), and the conditional control flow prevents the use of lighter memory fences in the correction path.
+
+\paragraph{AVO's approach.}
+In version 20, the agent replaced the conditional branch with a branchless speculative path.
+The rescale factor is always computed, and a predicated select substitutes 1.0 when rescaling is unnecessary; the cost of an unnecessary multiply-by-one is negligible compared to the synchronization overhead it replaces.
+By eliminating the branch, the agent also removed warp divergence in the correction path, which in turn allowed it to replace a blocking memory fence (which stalls until all pending memory writes complete) with a lighter non-blocking fence that merely enforces ordering.
+The non-blocking fence is safe here because the branchless path guarantees that all threads in the warp follow the same control flow, ensuring reconvergence before the next synchronization point.
+
+\paragraph{Measured impact.}
+The combined effect of branchless rescaling and the lighter fence yields $+8.1\%$ geomean throughput on non-causal and $+1.6\%$ on causal attention, the largest single optimization in the evolution.
+The asymmetry arises because the branchless path applies only to fully unmasked iterations of the key-block loop: non-causal attention processes all key blocks without masking, while causal attention retains the original branched logic for masked key blocks.
+
+\subsection{Correction/MMA Pipeline Overlap}
+\label{sec:analysis_split}
+
+\paragraph{Bottleneck.}
+The attention pipeline processes two Q-tiles concurrently (dual Q-stage; see Section~\ref{sec:background_attention}), each requiring a PV GEMM followed by output normalization by the correction warp.
+In version 29 of the AVO kernel, the two stages were serialized at the MMA-to-correction boundary: the correction warp had to wait for both PV GEMMs to complete before it could begin normalizing either stage's output, leaving it idle throughout the second GEMM.
+
+\paragraph{AVO's approach.}
+In version 30, the agent restructured the pipeline to allow the correction warp to begin normalizing the first stage's output as soon as its PV GEMM completes, overlapping this work with the second stage's PV GEMM.
+This converts a sequential dependency into a pipelined execution, reducing the idle time on the correction warp.
+
+\paragraph{Measured impact.}
+This pipeline restructuring yields $+1.1\%$ geomean throughput on non-causal and $+0.4\%$ on causal attention.
+
+\subsection{Register Rebalancing Across Warp Groups}
+\label{sec:analysis_registers}
+
+\paragraph{Bottleneck.}
+Blackwell partitions a fixed budget of 2048 warp-registers per SM across warp groups.
+In version 32 of the AVO kernel, the allocation followed the pattern of FlashAttention-4~\citep{zadouri2026flashattention4}: 192 registers for the 8 softmax warps, 80 for the 4 correction warps, and 48 for the remaining 4 warps.
+Profiling revealed that the correction warp group was spilling values to slower local memory due to its limited 80-register budget, while the softmax group had substantial headroom.
+
+\paragraph{AVO's approach.}
+In version 33, the agent redistributed 8 registers from the softmax group to each of the other two groups, arriving at a 184/88/56 allocation.
+This redistribution is viable because the AVO kernel's softmax implementation processes score values in small fragments with packed arithmetic, resulting in a low peak register usage that leaves ample headroom even at 184 registers.
+The correction warp group benefits from the additional registers because, following the pipeline overlap optimization (Section~\ref{sec:analysis_split}), it runs concurrently with the second PV GEMM and is on the execution critical path.
+With 88 rather than 80 registers, fewer output values spill to local memory, reducing stalls.
+
+\paragraph{Measured impact.}
+Register rebalancing yields $+2.1\%$ geomean throughput on non-causal and approximately $0\%$ on causal attention.
+
+\subsection{Discussion}
+\label{sec:analysis_discussion}
+
+What is notable about these optimizations is that each requires jointly reasoning about multiple hardware subsystems, including synchronization and memory ordering, pipeline scheduling, and register allocation, rather than tuning any single parameter in isolation.
+This depth of reasoning, carried out autonomously through iterative interaction with documentation and profiling feedback, suggests that agentic variation operators can serve as an effective mechanism for expert-level kernel optimization.

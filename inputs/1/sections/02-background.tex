@@ -1,0 +1,57 @@
+\section{Background}
+\label{sec:background}
+
+\subsection{Evolutionary Search and Variation Operators}
+\label{sec:background_evo}
+
+Evolutionary search optimizes over a space of candidates by maintaining a population $\mathcal{P}$ and iteratively expanding it with new solutions~\citep{back1997evolutionary}.
+A population is a set of solution-score pairs $\mathcal{P} = \{(x_i, \mathbf{f}(x_i))\}$, where $\mathbf{f}$ is a scoring function that evaluates each candidate solution.
+Each iteration produces a new candidate $x_{t+1}$ and updates the population:
+\begin{equation}
+\label{eq:evo_loop}
+\mathcal{P}_{t+1} = \texttt{Update}\!\big(\mathcal{P}_t,\; (x_{t+1},\, \mathbf{f}(x_{t+1}))\big), \quad x_{t+1} = \texttt{Vary}(\mathcal{P}_t),
+\end{equation}
+where $\texttt{Update}$ adds the new solution to the population, possibly pruning low-score members to maintain a bounded archive.
+We call $\texttt{Vary}$ the \emph{variation operator}: the mechanism by which new candidates are produced from existing ones.
+In works such as FunSearch~\citep{funsearch2024}, AlphaEvolve~\citep{alphaevolve2025}, and related LLM-augmented evolutionary methods~\citep{lehman2022elm, ye2024reevo, chen2023evoprompting}, the variation operator decomposes into two stages:
+\begin{equation}
+\label{eq:classical_vary}
+\texttt{Vary}(\mathcal{P}_t) = \texttt{Generate}\!\big(\texttt{Sample}(\mathcal{P}_t)\big),
+\end{equation}
+where $\texttt{Sample}$ selects one or more parent solutions from $\mathcal{P}_t$ (typically guided by score-based and diversity-based heuristics), and $\texttt{Generate}$ produces a new candidate conditioned on the sampled parents.
+
+\paragraph{LLM-augmented variation.}
+In these approaches, $\texttt{Generate}$ is implemented by an LLM that is prompted with the sampled parents and asked to produce a more optimized solution.
+The $\texttt{Sample}$ step, however, remains a fixed algorithmic procedure: AlphaEvolve maintains an island-based evolutionary database inspired by MAP-Elites~\citep{mouret2015mapelites}, where a prompt sampler selects parent and inspiration programs using predefined fitness-based and diversity-based heuristics.
+LoongFlow~\citep{wan2025loongflow} similarly relies on a MAP-Elites archive with Boltzmann selection for $\texttt{Sample}$, while structuring $\texttt{Generate}$ as a fixed Plan-Execute-Summarize pipeline where the LLM sequentially generates a modification plan, produces the code, and summarizes insights.
+In all these approaches, the LLM only participates in $\texttt{Generate}$: the sampling strategy, evaluation protocol, population management, and the order of operations are all determined by the framework, not by the LLM.
+
+\paragraph{Learned variation.}
+TTT-Discover~\citep{yuksekgonul2025tttdiscover} goes further by updating the LLM policy itself through test-time gradient updates, enabling the model to learn an improved $\texttt{Generate}$ during the search.
+Nevertheless, $\texttt{Sample}$ remains a fixed algorithm: a PUCT-based selection rule~\citep{silver2016alphago} determines which states to expand, and a buffer manages the population with predetermined update rules.
+Even with a learned $\texttt{Generate}$, the LLM's role is still confined to candidate generation within a rigid algorithmic structure that prescribes when and how it is invoked.
+
+In contrast, the agentic variation operator we introduce in Section~\ref{sec:method} replaces the entire $\texttt{Vary}$ with a self-directed agent that subsumes $\texttt{Sample}$, $\texttt{Generate}$, and evaluation into a single autonomous loop.
+The agent has full agency over when to consult reference materials and past solutions $\mathcal{P}_t$, what diagnostic tests to run, and how to revise its optimization strategy.
+
+AVO is orthogonal to the choice of population structure: the agentic operator can in principle be used within archive-based, island-based, or single-lineage evolutionary regimes.
+In this paper we study the single-lineage setting to isolate the effect of the operator itself.
+
+\subsection{Attention Kernels on Modern GPUs}
+\label{sec:background_attention}
+
+\paragraph{Attention computation.}
+Given query, key, and value matrices $Q$, $K$, $V$, attention computes $O = \mathrm{softmax}(QK^\top / \sqrt{d})\, V$, where $d$ is the head dimension.
+A naive implementation materializes the full $N \times N$ score matrix $S = QK^\top$, making the operation memory-bound for large sequence lengths $N$.
+The FlashAttention algorithm~\citep{dao2022flashattention} avoids this by computing attention in tiles: it processes key blocks sequentially, maintaining a running softmax (with running row-maximum and row-sum) and accumulating the output $O$ incrementally.
+This tiling eliminates the need to store the full score matrix, shifting the bottleneck from memory bandwidth to compute throughput on modern GPUs.
+
+\paragraph{Attention kernel on Blackwell hardware.}
+On NVIDIA's Blackwell architecture, state-of-the-art attention kernels such as FA4~\citep{zadouri2026flashattention4} employ \emph{warp specialization}: different warp groups within a thread block are assigned distinct roles in the attention pipeline.
+\emph{MMA warps} execute the two core matrix multiplications via Blackwell's tensor core instructions: the QK GEMM (producing scores $S$) and the PV GEMM (multiplying the softmax output $P = \mathrm{softmax}(S)$ by $V$ to accumulate the output $O$).
+\emph{Softmax warps} compute attention weights $P$ from the scores $S$, applying the online softmax algorithm with a running row-maximum.
+\emph{Correction warps} rescale the output accumulator $O$ when the running maximum changes across K-block iterations (a requirement of the online softmax algorithm).
+\emph{Load and epilogue warps} handle data movement via the Tensor Memory Accelerator (TMA).
+In FA4's pipeline, these groups operate concurrently across two Q-tiles (a \emph{dual Q-stage} design), with barrier-based signaling to coordinate handoffs.
+For causal attention, some K-block iterations are fully masked (no valid attention entries) and others are fully unmasked, leading to different execution paths within the same kernel.
+With FA4 already representing a highly optimized design, further improvements demand deep hardware expertise, broad exploration across diverse optimization strategies, and repetitive debugging and profiling.
