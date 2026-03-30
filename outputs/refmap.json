@@ -1,1 +1,36 @@
-{}
+{
+  "1": {
+    "sec:introduction": "1.1节",
+    "fig:teaser": "图1-1",
+    "sec:background": "1.2节",
+    "sec:background_evo": "1.2.1小节",
+    "eq:evo_loop": "式1-1",
+    "eq:classical_vary": "式1-2",
+    "sec:background_attention": "1.2.4小节",
+    "sec:method": "1.3节",
+    "fig:avo_overview": "图1-2",
+    "sec:method_formal": "1.3.1小节",
+    "eq:evo": "式1-3",
+    "eq:avo": "式1-4",
+    "sec:method_step": "1.3.2小节",
+    "sec:method_loop": "1.3.3小节",
+    "sec:experiments": "1.4节",
+    "sec:setup": "1.4.1小节",
+    "sec:results_mha": "1.4.6小节",
+    "fig:mha_results": "图1-3",
+    "sec:results_gqa": "1.4.7小节",
+    "fig:gqa_results": "图1-4",
+    "sec:results_trajectory": "1.4.8小节",
+    "fig:evolution_causal_trajectory": "图1-5",
+    "fig:evolution_noncausal_trajectory": "图1-6",
+    "sec:analysis": "1.5节",
+    "tab:opt_summary": "表1-1",
+    "sec:analysis_branchless": "1.5.1小节",
+    "sec:analysis_split": "1.5.5小节",
+    "sec:analysis_registers": "1.5.9小节",
+    "sec:analysis_discussion": "1.5.13小节",
+    "sec:conclusion": "1.6节",
+    "app:fa4_baselines": "1.8节",
+    "fig:mha_official": "图1-7"
+  }
+}

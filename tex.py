@@ -374,8 +374,18 @@ def preprocess_folder(folder: Path, dry_run: bool, verbose: bool, strip_fmt: boo
         return
 
     if len(tex_files) == 1:
-        vget(verbose, f"[SKIP] Only one .tex file in {folder}: {tex_files[0].name}")
-        return
+        # Check whether the single root .tex contains \input{subdir/...} references.
+        # If it does, we must still run inlining even though no sibling .tex files exist.
+        _solo_content = tex_files[0].read_text(encoding="utf-8", errors="replace")
+        _subdir_inputs = [
+            m.group("arg")
+            for m in SINGLE_ARG_RE.finditer(_solo_content)
+            if "/" in m.group("arg") or "\\" in m.group("arg")
+        ]
+        if not _subdir_inputs:
+            vget(verbose, f"[SKIP] Only one .tex file in {folder}: {tex_files[0].name}")
+            return
+        vget(verbose, f"[INFO] Single root .tex with subdirectory \\input references, proceeding with inlining: {tex_files[0].name}")
 
     log(f"[INFO] Processing folder: {folder}  (tex files: {len(tex_files)})")
 
