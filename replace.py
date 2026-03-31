@@ -97,18 +97,30 @@ _DUPLICATE_PREFIX_RE = re.compile(r'(图|表|算法|代码|式)\s*\1(?=\d)')
 # (e.g. "如表 7-1 所示" → "如表7-1所示") after duplicate-prefix removal.
 _LABEL_SPACE_RE = re.compile(r'[ \t]*((?:图|表|算法|代码|式)\d[\d-]*)[ \t]*')
 
+# Handles trailing duplicate suffix after section labels produced by substitution.
+# e.g. "1.3节节" → "1.3节",  "1.2.4小节节" → "1.2.4小节"
+_DEDUP_SECTION_SUFFIX_RE = re.compile(r'(\d[\d.]*(?:小节|节))\s*节')
+
+# Handles "公式式N-M" → "公式N-M" when surrounding text already provides 公式.
+_DEDUP_FORMULA_PREFIX_RE = re.compile(r'公式\s*式(\d[\d-]*)')
+
 
 def _dedup_env_prefixes(text: str) -> str:
     """
-    Fix label formatting artifacts in translated text:
-      1. Remove doubled prefix (with or without intervening space):
-           表表7-1  →  表7-1
-           表 表7-1 →  表7-1
-      2. Strip surrounding horizontal whitespace from every resolved label:
-           如表 7-1 所示  →  如表7-1所示
+    Fix label formatting artifacts after ref substitution:
+      1. Remove doubled env prefix:  图图7-5 → 图7-5,  表 表7-1 → 表7-1
+      2. Strip surrounding spaces:   如表 7-1 所示 → 如表7-1所示
+      3. Remove trailing dup suffix: 1.3节节 → 1.3节,  1.2.4小节节 → 1.2.4小节
+      4. Remove dup formula prefix:  公式式1-1 → 公式1-1
     """
+    # Rule 1: doubled env prefix (图/表/算法/代码/式)
     text = _DUPLICATE_PREFIX_RE.sub(r'\1', text)
+    # Rule 2: spurious spaces around resolved env labels
     text = _LABEL_SPACE_RE.sub(r'\1', text)
+    # Rule 3: trailing 节 after a label that already ends with 节 or 小节
+    text = _DEDUP_SECTION_SUFFIX_RE.sub(r'\1', text)
+    # Rule 4: 公式式N → 公式N
+    text = _DEDUP_FORMULA_PREFIX_RE.sub(r'公式\1', text)
     return text
 
 

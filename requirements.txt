@@ -8,6 +8,3 @@ pdf2image
 pymupdf
 anthropic>=0.40.0
 openai>=1.50.0
-
-# sudo apt install pandoc
-# brew install pandoc

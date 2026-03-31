@@ -69,6 +69,7 @@ FONT_BODY    = "宋体"
 FONT_HEADING = "黑体"
 FONT_CAPTION = "楷体"
 FONT_CODE    = "Courier New"
+FONT_ASCII = "Times New Roman"
 
 SIZE_BODY    = 12
 SIZE_H1      = 16
@@ -83,6 +84,13 @@ BG_TABLE   = "FFF3CD"   # light amber -- raw-LaTeX table placeholder
 
 NS_W = "http://schemas.openxmlformats.org/wordprocessingml/2006/main"
 NS_M = "http://schemas.openxmlformats.org/officeDocument/2006/math"
+
+_RE_PUNCT_TRAILING_SPACE = re.compile(
+    r'([。，、；：！？…—\u201c\u201d\u2018\u2019「」『』【】《》（）·.,;:!?])\s+'
+)
+
+# Matches \paragraph{...} and \subparagraph{...} — inline-heading style.
+_RE_PARAGRAPH_CMD = re.compile(r'\\(?:paragraph|subparagraph)\*?\{')
 
 MATH_ENV_LABELS = {
     "definition":  "定义",
@@ -107,16 +115,48 @@ _TEX_POSTAMBLE = "\n\\end{document}\n"
 # Populated by _pdf_to_image(); cleaned up at the end of main().
 _g_temp_files: List[str] = []
 
+# Matches trailing duplicate 节 suffix after pandoc adds spaces,
+# e.g. "1.4 节 节" → "1.4 节",  "1.2.4 小节 节" → "1.2.4 小节"
+_RE_DEDUP_SECTION_POST = re.compile(r'(\d[\d.\s]*(?:小节|节))\s*节')
+
+def _clean_xml_text_nodes(paragraphs) -> None:
+    """
+    Walk <w:t> text nodes in newly added paragraphs and:
+    1. Strip spaces that follow punctuation marks.
+    2. Remove trailing duplicate 节 suffix introduced after pandoc spacing.
+    """
+    for para in paragraphs:
+        for run in para.runs:
+            if run.text:
+                run.text = _RE_PUNCT_TRAILING_SPACE.sub(r'\1', run.text)
+                run.text = _RE_DEDUP_SECTION_POST.sub(r'\1', run.text)
+
 
 # ─────────────────────────────────────────────────────────────────────────────
 # Low-level XML helpers
 # ─────────────────────────────────────────────────────────────────────────────
 
-def _make_rFonts(font_name: str) -> Any:
-    """Return a <w:rFonts> element with all four font slots set to font_name."""
+# Code fonts use the same typeface for all four slots; everything else
+# splits ascii/hAnsi (Latin) from eastAsia (CJK).
+_MONOSPACE_FONTS = {"Courier New", "Courier", "Consolas", "Monaco"}
+
+def _make_rFonts(cjk_font: str) -> Any:
+    """
+    Build a <w:rFonts> element:
+      ascii / hAnsi  ->  Times New Roman  (Latin characters)
+      eastAsia       ->  cjk_font         (CJK characters)
+      cs             ->  Times New Roman
+    Monospace/code fonts override all four slots with the same typeface.
+    """
     el = OxmlElement("w:rFonts")
-    for attr in ("w:ascii", "w:eastAsia", "w:hAnsi", "w:cs"):
-        el.set(qn(attr), font_name)
+    if cjk_font in _MONOSPACE_FONTS:
+        for attr in ("w:ascii", "w:eastAsia", "w:hAnsi", "w:cs"):
+            el.set(qn(attr), cjk_font)
+    else:
+        el.set(qn("w:ascii"),    FONT_ASCII)
+        el.set(qn("w:hAnsi"),    FONT_ASCII)
+        el.set(qn("w:eastAsia"), cjk_font)
+        el.set(qn("w:cs"),       FONT_ASCII)
     return el
 
 
@@ -237,24 +277,25 @@ def _shade(para, fill_hex: str) -> None:
 
 def _clean_spaces(text: str) -> str:
     """
-    Remove spaces that are not between two ASCII printable non-space chars.
-    Keeps spaces inside English words / between digits; strips spaces adjacent
-    to CJK characters that the LLM translator inserts unnecessarily.
+    1. Remove spaces adjacent to CJK characters (LLM translation artefacts).
+    2. Remove spaces immediately after any punctuation mark — punctuation is
+       never followed by a space in Chinese typography.
+    3. Collapse multiple consecutive spaces between ASCII runs to one space.
     """
-    if not text:
-        return text
-    chars = list(text)
-    result: List[str] = []
-    for i, ch in enumerate(chars):
-        if ch != " ":
-            result.append(ch)
-            continue
-        prev_ch = chars[i - 1] if i > 0 else "\0"
-        next_ch = chars[i + 1] if i < len(chars) - 1 else "\0"
-        if (prev_ch.isascii() and prev_ch.isprintable() and not prev_ch.isspace()
-                and next_ch.isascii() and next_ch.isprintable() and not next_ch.isspace()):
-            result.append(ch)
-    return "".join(result)
+    CJK   = r'[\u4e00-\u9fff\u3000-\u303f\uff00-\uffef]'
+    ASCII = r'[!-~]'
+
+    # Rule 1: strip space between a CJK char and anything else
+    text = re.sub(rf'({CJK})\s+', r'\1', text)
+    text = re.sub(rf'\s+({CJK})', r'\1', text)
+
+    # Rule 2: strip space after punctuation
+    text = _RE_PUNCT_TRAILING_SPACE.sub(r'\1', text)
+
+    # Rule 3: collapse multiple spaces between ASCII runs to one
+    text = re.sub(rf'({ASCII}) {{2,}}({ASCII})', r'\1 \2', text)
+
+    return text
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -471,6 +512,10 @@ def _inject_pandoc_paras(latex_body: str, doc,
 
         injected += 1
 
+    # Post-process text nodes to strip spaces after punctuation.
+    # This handles spaces introduced by pandoc that _clean_spaces cannot catch.
+    _clean_xml_text_nodes(doc.paragraphs[len(doc.paragraphs) - injected:])
+
     return injected > 0
 
 
@@ -574,8 +619,8 @@ def _clean_title_latex(text: str) -> str:
     # Step 6: remove bare \\cmd tokens
     text = re.sub(r'\\[a-zA-Z]+\*?', '', text)
 
-    # Step 7: collapse whitespace
-    text = re.sub(r'[ \t]+', ' ', text).strip()
+    # Step 7: collapse all whitespace (including newlines from multi-line titles)
+    text = re.sub(r'\s+', ' ', text).strip()
 
     return text
 
@@ -859,6 +904,7 @@ def classify(para: dict) -> str:
     if _RE_VERBATIM.match(text):      return "code"
     if _RE_MATHENV.match(text):       return "mathenv"
     if _RE_PROOF.match(text):         return "proof"
+    if _RE_PARAGRAPH_CMD.match(text):  return "inline_heading"
     return "paragraph"
 
 
@@ -900,6 +946,55 @@ def _extract_heading_text(translation: str, cmd: str) -> Tuple[str, str]:
                 return translation[m.end():i].strip(), translation[i + 1:].strip()
         i += 1
     return translation[m.end():].strip(), ""
+
+
+def render_inline_heading(doc, para: dict) -> None:
+    r"""
+    Render \paragraph{Title.} Body... as a single Word paragraph: title is
+    bold-inline, body follows on the same line, matching LaTeX's negative-skip
+    \paragraph behaviour.
+    """
+    translation = para.get("translation", para.get("text", "")).strip()
+
+    # Extract title and body using brace-depth tracking.
+    title, body = _extract_heading_text(translation, "paragraph")
+    if not title:
+        title, body = _extract_heading_text(translation, "subparagraph")
+    if not title:
+        render_paragraph(doc, para)
+        return
+
+    # Strip LaTeX markup from title.
+    title_clean = re.sub(r'\\[a-zA-Z]+\*?\{([^{}]*)\}', r'\1', title)
+    title_clean = re.sub(r'\\[a-zA-Z]+\*?', '', title_clean).strip()
+
+    # Strip leading punctuation and whitespace from body (LLM artefacts).
+    body_clean = re.sub(r'^[\s。，、；：！？…—·]+', '', body.strip())
+    body_clean = _clean_spaces(body_clean)
+
+    combined = f"\\textbf{{{title_clean}}} {body_clean}" if body_clean \
+               else f"\\textbf{{{title_clean}}}"
+
+    para_count_before = len(doc.paragraphs)
+
+    ok = _inject_pandoc_paras(
+        combined, doc,
+        font_name=FONT_BODY, size_pt=SIZE_BODY,
+        align=WD_ALIGN_PARAGRAPH.LEFT,
+        before_pt=6.0, after_pt=4.0,
+    )
+
+    # Apply first-line indent to every paragraph added by pandoc.
+    for p in doc.paragraphs[para_count_before:]:
+        _indent(p, first_line_cm=0.74)
+
+    if not ok:
+        p = doc.add_paragraph()
+        _spacing(p, before_pt=6, after_pt=4)
+        _indent(p, first_line_cm=0.74)
+        set_run_font(p.add_run(title_clean), FONT_BODY, SIZE_BODY, bold=True)
+        if body_clean:
+            set_run_font(p.add_run(body_clean), FONT_BODY, SIZE_BODY)
 
 
 def render_heading(doc, para: dict, level: int) -> None:
@@ -948,12 +1043,26 @@ def render_paragraph(doc, para: dict) -> None:
     _render_para(doc, _clean_spaces(para.get("translation", para.get("text", ""))))
 
 
+def _strip_equation_trailing_punct(tex: str) -> str:
+    """
+    Remove trailing comma or period inside math environments, e.g.:
+        \begin{equation} ... ,\n\end{equation}
+    These are grammatical in LaTeX source but look wrong in Word.
+    """
+    return re.sub(
+        r'([,.])\s*(\\end\{(?:equation|align|gather|multline|flalign|alignat)\*?\})',
+        r'\2',
+        tex,
+        flags=re.DOTALL,
+    )
+
+
 def render_equation(doc, para: dict) -> None:
     translation = para.get("translation", para.get("text", "")).strip()
     env_label   = para.get("env_label", "")
 
     ok = _inject_pandoc_paras(
-        _clean_cross_refs(translation), doc,
+        _strip_equation_trailing_punct(_clean_cross_refs(translation)), doc,
         font_name=FONT_BODY, size_pt=SIZE_BODY,
         align=WD_ALIGN_PARAGRAPH.CENTER,
         before_pt=6.0, after_pt=2.0,
@@ -1062,6 +1171,9 @@ def _pdf_to_image(pdf_path: Path) -> Optional[Path]:
     The resulting path is registered in _g_temp_files for cleanup.
     Returns None if no suitable library is available or conversion fails.
     """
+    import sys
+    print(f"  [debug] python = {sys.executable}")   # add this line
+    
     global _g_temp_files
 
     # --- attempt 1: PyMuPDF (pip install pymupdf) ---
@@ -1069,7 +1181,7 @@ def _pdf_to_image(pdf_path: Path) -> Optional[Path]:
         import fitz  # type: ignore
         pdf_doc = fitz.open(str(pdf_path))
         page    = pdf_doc[0]
-        mat     = fitz.Matrix(2.0, 2.0)   # 2× zoom → ~144 dpi effective
+        mat = fitz.Matrix(300 / 72, 300 / 72)   # 300 dpi
         pix     = page.get_pixmap(matrix=mat)
         tmp     = tempfile.NamedTemporaryFile(suffix=".png", delete=False)
         pix.save(tmp.name)
@@ -1080,8 +1192,12 @@ def _pdf_to_image(pdf_path: Path) -> Optional[Path]:
         return Path(tmp.name)
     except ImportError:
         pass
+    # except Exception as exc:
+    #     print(f"  [warn] fitz PDF conversion failed for {pdf_path}: {exc}")
     except Exception as exc:
+        import traceback
         print(f"  [warn] fitz PDF conversion failed for {pdf_path}: {exc}")
+        traceback.print_exc()   # add this line
 
     # --- attempt 2: pdf2image (pip install pdf2image; needs poppler) ---
     try:
@@ -1524,6 +1640,7 @@ def render_chunk(doc, para: dict, figures_dir: str) -> None:
         "code":          lambda: render_code(doc, para),
         "mathenv":       lambda: render_mathenv(doc, para),
         "proof":         lambda: render_proof(doc, para),
+        "inline_heading": lambda: render_inline_heading(doc, para),
         "paragraph":     lambda: render_paragraph(doc, para),
     }.get(chunk_type, lambda: render_paragraph(doc, para))()
 

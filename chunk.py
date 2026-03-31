@@ -305,10 +305,10 @@ def is_noncontent_chunk(chunk: str) -> bool:
 # LaTeX extraction / chunking
 # -----------------------------
 
-TITLE_PATTERNS = [
-    r"\\title\{(.+?)\}",
-    r"\\title\s*\[(.*?)\]\s*\{(.+?)\}",  # \title[short]{long}
-]
+# TITLE_PATTERNS = [
+#     r"\\title\{(.+?)\}",
+#     r"\\title\s*\[(.*?)\]\s*\{(.+?)\}",  # \title[short]{long}
+# ]
 DOC_PATTERN = r"\\begin\{document\}(.*?)\\end\{document\}"
 
 SECTION_CMD_RE = re.compile(
@@ -321,13 +321,68 @@ ENV_END_RE = re.compile(r"\\end\{([a-zA-Z*]+)\}")
 def normalize_newlines(s: str) -> str:
     return s.replace("\r\n", "\n").replace("\r", "\n")
 
+# Matches the start of \title{...} or \title[short]{...}; brace content is
+# extracted by _brace_content() below, not by the regex itself.
+_TITLE_START_RE = re.compile(
+    r'\\title\s*(?:\[[^\]]*\])?\s*\{',
+    re.DOTALL,
+)
+
+def _brace_content(tex: str, open_pos: int) -> Optional[str]:
+    """
+    Return the text inside a balanced pair of braces whose opening '{' is at
+    open_pos.  Handles arbitrary nesting depth and skips escaped characters.
+    Returns None if the brace is never closed.
+    """
+    assert tex[open_pos] == '{'
+    depth = 1
+    i = open_pos + 1
+    n = len(tex)
+    while i < n and depth > 0:
+        c = tex[i]
+        if c == '\\':
+            i += 2  # skip backslash + next char (\{ \} \\, etc.)
+            continue
+        if c == '{':
+            depth += 1
+        elif c == '}':
+            depth -= 1
+        i += 1
+    if depth != 0:
+        return None
+    # i is now one past the closing '}'; content is open_pos+1 .. i-1
+    return tex[open_pos + 1 : i - 1]
+
 def extract_title(tex: str) -> Optional[str]:
-    for pat in TITLE_PATTERNS:
-        m = re.search(pat, tex, flags=re.DOTALL)
-        if m:
-            grp = m.group(m.lastindex or 1)
-            return grp.strip()
-    return None
+    """
+    Extract the content of \\title{...}, handling nested braces and
+    multi-line titles such as:
+
+        \\title{AVO: Agentic Variation Operators for\\\\
+                Autonomous Evolutionary Search}
+
+    Uses brace-depth tracking so nested commands like \\thanks{...} or
+    {\\bfseries ...} never cause early termination.
+    """
+    # Strip % comments first so a commented-out \title{} line doesn't match.
+    tex_clean = re.sub(r'(?<!\\)%[^\n]*', '', tex)
+
+    m = _TITLE_START_RE.search(tex_clean)
+    if not m:
+        return None
+
+    # m.end() - 1 is the position of the opening '{' of the title argument.
+    content = _brace_content(tex_clean, m.end() - 1)
+    if content is None:
+        return None
+
+    # Normalise whitespace: replace LaTeX forced line breaks and bare newlines
+    # with a single space so the string is suitable for an LLM prompt.
+    content = content.replace('\r\n', '\n').replace('\r', '\n')
+    content = re.sub(r'\\\\[ \t]*\n?', ' ', content)  # \\ line-break -> space
+    content = re.sub(r'[ \t]*\n[ \t]*', ' ', content)  # bare newline -> space
+    content = re.sub(r'[ \t]{2,}', ' ', content)
+    return content.strip()
 
 def extract_document(tex: str) -> Optional[str]:
     m = re.search(DOC_PATTERN, tex, flags=re.DOTALL)

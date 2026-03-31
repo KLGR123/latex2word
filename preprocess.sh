@@ -12,7 +12,7 @@ for d in "$INPUTS_DIR"/*/; do
 done
 
 if [[ ${#folders[@]} -gt 0 ]]; then
-  python3 tex.py --folders "${folders[@]}" --verbose --strip-formatting
+  python tex.py --folders "${folders[@]}" --verbose --strip-formatting
 else
   echo "No subfolders found in $INPUTS_DIR" >&2
 fi
@@ -35,13 +35,13 @@ done
 mkdir -p "$OUTPUTS_DIR"
 
 if ((${#ref_files[@]} > 0)); then
-  python3 bib.py --bib "${ref_files[@]}" --out "$OUTPUTS_DIR/citations.json" --sort year --dedup --lang en
+  python bib.py --bib "${ref_files[@]}" --out "$OUTPUTS_DIR/citations.json" --sort year --dedup --lang en
 else
   echo "No .bib or .bbl files found in folders: ${folders[*]:-(none)}" >&2
 fi
 
 if ((${#tex_files[@]} > 0)); then
-  python3 chunk.py --tex "${tex_files[@]}" --out "$OUTPUTS_DIR/chunks.json" --include-title --keep-commands --split-on-forced-linebreak --strict
+  python chunk.py --tex "${tex_files[@]}" --out "$OUTPUTS_DIR/chunks.json" --include-title --keep-commands --split-on-forced-linebreak --strict
 else
   echo "No .tex files found in folders: ${folders[*]:-(none)}" >&2
 fi

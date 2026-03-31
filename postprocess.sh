@@ -5,11 +5,11 @@ shopt -s nullglob
 INPUTS_DIR=/Users/liujiarun/Downloads/latex2word/inputs
 OUTPUTS_DIR=/Users/liujiarun/Downloads/latex2word/outputs
 
-python3 label.py --input ${OUTPUTS_DIR}/translated.json --output ${OUTPUTS_DIR}/labeled.json
-python3 refmap.py --input ${OUTPUTS_DIR}/labeled.json --output ${OUTPUTS_DIR}/refmap.json --verbose
+python label.py --input ${OUTPUTS_DIR}/translated.json --output ${OUTPUTS_DIR}/labeled.json
+python refmap.py --input ${OUTPUTS_DIR}/labeled.json --output ${OUTPUTS_DIR}/refmap.json --verbose
 rm ${OUTPUTS_DIR}/translated.json
 
-python3 replace.py \
+python replace.py \
   --labeled   ${OUTPUTS_DIR}/labeled.json \
   --citations ${OUTPUTS_DIR}/citations.json \
   --refmap    ${OUTPUTS_DIR}/refmap.json \
@@ -17,4 +17,4 @@ python3 replace.py \
   --verbose
 rm ${OUTPUTS_DIR}/labeled.json
 
-python3 render.py --json ${OUTPUTS_DIR}/replaced.json --docx ${OUTPUTS_DIR}/final.docx --citations ${OUTPUTS_DIR}/citations.json
+python render.py --json ${OUTPUTS_DIR}/replaced.json --docx ${OUTPUTS_DIR}/final.docx --citations ${OUTPUTS_DIR}/citations.json
