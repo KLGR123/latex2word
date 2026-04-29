@@ -1,0 +1,64 @@
+
+================================================================
+  STEP 1: Preprocess  (chunk / bib)
+================================================================
+[INFO] Processing folder: /Users/liujiarun/Downloads/latex2word/.latex2word_jobs/5b021974160b426ea8172a1fd489f430/inputs/1  (tex files: 2)
+[MAIN] Selected main file: iclr2025_conference.tex score=(1, 1, 66082)
+[inline] Reading: /Users/liujiarun/Downloads/latex2word/.latex2word_jobs/5b021974160b426ea8172a1fd489f430/inputs/1/iclr2025_conference.tex
+[inline] Reading: /Users/liujiarun/Downloads/latex2word/.latex2word_jobs/5b021974160b426ea8172a1fd489f430/inputs/1/math_commands.tex
+[strip-fmt] Formatting commands stripped.
+[INFO] Overwrote main file with inlined content: ...
+[MOVE] math_commands.tex -> /Users/liujiarun/Downloads/latex2word/.latex2word_jobs/5b021974160b426ea8172a1fd489f430/inputs/1/preprocessed/math_commands.tex
+[INFO] Moved 1 non-main .tex files into: preprocessed/
+[INFO] Folder now contains only main tex: iclr2025_conference.tex  (+ preprocessed/)
+[INFO] Loaded 78 entries from /Users/liujiarun/Downloads/latex2word/.latex2word_jobs/5b021974160b426ea8172a1fd489f430/inputs/1/iclr2025_conference.bbl
+[INFO] Wrote 78 citation keys (78 unique entries) -> /Users/liujiarun/Downloads/latex2word/.latex2word_jobs/5b021974160b426ea8172a1fd489f430/outputs/citations.json
+[INFO] No issues detected.
+[ERROR] Chunking failed for /Users/liujiarun/Downloads/latex2word/.latex2word_jobs/5b021974160b426ea8172a1fd489f430/inputs/1/iclr2025_conference.tex: 'NoneType' object has no attribute 'replace'
+Traceback (most recent call last):
+  File "/Users/liujiarun/Downloads/latex2word/backend/worker.py", line 96, in main
+    raise_code = run_job(job_dir)
+  File "/Users/liujiarun/Downloads/latex2word/backend/worker.py", line 74, in run_job
+    pipeline.run(stage="all")
+    ~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/Users/liujiarun/Downloads/latex2word/latex2word/pipeline.py", line 219, in run
+    self.preprocess.run()
+    ~~~~~~~~~~~~~~~~~~~^^
+  File "/Users/liujiarun/Downloads/latex2word/latex2word/pipeline.py", line 68, in run
+    run_preprocess(
+    ~~~~~~~~~~~~~~^
+        PreprocessOptions(
+        ^^^^^^^^^^^^^^^^^^
+    ...<14 lines>...
+        )
+        ^
+    )
+    ^
+  File "/Users/liujiarun/Downloads/latex2word/latex2word/preprocessing/engine.py", line 288, in run_preprocess
+    run_chunker(
+    ~~~~~~~~~~~^
+        tex_files=tex_files,
+        ^^^^^^^^^^^^^^^^^^^^
+    ...<5 lines>...
+        strict=options.chunk_strict,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/liujiarun/Downloads/latex2word/latex2word/preprocessing/engine.py", line 228, in run_chunker
+    payload = build_chunk_payload(
+        tex_files=tex_files,
+    ...<4 lines>...
+        strict=strict,
+    )
+  File "/Users/liujiarun/Downloads/latex2word/latex2word/preprocessing/engine.py", line 182, in build_chunk_payload
+    chunks = chunker.chunk_document(
+        doc,
+        keep_commands=keep_commands,
+        split_on_forced_linebreak=split_on_forced_linebreak,
+    )
+  File "/Users/liujiarun/Downloads/latex2word/latex2word/preprocessing/chunker.py", line 477, in chunk_document
+    doc = normalize_newlines(doc)
+  File "/Users/liujiarun/Downloads/latex2word/latex2word/preprocessing/chunker.py", line 322, in normalize_newlines
+    return s.replace("\r\n", "\n").replace("\r", "\n")
+           ^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'replace'

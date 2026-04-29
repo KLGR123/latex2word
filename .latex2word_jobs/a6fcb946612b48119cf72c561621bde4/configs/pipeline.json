@@ -1,0 +1,48 @@
+{
+  "paths": {
+    "project_root": "/Users/liujiarun/Downloads/latex2word",
+    "inputs_dir": "/Users/liujiarun/Downloads/latex2word/.latex2word_jobs/a6fcb946612b48119cf72c561621bde4/inputs",
+    "outputs_dir": "/Users/liujiarun/Downloads/latex2word/.latex2word_jobs/a6fcb946612b48119cf72c561621bde4/outputs",
+    "configs_dir": "/Users/liujiarun/Downloads/latex2word/.latex2word_jobs/a6fcb946612b48119cf72c561621bde4/configs",
+    "rules_file": "/Users/liujiarun/Downloads/latex2word/.latex2word_jobs/a6fcb946612b48119cf72c561621bde4/configs/rules.json",
+    "secrets_file": "/Users/liujiarun/Downloads/latex2word/secrets.env"
+  },
+  "preprocess": {
+    "tex_verbose": true,
+    "strip_formatting": true,
+    "prefer_bbl_over_bib": true,
+    "bib_sort": "year",
+    "bib_dedup": true,
+    "bib_lang": "en",
+    "bib_start": 1,
+    "chunk_encoding": "utf-8",
+    "chunk_include_title": true,
+    "chunk_keep_commands": true,
+    "chunk_split_on_forced_linebreak": true,
+    "chunk_strict": true
+  },
+  "translate": {
+    "provider": "openai",
+    "model": "gpt-5.4-mini-2026-03-17",
+    "concurrency": 8,
+    "max_batch_tokens": 1500,
+    "api_key": null,
+    "api_key_env": "OPENAI_API_KEY",
+    "base_url": null,
+    "checkpoint": "/Users/liujiarun/Downloads/latex2word/.latex2word_jobs/a6fcb946612b48119cf72c561621bde4/outputs/translated.checkpoint.json",
+    "terms": "/Users/liujiarun/Downloads/latex2word/.latex2word_jobs/a6fcb946612b48119cf72c561621bde4/configs/terms.json",
+    "auto_terms": true,
+    "strip_cjk_spaces": true,
+    "debug": false,
+    "cleanup_chunks": false
+  },
+  "postprocess": {
+    "refmap_verbose": true,
+    "replace_verbose": true,
+    "replace_placeholder": "[未找到]",
+    "render_skip_title": false,
+    "overwrite_docx": true,
+    "cleanup_translated": false,
+    "cleanup_labeled": false
+  }
+}

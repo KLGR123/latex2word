@@ -1,0 +1,6 @@
+{"type": "progress", "stage": "upload", "message": "Paper 1 prepared as chapter 5", "percent": 12, "time": "2026-04-23T16:05:39.608625Z"}
+{"type": "status", "state": "queued", "stage": "queued", "message": "Worker started", "percent": 0, "pid": 73374, "time": "2026-04-23T16:05:39.613800Z"}
+{"type": "status", "state": "running", "stage": "queued", "message": "Pipeline started", "percent": 0, "time": "2026-04-23T16:05:39.736215Z"}
+{"type": "progress", "stage": "queued", "message": "Pipeline started", "percent": 0.0, "time": "2026-04-23T16:05:39.739885Z"}
+{"type": "progress", "stage": "preprocess", "message": "Collecting input folders", "percent": 2.0, "time": "2026-04-23T16:05:39.740486Z"}
+{"type": "status", "state": "failed", "stage": "failed", "message": "'NoneType' object has no attribute 'replace'", "percent": 0, "time": "2026-04-23T16:05:40.376606Z"}

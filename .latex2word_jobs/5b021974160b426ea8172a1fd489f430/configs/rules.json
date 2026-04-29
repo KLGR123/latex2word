@@ -1,0 +1,202 @@
+{
+  "preprocess": {
+    "chunk_block_envs": [
+      "abstract",
+      "figure",
+      "figure*",
+      "table",
+      "table*",
+      "equation",
+      "equation*",
+      "align",
+      "align*",
+      "aligned",
+      "gather",
+      "gather*",
+      "multline",
+      "multline*",
+      "flalign",
+      "flalign*",
+      "eqnarray",
+      "eqnarray*",
+      "itemize",
+      "enumerate",
+      "description",
+      "quote",
+      "quotation",
+      "verse",
+      "center",
+      "flushleft",
+      "flushright",
+      "algorithm",
+      "algorithm*",
+      "algorithmic",
+      "lstlisting",
+      "verbatim",
+      "thebibliography"
+    ]
+  },
+  "translation": {
+    "prompts": {
+      "system_base": "你是一位专业的学术翻译，负责将英文 LaTeX 论文段落翻译为中文。翻译时须严格遵守以下规则：\n1. 保留所有 LaTeX 命令原样不变，包括 \\textbf{}、\\cite{}、\\label{}、数学公式（$...$、\\[...\\] 等），仅翻译命令中或命令之间的自然语言文本；\n2. 仅将文本中的英文标点替换为对应中文全角标点：逗号用（，）、句号用（。）、分号用（；）、括号用（（））、引号用（\"\"）；\n3. LaTeX 命令内部（如公式内容、命令参数中的变量名）的符号不得修改，LaTex 命令内部的标点符号也不得修改，例如 \\citep{} 或 $...$ 中的英文逗号；\n4. 直接输出译文，不要添加任何解释、前缀或总结。",
+      "terms_prefix": "\n\n以下是本章节的专业术语对照表，翻译时请严格参照使用：\n",
+      "terms_suffix": "\n表中未出现的专业术语、算法名称、系统名称或英文缩写，请保留原文不变。",
+      "batch_suffix": "\n\n用户会一次发送多段文本，每段以 %%SEP_N%% 开头（N 为编号）。请按相同格式逐段返回译文：%%SEP_N%%\\n译文，每段之间用空行分隔，不要输出原文。"
+    },
+    "syntax": {
+      "extra_patterns": {
+        "url": "\\\\url\\{[^}]+\\}",
+        "href": "\\\\href\\{[^}]+\\}\\{[^}]*\\}"
+      }
+    },
+    "section_title_cache": {
+      "abstract": "摘要",
+      "introduction": "引言",
+      "related work": "相关工作",
+      "method": "方法",
+      "experiments": "实验",
+      "conclusion": "结论",
+      "appendix": "附录"
+    },
+    "skip_envs": [
+      "figure",
+      "figure*",
+      "table",
+      "table*",
+      "tabular",
+      "tabular*",
+      "equation",
+      "equation*",
+      "align",
+      "align*",
+      "itemize",
+      "enumerate",
+      "lstlisting",
+      "minted",
+      "algorithm",
+      "algorithm*"
+    ]
+  },
+  "postprocess": {
+    "label_env_categories": {
+      "figure": {
+        "prefix": "图",
+        "envs": [
+          "figure",
+          "figure*",
+          "wrapfigure",
+          "teaserfigure"
+        ]
+      },
+      "table": {
+        "prefix": "表",
+        "envs": [
+          "table",
+          "table*",
+          "tabular",
+          "tabularx",
+          "longtable",
+          "tblr"
+        ]
+      },
+      "algorithm": {
+        "prefix": "算法",
+        "envs": [
+          "algorithm",
+          "algorithm*",
+          "algorithmic",
+          "algorithm2e"
+        ]
+      },
+      "code": {
+        "prefix": "代码",
+        "envs": [
+          "lstlisting",
+          "minted",
+          "verbatim",
+          "tcolorbox"
+        ]
+      },
+      "math": {
+        "prefix": "式",
+        "envs": [
+          "equation",
+          "equation*",
+          "align",
+          "align*",
+          "gather",
+          "multline"
+        ]
+      }
+    }
+  },
+  "rendering": {
+    "fonts": {
+      "body": "宋体",
+      "heading": "黑体",
+      "caption": "楷体",
+      "code": "Courier New",
+      "ascii": "Times New Roman"
+    },
+    "sizes": {
+      "body": 12,
+      "h1": 16,
+      "h2": 14,
+      "h3": 12,
+      "caption": 10,
+      "code": 9
+    },
+    "colors": {
+      "theorem_bg": "EBF2FA",
+      "code_bg": "F5F5F5",
+      "table_bg": "FFF3CD"
+    },
+    "math_env_labels": {
+      "definition": "定义",
+      "lemma": "引理",
+      "theorem": "定理",
+      "corollary": "推论",
+      "proposition": "命题",
+      "remark": "注记",
+      "claim": "断言",
+      "example": "例",
+      "fact": "事实"
+    },
+    "envs": {
+      "figure": [
+        "figure",
+        "figure*",
+        "wrapfigure",
+        "teaserfigure"
+      ],
+      "table": [
+        "table",
+        "table*",
+        "tabular",
+        "tabularx",
+        "longtable",
+        "tblr"
+      ],
+      "algorithm": [
+        "algorithm",
+        "algorithm*",
+        "algorithmic",
+        "algorithm2e"
+      ],
+      "code": [
+        "lstlisting",
+        "minted",
+        "verbatim",
+        "tcolorbox"
+      ],
+      "equation": [
+        "equation",
+        "equation*",
+        "align",
+        "align*",
+        "gather",
+        "multline"
+      ]
+    }
+  }
+}

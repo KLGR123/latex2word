@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>LaTeX2Word</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <div class="brand">
+          <div class="brand-mark" aria-hidden="true">L2W</div>
+          <div>
+            <h1>LaTeX2Word</h1>
+            <p>论文级 LaTeX 到中文 Word 转换</p>
+          </div>
+        </div>
+        <button class="home-button" id="homeButton" type="button" aria-label="回到主页">
+          <span class="svg-icon home-icon" aria-hidden="true"></span>
+        </button>
+      </header>
+
+      <main>
+        <section class="page guide-page is-active" id="guide-page" data-page-panel="guide">
+          <div class="guide-hero">
+            <p class="section-kicker">最多 10 篇 paper · 自动隔离任务目录 · 后端调用现有 pipeline</p>
+            <h2>上传 LaTeX 项目，生成结构化中文 Word</h2>
+            <p>
+              拖入 zip 后，页面会先读取压缩包目录并做基础检查；提交后由后端解压到对应章号目录，再调用现有 latex2word 流程。
+            </p>
+            <button class="primary-action guide-start" id="guideStartButton" type="button">开始转换</button>
+          </div>
+        </section>
+
+        <section class="page" id="workspace-page" data-page-panel="workspace">
+          <section class="workspace-grid">
+            <div class="left-stack">
+              <section class="tool-surface upload-surface">
+                <div class="section-heading">
+                  <div>
+                    <p class="section-kicker">上传</p>
+                    <h3>上传压缩包</h3>
+                  </div>
+                  <span class="limit-pill" id="paperCounter">0 / 10</span>
+                </div>
+
+                <label class="dropzone" id="dropzone">
+                  <input id="fileInput" type="file" accept=".zip,.tar,.tar.gz,.tgz,application/zip,application/x-tar,application/gzip" multiple />
+                  <span class="drop-icon" aria-hidden="true"></span>
+                  <strong>拖拽 zip 或 tar 到这里</strong>
+                  <span id="dropHint">或点击选择文件。</span>
+                </label>
+
+                <div class="paper-list" id="paperList" aria-live="polite"></div>
+              </section>
+            </div>
+
+            <div class="right-stack">
+              <section class="tool-surface auth-panel">
+                <div class="section-heading">
+                  <div>
+                    <p class="section-kicker">账号</p>
+                    <h3>登录与订单归属</h3>
+                  </div>
+                </div>
+                <div class="field-grid auth-grid">
+                  <label class="field">
+                    <span>邮箱</span>
+                    <input id="authEmailInput" type="email" placeholder="you@example.com" autocomplete="email" />
+                  </label>
+                  <label class="field">
+                    <span>密码</span>
+                    <input id="authPasswordInput" type="password" placeholder="至少 8 位" autocomplete="current-password" />
+                  </label>
+                </div>
+                <div class="run-actions auth-actions">
+                  <button class="primary-action" id="loginButton" type="button">登录</button>
+                  <button class="ghost-action" id="registerButton" type="button">注册</button>
+                  <button class="text-action" id="logoutButton" type="button">退出</button>
+                </div>
+                <p class="field-note" id="authStatusText">未登录。登录后订单、支付和任务都会绑定到你的账号。</p>
+              </section>
+
+              <div class="run-panel" aria-label="转换状态">
+                <p class="section-kicker">运行</p>
+                <h3>转换与下载</h3>
+                <div class="run-status">
+                  <span class="status-dot" id="statusDot"></span>
+                  <span id="statusText">等待上传</span>
+                </div>
+                <div class="progress-track" aria-label="转换进度">
+                  <div class="progress-fill" id="progressFill"></div>
+                </div>
+                <div class="progress-meta">
+                  <span id="progressLabel">0%</span>
+                  <span class="chunk-progress" id="chunkProgress" hidden>翻译进度：0 / 0 chunks</span>
+                  <span id="stageLabel">未开始</span>
+                </div>
+              <div class="run-actions">
+                <button class="primary-action" id="startButton" type="button" disabled>开始转换</button>
+                <button class="text-action" id="pricingButton" type="button">查看报价</button>
+                <button class="ghost-action" id="resetButton" type="button">重置</button>
+              </div>
+                <a class="download-link is-disabled" id="downloadLink" href="#" aria-disabled="true">下载 Word 文档</a>
+              </div>
+
+              <section class="tool-surface model-panel">
+                <div class="section-heading">
+                  <div>
+                    <p class="section-kicker">配置</p>
+                    <h3>模型配置</h3>
+                  </div>
+                </div>
+                <div class="field-grid model-grid">
+                  <label class="field select-field">
+                    <span>服务商</span>
+                    <select id="providerSelect"></select>
+                  </label>
+                  <label class="field select-field">
+                    <span>模型</span>
+                    <select id="modelSelect"></select>
+                  </label>
+                  <label class="number-field">
+                    <span>自动预估字数</span>
+                    <input id="estimatedCharsInput" type="number" value="0" readonly />
+                  </label>
+                  <label class="number-field">
+                    <span>自动输出倍率</span>
+                    <input id="outputRatioInput" type="number" value="1.1" readonly />
+                  </label>
+                </div>
+                <div class="pricing-inline" id="pricingInline" aria-live="polite"></div>
+              </section>
+            </div>
+          </section>
+        </section>
+      </main>
+    </div>
+
+    <footer class="bottom-bar">最好用的 LaTeX 原生翻译转 Word 工具</footer>
+
+    <div class="modal-shell" id="pricingModal" hidden>
+      <div class="modal-backdrop" data-close-modal></div>
+      <section class="receipt-modal" role="dialog" aria-modal="true" aria-labelledby="pricingModalTitle">
+        <button class="icon-button modal-close" id="pricingModalClose" type="button" aria-label="关闭">×</button>
+        <div class="receipt-head">
+          <p class="section-kicker">报价单</p>
+          <h3 id="pricingModalTitle">本次转换参考收据</h3>
+          <p id="pricingModalSubtitle">根据模型、预估字数和默认溢价规则自动生成。</p>
+        </div>
+        <div class="receipt-sheet" id="pricingReceipt"></div>
+        <div class="receipt-actions">
+          <button class="primary-action" id="wechatPayButton" type="button">微信支付（占位）</button>
+          <button class="ghost-action receipt-pay" id="alipayButton" type="button">支付宝（占位）</button>
+        </div>
+      </section>
+    </div>
+
+    <template id="paperTemplate">
+      <article class="paper-item">
+        <div class="paper-card-top">
+          <div class="paper-main">
+            <div class="file-badge" aria-hidden="true">ZIP</div>
+            <div class="paper-copy">
+              <h4></h4>
+              <p></p>
+              <div class="warnings"></div>
+            </div>
+          </div>
+          <div class="paper-controls">
+            <label>
+              <span>章号</span>
+              <select class="chapter-select">
+                <option value="">自动</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+              </select>
+            </label>
+            <button class="icon-button remove-paper" type="button" aria-label="移除文件">×</button>
+          </div>
+        </div>
+        <div class="paper-terms">
+          <div class="terms-head">
+            <button class="terms-toggle" type="button" aria-expanded="false">
+              <span>术语</span>
+              <strong class="terms-count">0</strong>
+            </button>
+            <button class="text-action add-term" type="button">添加</button>
+          </div>
+          <div class="terms-body">
+            <div class="terms-body-inner">
+              <div class="term-list"></div>
+              <p class="term-empty">可为这篇 paper 指定英文术语和中文译法。</p>
+            </div>
+          </div>
+        </div>
+      </article>
+    </template>
+
+    <script src="./app.js"></script>
+  </body>
+</html>

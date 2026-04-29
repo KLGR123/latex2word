@@ -1,10 +1,15 @@
-bibtexparser
-latex2mathml
-mathml2omml
-python-docx 
-lxml
-cn2an
-pdf2image
-pymupdf
+# Keep this file in sync with pyproject.toml for users who prefer pip -r.
 anthropic>=0.40.0
+bibtexparser>=1.4.3,<2
+cn2an
+fastapi>=0.115.0
+latex2mathml
+lxml>=5.0.0
+mathml2omml
 openai>=1.50.0
+pdf2image
+PyMuPDF
+redis>=5.0.0
+python-multipart>=0.0.9
+python-docx>=1.1.0
+uvicorn>=0.30.0

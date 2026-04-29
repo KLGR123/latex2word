@@ -1,0 +1,36 @@
+[build-system]
+requires = ["setuptools>=61", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "latex2word"
+version = "0.1.0"
+description = "Convert LaTeX papers into translated Word documents."
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+  "anthropic>=0.40.0",
+  "bibtexparser>=1.4.3,<2",
+  "cn2an",
+  "fastapi>=0.115.0",
+  "latex2mathml",
+  "lxml>=5.0.0",
+  "mathml2omml",
+  "openai>=1.50.0",
+  "pdf2image",
+  "PyMuPDF",
+  "redis>=5.0.0",
+  "python-multipart>=0.0.9",
+  "python-docx>=1.1.0",
+  "uvicorn>=0.30.0",
+]
+
+[project.scripts]
+latex2word = "main:main"
+latex2word-web = "backend.app:main"
+
+[tool.setuptools]
+py-modules = ["main"]
+
+[tool.setuptools.packages.find]
+include = ["latex2word", "latex2word.*", "backend", "backend.*"]

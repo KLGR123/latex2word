@@ -1,0 +1,3 @@
+[console_scripts]
+latex2word = main:main
+latex2word-web = backend.app:main

@@ -1,0 +1,33 @@
+{"type": "progress", "stage": "upload", "message": "Paper 1 prepared as chapter 1", "percent": 6.0, "time": "2026-04-22T09:55:32.926106Z"}
+{"type": "progress", "stage": "upload", "message": "Paper 2 prepared as chapter 2", "percent": 12, "time": "2026-04-22T09:55:32.992215Z"}
+{"type": "status", "state": "queued", "stage": "queued", "message": "Worker started", "percent": 0, "pid": 69126, "time": "2026-04-22T09:55:32.999663Z"}
+{"type": "status", "state": "running", "stage": "queued", "message": "Pipeline started", "percent": 0, "time": "2026-04-22T09:55:33.185989Z"}
+{"type": "progress", "stage": "queued", "message": "Pipeline started", "percent": 0.0, "time": "2026-04-22T09:55:33.189795Z"}
+{"type": "progress", "stage": "preprocess", "message": "Collecting input folders", "percent": 2.0, "time": "2026-04-22T09:55:33.190297Z"}
+{"type": "progress", "stage": "preprocess", "message": "Preprocess complete", "percent": 20.0, "time": "2026-04-22T09:55:33.443330Z"}
+{"type": "progress", "stage": "translate", "message": "Preparing translation", "percent": 22.0, "time": "2026-04-22T09:55:33.443758Z"}
+{"type": "progress", "stage": "translate", "message": "Translation batches prepared", "percent": 25.0, "current": 0, "total": 250, "time": "2026-04-22T09:55:34.137780Z"}
+{"type": "progress", "stage": "translate", "message": "Translating paragraphs", "percent": 29.176, "current": 18, "total": 250, "time": "2026-04-22T09:55:43.430039Z"}
+{"type": "progress", "stage": "translate", "message": "Translating paragraphs", "percent": 32.192, "current": 31, "total": 250, "time": "2026-04-22T09:55:43.530251Z"}
+{"type": "progress", "stage": "translate", "message": "Translating paragraphs", "percent": 38.456, "current": 58, "total": 250, "time": "2026-04-22T09:55:44.347996Z"}
+{"type": "progress", "stage": "translate", "message": "Translating paragraphs", "percent": 42.4, "current": 75, "total": 250, "time": "2026-04-22T09:55:44.496283Z"}
+{"type": "progress", "stage": "translate", "message": "Translating paragraphs", "percent": 45.184, "current": 87, "total": 250, "time": "2026-04-22T09:55:44.727546Z"}
+{"type": "progress", "stage": "translate", "message": "Translating paragraphs", "percent": 47.504000000000005, "current": 97, "total": 250, "time": "2026-04-22T09:55:44.991547Z"}
+{"type": "progress", "stage": "translate", "message": "Translating paragraphs", "percent": 50.056, "current": 108, "total": 250, "time": "2026-04-22T09:55:45.358242Z"}
+{"type": "progress", "stage": "translate", "message": "Translating paragraphs", "percent": 55.16, "current": 130, "total": 250, "time": "2026-04-22T09:55:45.432846Z"}
+{"type": "progress", "stage": "translate", "message": "Translating paragraphs", "percent": 56.32, "current": 135, "total": 250, "time": "2026-04-22T09:55:47.169139Z"}
+{"type": "progress", "stage": "translate", "message": "Translating paragraphs", "percent": 62.352000000000004, "current": 161, "total": 250, "time": "2026-04-22T09:55:49.845510Z"}
+{"type": "progress", "stage": "translate", "message": "Translating paragraphs", "percent": 63.512, "current": 166, "total": 250, "time": "2026-04-22T09:55:51.173017Z"}
+{"type": "progress", "stage": "translate", "message": "Translating paragraphs", "percent": 64.904, "current": 172, "total": 250, "time": "2026-04-22T09:55:51.778710Z"}
+{"type": "progress", "stage": "translate", "message": "Translating paragraphs", "percent": 69.08, "current": 190, "total": 250, "time": "2026-04-22T09:55:52.592240Z"}
+{"type": "progress", "stage": "translate", "message": "Translating paragraphs", "percent": 70.936, "current": 198, "total": 250, "time": "2026-04-22T09:55:52.993876Z"}
+{"type": "progress", "stage": "translate", "message": "Translating paragraphs", "percent": 72.792, "current": 206, "total": 250, "time": "2026-04-22T09:55:53.801274Z"}
+{"type": "progress", "stage": "translate", "message": "Translating paragraphs", "percent": 73.952, "current": 211, "total": 250, "time": "2026-04-22T09:55:54.673706Z"}
+{"type": "progress", "stage": "translate", "message": "Translating paragraphs", "percent": 75.80799999999999, "current": 219, "total": 250, "time": "2026-04-22T09:55:54.730621Z"}
+{"type": "progress", "stage": "translate", "message": "Translating paragraphs", "percent": 76.968, "current": 224, "total": 250, "time": "2026-04-22T09:55:56.200735Z"}
+{"type": "progress", "stage": "translate", "message": "Translating paragraphs", "percent": 80.216, "current": 238, "total": 250, "time": "2026-04-22T09:55:59.829626Z"}
+{"type": "progress", "stage": "translate", "message": "Translating paragraphs", "percent": 83.0, "current": 250, "total": 250, "time": "2026-04-22T09:56:03.267867Z"}
+{"type": "progress", "stage": "translate", "message": "Computing title translations", "percent": 83.0, "current": 250, "total": 250, "time": "2026-04-22T09:56:03.269331Z"}
+{"type": "progress", "stage": "postprocess", "message": "Building labels and references", "percent": 86.0, "time": "2026-04-22T09:56:04.199897Z"}
+{"type": "progress", "stage": "done", "message": "DOCX render complete", "percent": 100.0, "time": "2026-04-22T09:56:13.267934Z"}
+{"type": "status", "state": "completed", "stage": "done", "message": "转换完成", "percent": 100, "time": "2026-04-22T09:56:13.273836Z"}

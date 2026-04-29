@@ -1,0 +1,14 @@
+anthropic>=0.40.0
+bibtexparser<2,>=1.4.3
+cn2an
+fastapi>=0.115.0
+latex2mathml
+lxml>=5.0.0
+mathml2omml
+openai>=1.50.0
+pdf2image
+PyMuPDF
+redis>=5.0.0
+python-multipart>=0.0.9
+python-docx>=1.1.0
+uvicorn>=0.30.0

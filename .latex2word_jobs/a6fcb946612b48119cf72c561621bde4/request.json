@@ -1,0 +1,86 @@
+{
+  "created_at": "2026-04-23T16:44:13.417302Z",
+  "papers": [
+    {
+      "original_filename": "abc.zip",
+      "upload_path": "/Users/liujiarun/Downloads/latex2word/.latex2word_jobs/a6fcb946612b48119cf72c561621bde4/uploads/01-abc.zip",
+      "chapter": 2,
+      "validation": {
+        "file_count": 22,
+        "tex_files": [
+          "appendix.tex",
+          "main.tex"
+        ],
+        "recursive_tex_files": [
+          "appendix.tex",
+          "main.tex"
+        ],
+        "references": [
+          "main.bbl",
+          "references.bib"
+        ],
+        "stripped_root": "abc"
+      },
+      "client_metadata": {
+        "fileName": "abc.zip",
+        "chapter": 2,
+        "zipEntries": [
+          "abc/",
+          "__MACOSX/._abc",
+          "abc/main.bbl",
+          "__MACOSX/abc/._main.bbl",
+          "abc/.DS_Store",
+          "__MACOSX/abc/._.DS_Store",
+          "abc/images/",
+          "__MACOSX/abc/._images",
+          "abc/references.bib",
+          "__MACOSX/abc/._references.bib",
+          "abc/icml2024.sty",
+          "__MACOSX/abc/._icml2024.sty",
+          "abc/main.tex",
+          "__MACOSX/abc/._main.tex",
+          "abc/fancyhdr.sty",
+          "__MACOSX/abc/._fancyhdr.sty",
+          "abc/algorithm.sty",
+          "__MACOSX/abc/._algorithm.sty",
+          "abc/icml2023.sty",
+          "__MACOSX/abc/._icml2023.sty",
+          "abc/algorithmic.sty",
+          "__MACOSX/abc/._algorithmic.sty",
+          "abc/icml2024.bst",
+          "__MACOSX/abc/._icml2024.bst",
+          "abc/icml2023.bst",
+          "__MACOSX/abc/._icml2023.bst",
+          "abc/appendix.tex",
+          "__MACOSX/abc/._appendix.tex",
+          "abc/images/openllama_value.png",
+          "__MACOSX/abc/images/._openllama_value.png",
+          "abc/images/overview.png",
+          "__MACOSX/abc/images/._overview.png",
+          "abc/images/model_training.png",
+          "__MACOSX/abc/images/._model_training.png",
+          "abc/images/openllama.png",
+          "__MACOSX/abc/images/._openllama.png",
+          "abc/images/IMDb.png",
+          "__MACOSX/abc/images/._IMDb.png",
+          "abc/images/generation_length.png",
+          "__MACOSX/abc/images/._generation_length.png",
+          "abc/images/openllama_reward.png",
+          "__MACOSX/abc/images/._openllama_reward.png",
+          "abc/images/kl_tradeoff.png",
+          "__MACOSX/abc/images/._kl_tradeoff.png",
+          "abc/images/beta_sweep.png",
+          "__MACOSX/abc/images/._beta_sweep.png",
+          "abc/images/openllama_init.png",
+          "__MACOSX/abc/images/._openllama_init.png"
+        ]
+      }
+    }
+  ],
+  "translate": {
+    "provider": "openai",
+    "model": "gpt-5.4-mini-2026-03-17"
+  },
+  "rendering": {},
+  "terms": {}
+}

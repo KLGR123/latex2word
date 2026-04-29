@@ -1,0 +1,274 @@
+
+================================================================
+  STEP 1: Preprocess  (chunk / bib)
+================================================================
+[INFO] Processing folder: /Users/liujiarun/Downloads/latex2word/.latex2word_jobs/a6fcb946612b48119cf72c561621bde4/inputs/2  (tex files: 2)
+[MAIN] Selected main file: main.tex score=(0, 1, 61259)
+[inline] Reading: /Users/liujiarun/Downloads/latex2word/.latex2word_jobs/a6fcb946612b48119cf72c561621bde4/inputs/2/main.tex
+[inline] Reading: /Users/liujiarun/Downloads/latex2word/.latex2word_jobs/a6fcb946612b48119cf72c561621bde4/inputs/2/appendix.tex
+[strip-fmt] Formatting commands stripped.
+[INFO] Overwrote main file with inlined content: ...
+[MOVE] appendix.tex -> /Users/liujiarun/Downloads/latex2word/.latex2word_jobs/a6fcb946612b48119cf72c561621bde4/inputs/2/preprocessed/appendix.tex
+[INFO] Moved 1 non-main .tex files into: preprocessed/
+[INFO] Folder now contains only main tex: main.tex  (+ preprocessed/)
+[INFO] Loaded 81 entries from /Users/liujiarun/Downloads/latex2word/.latex2word_jobs/a6fcb946612b48119cf72c561621bde4/inputs/2/main.bbl
+[INFO] Wrote 81 citation keys (81 unique entries) -> /Users/liujiarun/Downloads/latex2word/.latex2word_jobs/a6fcb946612b48119cf72c561621bde4/outputs/citations.json
+[INFO] No issues detected.
+[INFO] Wrote 1 document(s), 179 chunk(s) -> /Users/liujiarun/Downloads/latex2word/.latex2word_jobs/a6fcb946612b48119cf72c561621bde4/outputs/chunks.json
+[INFO] Preprocess  (chunk / bib) done in 0m00s.
+
+================================================================
+  STEP 2: Translate
+================================================================
+[INFO] Translate done in 0m18s.
+
+================================================================
+  STEP 3: Postprocess (label / ref)
+================================================================
+[INFO] Labeled 179 paragraph(s):
+       摘要     (abstract): 1
+       节       (\section): 12
+       小节     (\subsection / deeper): 27
+       图       (figure): 7
+       表       (table): 4
+       式       (math): 14
+       文本     (plain text): 114
+[INFO] Output written to: /Users/liujiarun/Downloads/latex2word/.latex2word_jobs/a6fcb946612b48119cf72c561621bde4/outputs/labeled.json
+[INFO] Loaded 1 document(s), 179 paragraph(s).
+[INFO] Updated labeled.json in-place: /Users/liujiarun/Downloads/latex2word/.latex2word_jobs/a6fcb946612b48119cf72c561621bde4/outputs/labeled.json
+[INFO] Chapters indexed  : 1
+[INFO] Total label keys  : 31
+         \label{}               31
+[INFO] No duplicate key collisions.
+[INFO] Refmap written to: /Users/liujiarun/Downloads/latex2word/.latex2word_jobs/a6fcb946612b48119cf72c561621bde4/outputs/refmap.json
+[WARN] citation key not found: 'munos2023nash'  (/Users/liujiarun/Downloads/latex2word/.latex2word_jobs/a6fcb946612b48119cf72c561621bde4/inputs/2/main.tex)
+[WARN] citation key not found: 'munos2023nash'  (/Users/liujiarun/Downloads/latex2word/.latex2word_jobs/a6fcb946612b48119cf72c561621bde4/inputs/2/main.tex)
+[WARN] citation key not found: 'laidlaw2023bridging'  (/Users/liujiarun/Downloads/latex2word/.latex2word_jobs/a6fcb946612b48119cf72c561621bde4/inputs/2/main.tex)
+[WARN] citation key not found: 'laidlaw2023bridging'  (/Users/liujiarun/Downloads/latex2word/.latex2word_jobs/a6fcb946612b48119cf72c561621bde4/inputs/2/main.tex)
+[WARN] citation key not found: 'liu2018simple'  (/Users/liujiarun/Downloads/latex2word/.latex2word_jobs/a6fcb946612b48119cf72c561621bde4/inputs/2/main.tex)
+[WARN] citation key not found: 'liu2018simple'  (/Users/liujiarun/Downloads/latex2word/.latex2word_jobs/a6fcb946612b48119cf72c561621bde4/inputs/2/main.tex)
+[WARN] citation key not found: 'ouyang2022training'  (/Users/liujiarun/Downloads/latex2word/.latex2word_jobs/a6fcb946612b48119cf72c561621bde4/inputs/2/main.tex)
+[WARN] citation key not found: 'ouyang2022training'  (/Users/liujiarun/Downloads/latex2word/.latex2word_jobs/a6fcb946612b48119cf72c561621bde4/inputs/2/main.tex)
+[WARN] citation key not found: 'munos2023nash'  (/Users/liujiarun/Downloads/latex2word/.latex2word_jobs/a6fcb946612b48119cf72c561621bde4/inputs/2/main.tex)
+[WARN] citation key not found: 'munos2023nash'  (/Users/liujiarun/Downloads/latex2word/.latex2word_jobs/a6fcb946612b48119cf72c561621bde4/inputs/2/main.tex)
+[INFO] Loaded 1 document(s), 179 paragraph(s).
+[INFO] Citations index: 81 key(s).
+[INFO] Refmap: 1 chapter(s), 31 label key(s).
+[INFO] Output written to: /Users/liujiarun/Downloads/latex2word/.latex2word_jobs/a6fcb946612b48119cf72c561621bde4/outputs/replaced.json
+[WARN] 10 unreplaced reference(s) detected:
+       [cite] key='laidlaw2023bridging'  in  /Users/liujiarun/Downloads/latex2word/.latex2word_jobs/a6fcb946612b48119cf72c561621bde4/inputs/2/main.tex (x2)
+       [cite] key='liu2018simple'  in  /Users/liujiarun/Downloads/latex2word/.latex2word_jobs/a6fcb946612b48119cf72c561621bde4/inputs/2/main.tex (x2)
+       [cite] key='munos2023nash'  in  /Users/liujiarun/Downloads/latex2word/.latex2word_jobs/a6fcb946612b48119cf72c561621bde4/inputs/2/main.tex (x4)
+       [cite] key='ouyang2022training'  in  /Users/liujiarun/Downloads/latex2word/.latex2word_jobs/a6fcb946612b48119cf72c561621bde4/inputs/2/main.tex (x2)
+Creating: /Users/liujiarun/Downloads/latex2word/.latex2word_jobs/a6fcb946612b48119cf72c561621bde4/outputs/final.docx
+  [footnotes] Created new footnotes part.
+  [footnotes] Initialised -- next ID = 1.
+
+Document : /Users/liujiarun/Downloads/latex2word/.latex2word_jobs/a6fcb946612b48119cf72c561621bde4/inputs/2/main.tex
+Title    : 
+Chapter  : 2
+Chunks   : 179
+FigDir   : /Users/liujiarun/Downloads/latex2word/.latex2word_jobs/a6fcb946612b48119cf72c561621bde4/inputs/2
+
+  [   1] 2.0节                   -> paragraph
+  [   2] 2.0节                   -> paragraph
+  [   3] 2.0节                   -> paragraph
+  [   4] 2.0节                   -> paragraph
+  [   5] 2.0节                   -> paragraph
+  [   6] 2.0节                   -> paragraph
+  [   7] 2.0节                   -> paragraph
+  [   8] 2.0节                   -> paragraph
+  [   9] 摘要                     -> abstract
+  [  10] 2.1节                   -> section
+  [  11] 图2-1                   -> figure
+  [  12] 2.1节                   -> paragraph
+  [  13] 2.1节                   -> paragraph
+  [  14] 2.1节                   -> paragraph
+  [  15] 2.1节                   -> paragraph
+  [  16] 2.1节                   -> paragraph
+  [  17] 2.1节                   -> paragraph
+  [  18] 2.1节                   -> paragraph
+  [  19] 2.1节                   -> paragraph
+  [  20] 2.1节                   -> paragraph
+  [  21] 2.1节                   -> paragraph
+  [  22] 2.1节                   -> paragraph
+  [  23] 2.1节                   -> paragraph
+  [pandoc] Error at "/var/folders/mg/zj84g91x2w560sn1xn8_lr7w0000gn/T/tmp5e2umz6t.tex" (line 5, column 14):
+expecting \end{document}
+\end{comment}
+             ^
+
+  [  24] 2.1节                   -> paragraph
+  [  25] 2.2节                   -> section
+  [  26] 2.2节                   -> paragraph
+  [  27] 2.2节                   -> paragraph
+  [  28] 式2-1                   -> equation
+  [  29] 2.2节                   -> paragraph
+  [  30] 式2-2                   -> equation
+  [  31] 2.2节                   -> paragraph
+  [  32] 式2-3                   -> equation
+  [  33] 2.2节                   -> paragraph
+  [  34] 2.2.1小节                -> subsection
+  [  35] 2.2.1小节                -> paragraph
+  [  36] 式2-4                   -> equation
+  [  37] 2.2.1小节                -> paragraph
+  [  38] 2.2.1小节                -> paragraph
+  [  39] 2.2.1小节                -> paragraph
+  [  40] 式2-5                   -> equation
+  [  41] 2.2.1小节                -> paragraph
+  [  42] 式2-6                   -> equation
+  [  43] 2.2.1小节                -> paragraph
+  [  44] 2.2.1小节                -> paragraph
+  [  45] 式2-7                   -> equation
+  [  46] 2.2.1小节                -> paragraph
+  [  47] 2.2.2小节                -> subsection
+  [skip] id=48 (syntax_error flag)
+  [  49] 2.2.2小节                -> paragraph
+  [pandoc] Error at "/var/folders/mg/zj84g91x2w560sn1xn8_lr7w0000gn/T/tmpla0osez6.tex" (line 4, column 119):
+unexpected yuan2023rrhf
+近期已经引入了若干方法来完全绕开RL优化问题，包括Best-of-N \textsuperscript{[36]}，它պարզապես生成多个回复并选择奖励
+  [  50] 2.2.3小节                -> subsubsection
+  [  51] 2.2.3小节                -> paragraph
+  [  52] 2.2.3小节                -> paragraph
+  [  53] 2.2.3小节                -> paragraph
+  [  54] 2.2.3小节                -> paragraph
+  [  55] 2.2.4小节                -> subsection
+  [  56] 2.2.4小节                -> paragraph
+  [  57] 2.2.4小节                -> paragraph
+  [  58] 2.2.4小节                -> paragraph
+  [  59] 2.2.4小节                -> paragraph
+  [  60] 2.2.5小节                -> subsection
+  [  61] 2.2.5小节                -> paragraph
+  [  62] 2.2.6小节                -> subsubsection
+  [  63] 2.2.6小节                -> paragraph
+  [  64] 2.2.6小节                -> paragraph
+  [  65] 2.2.6小节                -> paragraph
+  [  66] 2.2.6小节                -> paragraph
+  [  67] 2.2.6小节                -> paragraph
+  [  68] 2.3节                   -> section
+  [  69] 2.3节                   -> paragraph
+  [  70] 2.3节                   -> paragraph
+  [  71] 2.3节                   -> paragraph
+  [  72] 2.3.1小节                -> subsection
+  [  73] 2.3.1小节                -> paragraph
+  [  74] 式2-8                   -> equation
+  [  75] 2.3.1小节                -> paragraph
+  [  76] 式2-9                   -> equation
+  [  77] 2.3.1小节                -> paragraph
+  [  78] 2.3.1小节                -> paragraph
+  [  79] 式2-10                  -> equation
+  [  80] 2.3.1小节                -> paragraph
+  [  81] 2.3.2小节                -> subsection
+  [  82] 2.3.2小节                -> proof
+  [  83] 2.3.2小节                -> paragraph
+  [  84] 2.3.2小节                -> paragraph
+  [  85] 2.3.3小节                -> subsection
+  [  86] 2.3.3小节                -> paragraph
+  [  87] 式2-11                  -> equation
+  [  88] 2.3.3小节                -> paragraph
+  [  89] 图2-2                   -> figure
+  [  90] 2.4节                   -> section
+  [  91] 2.4节                   -> paragraph
+  [  92] 2.4.1小节                -> subsection
+  [  93] 2.4.1小节                -> paragraph
+  [pandoc] Error at "/var/folders/mg/zj84g91x2w560sn1xn8_lr7w0000gn/T/tmp5xgituwj.tex" (line 5, column 14):
+expecting \end{document}
+\end{comment}
+             ^
+
+  [  94] 2.4.2小节                -> subsection
+  [  95] 2.4.2小节                -> paragraph
+  [  96] 2.4.3小节                -> subsection
+  [  97] 2.4.3小节                -> paragraph
+  [  98] 2.5节                   -> section
+  [  99] 2.5节                   -> paragraph
+  [ 100] 2.5节                   -> paragraph
+  [ 101] 2.5.1小节                -> subsection
+  [ 102] 2.5.1小节                -> paragraph
+  [ 103] 2.5.1小节                -> paragraph
+  [ 104] 表2-1                   -> table
+  [ 105] 图2-3                   -> figure
+  [ 106] 2.5.1小节                -> paragraph
+  [ 107] 2.5.1小节                -> paragraph
+  [ 108] 2.5.1小节                -> paragraph
+  [ 109] 2.5.1小节                -> paragraph
+  [ 110] 2.5.2小节                -> subsection
+  [ 111] 2.5.2小节                -> paragraph
+  [ 112] 2.5.2小节                -> paragraph
+  [ 113] 2.5.2小节                -> paragraph
+  [ 114] 2.5.3小节                -> subsection
+  [ 115] 图2-4                   -> figure
+  [ 116] 图2-5                   -> figure
+  [ 117] 图2-6                   -> figure
+  [ 118] 2.5.3小节                -> paragraph
+  [ 119] 2.5.3小节                -> paragraph
+  [ 120] 2.5.3小节                -> paragraph
+  [ 121] 2.5.4小节                -> subsection
+  [ 122] 2.5.4小节                -> paragraph
+  [ 123] 2.5.4小节                -> paragraph
+  [ 124] 2.5.5小节                -> subsection
+  [ 125] 2.5.5小节                -> paragraph
+  [ 126] 2.5.6小节                -> subsection
+  [ 127] 2.5.6小节                -> paragraph
+  [ 128] 2.5.6小节                -> paragraph
+  [ 129] 2.6节                   -> section
+  [ 130] 2.6节                   -> paragraph
+  [ 131] 2.6节                   -> paragraph
+  [ 132] 2.6节                   -> paragraph
+  [ 133] 2.7节                   -> section
+  [ 134] 2.7节                   -> paragraph
+  [ 135] 2.8节                   -> section
+  [ 136] 2.8节                   -> paragraph
+  [ 137] 2.8节                   -> paragraph
+  [ 138] 2.8节                   -> paragraph
+  [ 139] 2.9节                   -> section
+  [ 140] 2.9.1小节                -> subsection
+  [ 141] 2.9.1小节                -> paragraph
+  [ 142] 式2-12                  -> equation
+  [ 143] 2.9.1小节                -> paragraph
+  [ 144] 2.9.2小节                -> subsection
+  [ 145] 2.9.2小节                -> paragraph
+  [ 146] 式2-13                  -> equation
+  [ 147] 2.9.2小节                -> paragraph
+  [ 148] 式2-14                  -> equation
+  [ 149] 2.9.2小节                -> paragraph
+  [ 150] 2.9.3小节                -> subsection
+  [ 151] 2.9.3小节                -> paragraph
+  [ 152] 2.9.3小节                -> paragraph
+  [ 153] 2.10节                  -> section
+  [ 154] 2.10节                  -> paragraph
+  [ 155] 2.10节                  -> paragraph
+  [ 156] 2.10节                  -> paragraph
+  [ 157] 2.11节                  -> section
+  [ 158] 2.11.1小节               -> subsection
+  [ 159] 2.11.2小节               -> subsubsection
+  [ 160] 2.11.2小节               -> paragraph
+  [ 161] 2.11.2小节               -> paragraph
+  [ 162] 2.11.2小节               -> paragraph
+  [ 163] 2.11.3小节               -> subsubsection
+  [ 164] 2.11.3小节               -> paragraph
+  [ 165] 2.11.3小节               -> paragraph
+  [ 166] 2.11.3小节               -> paragraph
+  [ 167] 2.11.4小节               -> subsubsection
+  [ 168] 2.11.4小节               -> paragraph
+  [ 169] 2.11.4小节               -> paragraph
+  [ 170] 2.11.4小节               -> paragraph
+  [ 171] 2.11.5小节               -> subsection
+  [ 172] 2.11.5小节               -> paragraph
+  [ 173] 表2-2                   -> table
+  [ 174] 表2-3                   -> table
+  [ 175] 表2-4                   -> table
+  [ 176] 2.12节                  -> section
+  [ 177] 2.12.1小节               -> subsection
+  [ 178] 2.12.1小节               -> paragraph
+  [ 179] 图2-7                   -> figure
+
+Appending reference list ...
+  [references] Appended 81 entries.
+
+[done] Saved -> /Users/liujiarun/Downloads/latex2word/.latex2word_jobs/a6fcb946612b48119cf72c561621bde4/outputs/final.docx
+[INFO] Postprocess (label / ref) done in 0m06s.
+
+================================================================
+  ALL STEPS COMPLETE  (total: 0m25s)
+================================================================
