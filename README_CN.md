@@ -53,20 +53,88 @@ latex2word 专为这个工作流设计：理解 LaTeX 结构，在翻译过程�
 
 ## 安装
 
-安装 Python 依赖（需要 Python 3.10+）：
+### 第一步：克隆仓库并进入目录
 
 ```bash
-python -m pip install -e .
+git clone https://github.com/KLGR123/latex2word.git
+cd latex2word
 ```
 
-渲染数学公式还需要安装 [pandoc](https://pandoc.org/installing.html)。
+### 第二步：运行安装脚本（推荐）
 
-在 `secrets.env` 中填入 API Key：
+安装脚本一键完成：创建 conda 环境、安装 Python 依赖、安装 pandoc，并生成 `secrets.env` 模板文件。
 
 ```bash
-DEEPSEEK_API_KEY=...
-# 也可以：OPENAI_API_KEY=..., MOONSHOT_API_KEY=..., 等
+bash install.sh
 ```
+
+运行完成后激活环境：
+
+```bash
+conda activate latex2word
+```
+
+**可选参数：**
+
+```bash
+bash install.sh --no-pandoc   # 跳过 pandoc 安装
+bash install.sh --no-python   # 跳过 Python/conda 配置
+```
+
+如果未安装 conda，脚本会自动退回到在当前 Python 环境中安装（需要 Python 3.10+）。
+
+### 第二步（手动方式）：逐步配置
+
+<details>
+<summary>展开查看手动步骤</summary>
+
+**创建并激活 conda 环境：**
+
+```bash
+conda create -n latex2word python=3.11
+conda activate latex2word
+```
+
+**安装 Python 依赖：**
+
+```bash
+pip install -e .
+```
+
+**安装 pandoc**（渲染数学公式必需）：
+
+| 平台 | 命令 |
+|------|------|
+| macOS | `brew install pandoc` |
+| Ubuntu / Debian | `sudo apt-get install pandoc` |
+| Fedora | `sudo dnf install pandoc` |
+| Windows / 其他 | [pandoc.org/installing.html](https://pandoc.org/installing.html) |
+
+</details>
+
+### 第三步：填入 API Key
+
+打开安装脚本生成的 `secrets.env`（如果手动安装，自己创建该文件），填入你的 API Key：
+
+```bash
+# secrets.env
+OPENAI_API_KEY=sk-proj-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+```
+
+只需填入你实际使用的那个提供商的 Key 即可。例如，改用 DeepSeek：
+
+```bash
+DEEPSEEK_API_KEY=sk-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+```
+
+支持的提供商及对应的环境变量名：
+
+| 提供商 | 环境变量名 |
+|--------|-----------|
+| OpenAI | `OPENAI_API_KEY` |
+| DeepSeek | `DEEPSEEK_API_KEY` |
+| Moonshot | `MOONSHOT_API_KEY` |
+| 任何兼容 OpenAI 接口的端点 | `OPENAI_API_KEY` + `--base-url` 参数 |
 
 ## 输入目录结构
 

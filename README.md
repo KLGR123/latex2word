@@ -53,20 +53,88 @@ Every stage — chunking strategy, translation prompts, rendering styles, font s
 
 ## Install
 
-Install Python dependencies (requires Python 3.10+):
+### 1. Clone the repo and enter the directory
 
 ```bash
-python -m pip install -e .
+git clone https://github.com/KLGR123/latex2word.git
+cd latex2word
 ```
 
-[pandoc](https://pandoc.org/installing.html) is also required for equation rendering.
+### 2. Run the installer (recommended)
 
-Set your API key in `secrets.env`:
+The installer creates a conda environment, installs all Python dependencies, installs pandoc, and generates a `secrets.env` template in one step:
 
 ```bash
-DEEPSEEK_API_KEY=...
-# or: OPENAI_API_KEY=..., MOONSHOT_API_KEY=..., etc.
+bash install.sh
 ```
+
+Then activate the environment:
+
+```bash
+conda activate latex2word
+```
+
+**Options:**
+
+```bash
+bash install.sh --no-pandoc   # skip pandoc installation
+bash install.sh --no-python   # skip Python/conda setup
+```
+
+If conda is not available, the script falls back to installing into the current Python environment (Python 3.10+ required).
+
+### 2 (alternative). Manual setup
+
+<details>
+<summary>Expand for manual steps</summary>
+
+**Create and activate a conda environment:**
+
+```bash
+conda create -n latex2word python=3.11
+conda activate latex2word
+```
+
+**Install Python dependencies:**
+
+```bash
+pip install -e .
+```
+
+**Install pandoc** (required for equation rendering):
+
+| Platform | Command |
+|----------|---------|
+| macOS | `brew install pandoc` |
+| Ubuntu / Debian | `sudo apt-get install pandoc` |
+| Fedora | `sudo dnf install pandoc` |
+| Windows / other | [pandoc.org/installing.html](https://pandoc.org/installing.html) |
+
+</details>
+
+### 3. Set your API key
+
+Open `secrets.env` (created by the installer, or create it yourself) and paste your API key:
+
+```bash
+# secrets.env
+OPENAI_API_KEY=sk-proj-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+```
+
+Only the key for the provider you intend to use needs to be filled in. For example, to use DeepSeek instead:
+
+```bash
+DEEPSEEK_API_KEY=sk-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+```
+
+Supported providers and their key names:
+
+| Provider | Environment variable |
+|----------|---------------------|
+| OpenAI | `OPENAI_API_KEY` |
+| DeepSeek | `DEEPSEEK_API_KEY` |
+| Moonshot | `MOONSHOT_API_KEY` |
+| Any OpenAI-compatible endpoint | `OPENAI_API_KEY` + `--base-url` flag |
 
 ## Input Layout
 
