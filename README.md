@@ -44,7 +44,7 @@ The following LaTeX elements are rendered into the Word document without manual 
 | Theorem environments | Labeled with configurable Chinese display names |
 
 **Multiple LLM providers**
-Supports DeepSeek, OpenAI, Moonshot, and any OpenAI-compatible endpoint. Switch providers with a single flag.
+Supports Anthropic (Claude), DeepSeek, OpenAI, Moonshot, and any OpenAI-compatible endpoint. Switch providers with a single flag.
 
 **Fully configurable pipeline**
 Every stage — chunking strategy, translation prompts, rendering styles, font sizes, label formats — can be overridden via `configs/pipeline.json` and `configs/rules.json` without touching source code.
@@ -129,12 +129,13 @@ DEEPSEEK_API_KEY=sk-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 
 Supported providers and their key names:
 
-| Provider | Environment variable |
-|----------|---------------------|
-| OpenAI | `OPENAI_API_KEY` |
-| DeepSeek | `DEEPSEEK_API_KEY` |
-| Moonshot | `MOONSHOT_API_KEY` |
-| Any OpenAI-compatible endpoint | `OPENAI_API_KEY` + `--base-url` flag |
+| Provider | `--provider` value | Environment variable |
+|----------|--------------------|---------------------|
+| Anthropic (Claude) | `anthropic` | `ANTHROPIC_API_KEY` |
+| OpenAI | `openai` | `OPENAI_API_KEY` |
+| DeepSeek | `deepseek` | `DEEPSEEK_API_KEY` |
+| Moonshot (Kimi) | `kimi` | `MOONSHOT_API_KEY` |
+| Any OpenAI-compatible endpoint | `openai` | `OPENAI_API_KEY` + `--base-url` flag |
 
 ## Input Layout
 
