@@ -44,7 +44,7 @@ latex2word 专为这个工作流设计：理解 LaTeX 结构，在翻译过程�
 | 定理类环境 | 附带可配置的中文显示名称 |
 
 **多 LLM 提供商支持**
-支持 DeepSeek、OpenAI、Moonshot 及任何兼容 OpenAI 接口的端点，一个参数即可切换。
+支持 Anthropic（Claude）、DeepSeek、OpenAI、Moonshot 及任何兼容 OpenAI 接口的端点，一个参数即可切换。
 
 **全流程可配置**
 每个阶段——分块策略、翻译提示词、渲染样式、字号、标签格式——均可通过 `configs/pipeline.json` 和 `configs/rules.json` 覆盖，无需修改源代码。
@@ -129,12 +129,13 @@ DEEPSEEK_API_KEY=sk-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 
 支持的提供商及对应的环境变量名：
 
-| 提供商 | 环境变量名 |
-|--------|-----------|
-| OpenAI | `OPENAI_API_KEY` |
-| DeepSeek | `DEEPSEEK_API_KEY` |
-| Moonshot | `MOONSHOT_API_KEY` |
-| 任何兼容 OpenAI 接口的端点 | `OPENAI_API_KEY` + `--base-url` 参数 |
+| 提供商 | `--provider` 参数值 | 环境变量名 |
+|--------|---------------------|-----------|
+| Anthropic（Claude） | `anthropic` | `ANTHROPIC_API_KEY` |
+| OpenAI | `openai` | `OPENAI_API_KEY` |
+| DeepSeek | `deepseek` | `DEEPSEEK_API_KEY` |
+| Moonshot（Kimi） | `kimi` | `MOONSHOT_API_KEY` |
+| 任何兼容 OpenAI 接口的端点 | `openai` | `OPENAI_API_KEY` + `--base-url` 参数 |
 
 ## 输入目录结构
 

@@ -9,7 +9,6 @@ import sys
 from dataclasses import dataclass
 from typing import Dict, Optional
 
-from backend.model_catalog import list_provider_names
 from .checkpoint import CheckpointManager
 from .orchestrator import translate_all
 from .providers import build_provider
@@ -50,8 +49,7 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument(
         "--provider",
         required=True,
-        choices=list_provider_names(),
-        help="LLM provider",
+        help="LLM provider (anthropic, openai, deepseek, kimi)",
     )
     parser.add_argument("--model", required=True, help="Model ID (e.g. claude-sonnet-4-6, gpt-4o)")
     parser.add_argument("--concurrency", type=int, default=10, help="Max concurrent API requests")

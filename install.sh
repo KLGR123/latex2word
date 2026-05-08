@@ -74,6 +74,7 @@ if [ ! -f secrets.env ]; then
 # Paste your API key for the provider you want to use.
 # Only the key for the provider you select needs to be filled in.
 
+ANTHROPIC_API_KEY=
 OPENAI_API_KEY=
 DEEPSEEK_API_KEY=
 MOONSHOT_API_KEY=
