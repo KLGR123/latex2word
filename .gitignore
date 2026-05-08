@@ -10,3 +10,11 @@ source/*
 
 secrets.env
 configs/terms.json
+
+# Runtime data
+.latex2word_jobs/
+.latex2word_data/
+
+# Python build artifacts
+*.egg-info/
+*.egg-info
