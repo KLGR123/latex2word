@@ -87,8 +87,11 @@ class PreprocessStage(StageRunner):
 
 
 class TranslateStage(StageRunner):
-    def _build_env(self) -> Dict[str, str]:
-        return _load_env_file(Path(self.config.paths.secrets_file))
+    def _load_secrets(self) -> None:
+        """Inject secrets.env into os.environ so providers can find their keys."""
+        for key, value in _load_env_file(Path(self.config.paths.secrets_file)).items():
+            if key not in os.environ:
+                os.environ[key] = value
 
     def _resolve_terms_path(self) -> Optional[str]:
         configured = self.config.translate.terms
@@ -104,11 +107,11 @@ class TranslateStage(StageRunner):
 
     def run(self) -> None:
         self.progress.emit("translate", "Preparing translation", 22)
+        self._load_secrets()
         outputs_dir = Path(self.config.paths.outputs_dir)
         input_path = outputs_dir / "chunks.json"
         output_path = outputs_dir / "translated.json"
-        env_from_file = self._build_env()
-        api_key = self.config.translate.api_key or env_from_file.get(self.config.translate.api_key_env)
+        api_key = self.config.translate.api_key
 
         terms_path = self._resolve_terms_path()
 
