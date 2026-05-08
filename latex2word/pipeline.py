@@ -90,7 +90,7 @@ class TranslateStage(StageRunner):
     def _load_secrets(self) -> None:
         """Inject secrets.env into os.environ so providers can find their keys."""
         for key, value in _load_env_file(Path(self.config.paths.secrets_file)).items():
-            if key not in os.environ:
+            if value and not os.environ.get(key):
                 os.environ[key] = value
 
     def _resolve_terms_path(self) -> Optional[str]:
