@@ -1,93 +1,27 @@
 # latex2word
 
-Convert LaTeX papers under `inputs/` into a translated Word document under `outputs/`.
+**English** | [中文](README_CN.md)
 
-The project now has a single public entrypoint:
+Convert LaTeX papers into translated Word documents.
 
-```bash
-python main.py --stage all
-```
-
-After editable installation, the equivalent console command is also available:
-
-```bash
-latex2word --stage all
-```
-
-Legacy script entrypoints such as `tex.py`, `chunk.py`, `translate.py`, `render.py`, etc. have been removed. All workflow logic lives under the `latex2word/` package and is orchestrated by `main.py`.
+Put your papers under `inputs/`, run the pipeline, and get a translated `final.docx` under `outputs/`.
 
 ## Install
 
-```bash
-./install.sh
-```
-
-The installer checks/installs `pandoc` and installs this project in editable mode from `pyproject.toml`.
-You can also install Python dependencies directly:
+Install Python dependencies (requires Python 3.10+):
 
 ```bash
 python -m pip install -e .
 ```
 
-Useful installer options:
+[pandoc](https://pandoc.org/installing.html) is also required for equation rendering.
 
-```bash
-./install.sh --no-pandoc
-./install.sh --no-python
-PYTHON=/path/to/python ./install.sh
-```
-
-Run the local web app:
-
-```bash
-python -m backend.app
-```
-
-Or after editable installation:
-
-```bash
-latex2word-web
-```
-
-Create or update `secrets.env` with the API key used by your selected provider:
+Set your API key in `secrets.env`:
 
 ```bash
 DEEPSEEK_API_KEY=...
-MOONSHOT_API_KEY=...
+# or: OPENAI_API_KEY=..., MOONSHOT_API_KEY=..., etc.
 ```
-
-If you want the web app to use Redis-backed queueing instead of the in-process local queue, start Redis first and set:
-
-```bash
-export LATEX2WORD_REDIS_URL=redis://127.0.0.1:6379/0
-export LATEX2WORD_REDIS_PREFIX=latex2word-dev
-```
-
-For local macOS development with Homebrew:
-
-```bash
-brew install redis
-brew services start redis
-```
-
-Or with Docker:
-
-```bash
-docker run -d --name latex2word-redis -p 6379:6379 redis:7
-```
-
-Then restart the web service:
-
-```bash
-latex2word-web
-```
-
-When Redis mode is enabled:
-
-- pending jobs live in Redis instead of the current Python process
-- in-flight jobs are tracked separately from pending jobs
-- app restarts will requeue unfinished in-flight jobs back to pending
-- cancelling a queued job removes it from Redis immediately
 
 ## Input Layout
 
@@ -104,9 +38,9 @@ inputs/
     paper.bbl
 ```
 
-The folder name is used as the chapter number in labels such as `图1-1` and `1.2节`.
+The folder name becomes the chapter number in labels such as `图1-1` and `1.2节`.
 
-## Common Commands
+## Usage
 
 Run the full pipeline:
 
@@ -114,7 +48,13 @@ Run the full pipeline:
 python main.py --stage all
 ```
 
-Run one stage:
+Or after editable install:
+
+```bash
+latex2word --stage all
+```
+
+Run one stage at a time:
 
 ```bash
 python main.py --stage preprocess
@@ -122,50 +62,42 @@ python main.py --stage translate
 python main.py --stage postprocess
 ```
 
-Override runtime options:
+Common overrides:
 
 ```bash
-python main.py --stage translate --model gpt-5.4-mini-2026-03-17 --concurrency 8
-python main.py --stage all --inputs-dir inputs --outputs-dir outputs
-```
-
-Inspect the resolved configuration:
-
-```bash
+python main.py --provider deepseek --model deepseek-chat --concurrency 8
+python main.py --inputs-dir inputs --outputs-dir outputs
 python main.py --print-config
-python main.py --config configs/pipeline.json --print-config
 ```
 
 ## Configuration
 
 Pipeline behavior is configured in `configs/pipeline.json`.
 
-Important sections:
+Key sections:
 
-- `paths`: input/output/config locations, including `rules_file`.
-- `preprocess`: TeX inlining, bibliography parsing, and chunking options.
-- `translate`: provider, model, concurrency, glossary, and checkpoint options.
-- `postprocess`: reference replacement and DOCX rendering options.
+| Section | Controls |
+|---------|----------|
+| `paths` | Input/output/config locations |
+| `preprocess` | TeX inlining, bibliography parsing, chunking |
+| `translate` | Provider, model, concurrency, glossary, checkpointing |
+| `postprocess` | Reference replacement, DOCX rendering |
 
-Rule-like settings live in `configs/rules.json`.
+Rule-like settings live in `configs/rules.json`. Currently configurable rules include:
 
-Currently configurable rules include:
+- `preprocess.chunk_block_envs` — LaTeX environments kept as a single chunk
+- `translation.prompts` — system, glossary, and batch-response prompt text
+- `translation.syntax.extra_patterns` — extra regexes that survive translation unchanged
+- `translation.section_title_cache` — cached heading translations to skip API calls
+- `translation.skip_envs` — environments that are not translated
+- `postprocess.label_env_categories` — environment-to-label mappings (figure/table/math/code)
+- `rendering.fonts`, `rendering.sizes`, `rendering.colors` — DOCX style defaults
+- `rendering.math_env_labels` — Chinese display names for theorem-like environments
+- `rendering.envs` — additional LaTeX environments for the DOCX renderer classifier
 
-- `preprocess.chunk_block_envs`: LaTeX environments that should stay intact as one chunk.
-- `translation.prompts`: system prompt, glossary prompt, and batch-response prompt text.
-- `translation.syntax.extra_patterns`: additional regexes that must survive translation unchanged.
-- `translation.section_title_cache`: cached section heading translations that avoid API calls.
-- `translation.skip_envs`: LaTeX environments that should not be fully translated.
-- `postprocess.label_env_categories`: environment-to-label mappings such as figure/table/math/code.
-- `rendering.fonts`, `rendering.sizes`, `rendering.colors`: DOCX display defaults.
-- `rendering.math_env_labels`: Chinese display names for theorem-like environments.
-- `rendering.envs`: additional LaTeX environments used by the DOCX renderer classifier.
-
-Rules are merged with safe built-in defaults. This means you can add project-specific environments or title translations without copying every default rule.
+Rules are merged with safe built-in defaults, so you only need to specify what you want to override.
 
 ## Outputs
-
-Typical generated files:
 
 ```text
 outputs/
@@ -178,23 +110,20 @@ outputs/
   final.docx
 ```
 
-Depending on cleanup options, intermediate JSON files may be removed after later stages.
-By default, intermediate JSON files are kept so you can rerun a later stage such as:
-
-```bash
-python main.py --stage postprocess
-```
-
-If you want a smaller `outputs/` folder, enable cleanup options in `configs/pipeline.json` or pass flags such as `--cleanup-translated`.
+Intermediate JSON files are kept by default so you can resume from any stage. To clean up, pass `--cleanup-translated` / `--cleanup-chunks` etc., or set the relevant flags in `configs/pipeline.json`.
 
 ## Package Layout
 
 ```text
 latex2word/
-  preprocessing/   TeX inlining, macro expansion, formatting stripping, bibliography parsing, chunking
-  translation/     LLM providers, batching, syntax preservation, section cache
-  postprocessing/  Paragraph labeling, refmap building, citation/reference replacement
-  rendering/       DOCX rendering, figures, equations, tables, footnotes
+  preprocessing/    TeX inlining, macro expansion, formatting, bibliography, chunking
+  translation/      LLM providers, batching, syntax preservation, section cache
+  postprocessing/   Paragraph labeling, refmap building, reference replacement
+  rendering/        DOCX rendering — figures, equations, tables, footnotes
 ```
 
-The root directory intentionally contains only `main.py` plus project/config/install files.
+## Contributing
+
+We welcome bug reports and fixes — especially rendering edge cases discovered from real-world LaTeX papers.
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for the PR process.
