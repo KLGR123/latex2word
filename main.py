@@ -6,7 +6,6 @@ import json
 from pathlib import Path
 from typing import Any, Dict
 
-from backend.model_catalog import list_provider_names
 from latex2word import Latex2WordPipeline, load_pipeline_config
 from latex2word.config import PipelineConfig, set_nested_attr
 
@@ -51,7 +50,7 @@ def _build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--chunk-split-on-forced-linebreak", default=None, action=argparse.BooleanOptionalAction)
     parser.add_argument("--chunk-strict", default=None, action=argparse.BooleanOptionalAction)
 
-    parser.add_argument("--provider", default=None, choices=list_provider_names())
+    parser.add_argument("--provider", default=None)
     parser.add_argument("--model", default=None)
     parser.add_argument("--concurrency", default=None, type=int)
     parser.add_argument("--max-batch-tokens", default=None, type=int)
