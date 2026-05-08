@@ -2,9 +2,54 @@
 
 **English** | [中文](README_CN.md)
 
-Convert LaTeX papers into translated Word documents.
+Convert LaTeX papers into translated Word documents — with consistent formatting and paragraph-level translation in one pass.
 
-Put your papers under `inputs/`, run the pipeline, and get a translated `final.docx` under `outputs/`.
+> **Actively maintained.** This project is under active development. Edge cases from real-world papers drive every improvement — the more papers people run through it, the more robust it becomes. Community contributions are very welcome.
+
+## Why latex2word?
+
+After publishing academic papers, researchers often need to submit a Word version — for graduate thesis requirements, institutional archives, or journal editorial systems that only accept `.docx`. The problem is that no existing tool handles both tasks well at the same time:
+
+- **pandoc** is the standard LaTeX-to-Word converter, but its compatibility with real-world papers is poor. Complex environments (algorithms, custom theorem styles, CJK mixed text, multi-file projects) frequently break or produce malformed output.
+- **Manual copy-paste** from a PDF is time-consuming and loses all structure.
+- **Translation tools** work on plain text and have no concept of LaTeX structure, so figures, equations, and cross-references get destroyed.
+
+latex2word is built specifically for this workflow: it understands LaTeX structure, preserves it through translation, and produces a properly formatted Word document in one command.
+
+## Features
+
+**Multi-paper, multi-chapter**
+Process multiple papers in a single run. Each paper lives in a numbered subfolder; chapter numbers propagate automatically into figure labels, table labels, and section references (`图1-1`, `2.3节`, etc.).
+
+**Bibliography merging and deduplication**
+Citations from multiple papers are merged into a single reference list. Duplicate entries (same DOI or title) are detected and collapsed automatically — no manual cleanup needed.
+
+**Paragraph-level translation with high concurrency**
+Text is chunked at the paragraph level and sent to an LLM provider in parallel batches. Concurrency, batch size, and the provider/model are all configurable. Checkpointing lets you resume a long run without re-translating completed sections.
+
+**Custom terminology**
+Supply a glossary of domain-specific terms (e.g. proper nouns, abbreviations, field-specific phrases) that the translator must preserve or render in a specific way. Terms are injected into the translation prompt automatically.
+
+**Rich element support**
+The following LaTeX elements are rendered into the Word document without manual intervention:
+
+| Element | How it is handled |
+|---------|------------------|
+| Figures | Embedded as images with captions |
+| Tables | Converted to Word tables, including merged cells |
+| Equations | Rendered via pandoc/MathML → OMML (native Word math) |
+| Algorithms / pseudocode | Preserved as formatted code blocks |
+| Footnotes | Carried through as Word footnotes |
+| Cross-references | Resolved and rewritten (`\ref`, `\cite`, `\label`) |
+| Theorem environments | Labeled with configurable Chinese display names |
+
+**Multiple LLM providers**
+Supports DeepSeek, OpenAI, Moonshot, and any OpenAI-compatible endpoint. Switch providers with a single flag.
+
+**Fully configurable pipeline**
+Every stage — chunking strategy, translation prompts, rendering styles, font sizes, label formats — can be overridden via `configs/pipeline.json` and `configs/rules.json` without touching source code.
+
+---
 
 ## Install
 
@@ -124,6 +169,16 @@ latex2word/
 
 ## Contributing
 
-We welcome bug reports and fixes — especially rendering edge cases discovered from real-world LaTeX papers.
+We welcome bug reports and fixes — especially rendering edge cases discovered from real-world LaTeX papers. The more papers people run through this tool, the more robust it becomes.
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for the PR process.
+
+## Join Us
+
+Scan the QR code below to join our WeChat group for discussion, feedback, and community support.
+
+<p align="center">
+  <img src="assets/wechat_qr.png" width="200" alt="WeChat Group QR Code" />
+</p>
+
+If the QR code has expired, open an issue and we will post a fresh one.
