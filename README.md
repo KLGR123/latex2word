@@ -18,6 +18,19 @@ latex2word is built specifically for this workflow: it understands LaTeX structu
 
 ## Features
 
+<table>
+  <tr>
+    <td><img src="assets/demo_1.png" width="360"/></td>
+    <td><img src="assets/demo_2.png" width="360"/></td>
+  </tr>
+  <tr>
+    <td><img src="assets/demo_3.png" width="360"/></td>
+    <td><img src="assets/demo_4.png" width="360"/></td>
+  </tr>
+</table>
+
+<sub>Results converted from the open-source LoRA and QLoRA papers. References have been merged and deduplicated. Overall formatting follows Chinese academic paper typesetting conventions.</sub>
+
 **Multi-paper, multi-chapter**
 Process multiple papers in a single run. Each paper lives in a numbered subfolder; chapter numbers propagate automatically into figure labels, table labels, and section references (`图1-1`, `2.3节`, etc.).
 
