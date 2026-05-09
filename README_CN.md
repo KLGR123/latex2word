@@ -18,6 +18,19 @@ latex2word 专为这个工作流设计：理解 LaTeX 结构，在翻译过程�
 
 ## 功能特性
 
+<table>
+  <tr>
+    <td><img src="assets/demo_1.png" width="360"/></td>
+    <td><img src="assets/demo_2.png" width="360"/></td>
+  </tr>
+  <tr>
+    <td><img src="assets/demo_3.png" width="360"/></td>
+    <td><img src="assets/demo_4.png" width="360"/></td>
+  </tr>
+</table>
+
+<sub>基于 LoRA 和 QLoRA 开源论文转换得到的结果，参考文献已合并去重，整体格式遵循国内学术论文排版习惯。</sub>
+
 **多文档、多章节**
 单次运行可处理多篇论文。每篇论文放在一个编号子目录下，章节号自动传播到图片标签、表格标签和章节引用（`图1-1`、`2.3节`等）。
 
