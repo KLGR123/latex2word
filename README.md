@@ -4,6 +4,8 @@
 
 Convert LaTeX papers into translated Word documents — with consistent formatting and paragraph-level translation in one pass.
 
+> **Translation direction: English → Chinese.** The current translation pipeline is built for converting English-language academic papers into Chinese. Support for other target languages is not yet implemented.
+
 > **Actively maintained.** This project is under active development. Edge cases from real-world papers drive every improvement — the more papers people run through it, the more robust it becomes. Community contributions are very welcome.
 
 ## Why latex2word?

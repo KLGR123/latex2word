@@ -1,0 +1,60 @@
+name: Bug Report
+description: Report a rendering or pipeline bug
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for helping make latex2word more robust. Please fill in all sections — incomplete reports will be asked to revise.
+
+  - type: textarea
+    id: description
+    attributes:
+      label: What is wrong?
+      description: Describe the incorrect behavior in the output Word document.
+    validations:
+      required: true
+
+  - type: textarea
+    id: latex_example
+    attributes:
+      label: Minimal LaTeX example
+      description: The shortest LaTeX snippet that reproduces the issue.
+      render: latex
+    validations:
+      required: true
+
+  - type: textarea
+    id: screenshot_broken
+    attributes:
+      label: Screenshot — broken output
+      description: Attach a screenshot of the affected section in `final.docx`. Crop to the relevant element.
+    validations:
+      required: true
+
+  - type: dropdown
+    id: stage
+    attributes:
+      label: Which pipeline stage is affected?
+      options:
+        - preprocess
+        - translate
+        - postprocess / rendering
+        - unknown
+    validations:
+      required: true
+
+  - type: input
+    id: provider
+    attributes:
+      label: LLM provider and model
+      placeholder: "e.g. deepseek / deepseek-chat"
+
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: Python version, OS, pandoc version.
+      placeholder: "Python 3.11, macOS 14, pandoc 3.x"
+    validations:
+      required: true

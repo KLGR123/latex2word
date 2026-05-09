@@ -5,9 +5,24 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "latex2word"
 version = "0.1.0"
-description = "Convert LaTeX papers into translated Word documents."
+description = "Convert LaTeX papers into translated Word documents with paragraph-level translation."
 readme = "README.md"
+license = { text = "MIT" }
+authors = [{ name = "KLGR123", email = "guitarless.band@gmail.com" }]
 requires-python = ">=3.10"
+keywords = ["latex", "word", "docx", "translation", "academic", "pandoc", "llm"]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Intended Audience :: Science/Research",
+  "License :: OSI Approved :: MIT License",
+  "Operating System :: OS Independent",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Topic :: Scientific/Engineering",
+  "Topic :: Text Processing :: Markup :: LaTeX",
+]
 dependencies = [
   "anthropic>=0.40.0",
   "bibtexparser>=1.4.3,<2",
@@ -21,6 +36,10 @@ dependencies = [
   "python-docx>=1.1.0",
 ]
 
+[project.urls]
+Repository = "https://github.com/KLGR123/latex2word"
+"Bug Tracker" = "https://github.com/KLGR123/latex2word/issues"
+
 [project.scripts]
 latex2word = "main:main"
 
@@ -29,3 +48,11 @@ py-modules = ["main"]
 
 [tool.setuptools.packages.find]
 include = ["latex2word", "latex2word.*"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I"]
+ignore = ["E501"]
