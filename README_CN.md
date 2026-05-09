@@ -98,7 +98,7 @@ bash install.sh --no-python   # 跳过 Python/conda 配置
 
 如果未安装 conda，脚本会自动退回到在当前 Python 环境中安装（需要 Python 3.10+）。
 
-### 第二步：填入 API Key
+### 第三步：填入 API Key
 
 打开安装脚本生成的 `secrets.env`（如果手动安装，自己创建该文件），填入你的 API Key：
 
