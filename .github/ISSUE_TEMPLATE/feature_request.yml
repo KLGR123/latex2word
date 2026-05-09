@@ -1,0 +1,30 @@
+name: Feature Request
+description: Suggest a new LaTeX environment, element type, or pipeline feature
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        For changes to translation prompts, provider logic, or configuration defaults, please discuss here before submitting a PR.
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: What problem does this solve?
+      description: Describe the use case or paper type that is not currently handled well.
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed solution
+      description: How should this be handled? Include a LaTeX example if applicable.
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+      description: Any workarounds you have tried.
