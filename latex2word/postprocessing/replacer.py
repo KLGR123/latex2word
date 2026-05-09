@@ -7,7 +7,7 @@ import re
 import sys
 from collections import defaultdict
 from copy import deepcopy
-from typing import Any, Dict, List, Optional, Tuple
+from typing import Any, Dict, List, Tuple
 
 
 # ---------------------------------------------------------------------------

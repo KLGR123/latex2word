@@ -6,7 +6,7 @@ import shutil
 import sys
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Dict, List, Optional, Set, Tuple
+from typing import List, Optional, Set, Tuple
 
 from .macro import expand_defined_macros
 
@@ -409,7 +409,7 @@ def preprocess_folder(folder: Path, dry_run: bool, verbose: bool, strip_fmt: boo
                 final_text = _strip_formatting(final_text)
                 vget(verbose, "[strip-fmt] Formatting commands stripped.")
         main_tex.write_text(final_text, encoding="utf-8")
-        log(f"[INFO] Overwrote main file with inlined content: ...")
+        log("[INFO] Overwrote main file with inlined content: ...")
 
     # Move all non-main .tex into ./preprocessed/
     pre_dir = folder / "preprocessed"

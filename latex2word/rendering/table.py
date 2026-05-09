@@ -1,5 +1,4 @@
 import re
-from docx import Document
 from docx.shared import Pt, Cm
 from docx.enum.text import WD_ALIGN_PARAGRAPH
 from docx.enum.table import WD_TABLE_ALIGNMENT, WD_CELL_VERTICAL_ALIGNMENT
@@ -528,19 +527,31 @@ def _parse_tabular_spec(spec: str) -> list:
 
         # --- basic alignments ---
         if c == 'l':
-            aligns.append('l'); i += 1; continue
+            aligns.append('l')
+            i += 1
+            continue
         if c == 'c':
-            aligns.append('c'); i += 1; continue
+            aligns.append('c')
+            i += 1
+            continue
         if c == 'r':
-            aligns.append('r'); i += 1; continue
+            aligns.append('r')
+            i += 1
+            continue
 
         # --- tabularx / tabulary column types ---
         if c == 'X' or c == 'L':
-            aligns.append('l'); i += 1; continue
+            aligns.append('l')
+            i += 1
+            continue
         if c == 'C':
-            aligns.append('c'); i += 1; continue
+            aligns.append('c')
+            i += 1
+            continue
         if c == 'R':
-            aligns.append('r'); i += 1; continue
+            aligns.append('r')
+            i += 1
+            continue
 
         # --- paragraph columns  p{} / m{} / b{} ---
         if c in ('p', 'm', 'b') and i + 1 < n and spec[i + 1] == '{':
