@@ -203,6 +203,17 @@ python main.py --print-config
 
 Pipeline behavior is configured in `configs/pipeline.json`.
 
+`configs/pipeline.json` is **not committed** to the repository — it is your local config file and is gitignored so your changes never end up in a PR.
+
+`configs/pipeline.json.example` is committed and serves as the canonical reference. It is also the fallback: if you have not created a `pipeline.json` yet, the tool reads the example directly so it works out of the box.
+
+**First-time setup** (handled automatically by `install.sh`):
+
+```bash
+cp configs/pipeline.json.example configs/pipeline.json
+# then edit pipeline.json to set your provider, model, and preferences
+```
+
 Key sections:
 
 | Section | Controls |

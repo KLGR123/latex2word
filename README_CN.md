@@ -203,6 +203,17 @@ python main.py --print-config
 
 流水线行为通过 `configs/pipeline.json` 配置。
 
+`configs/pipeline.json` **不提交到仓库**——它是你的本地配置文件，已被 gitignore，修改内容不会出现在 PR 中。
+
+`configs/pipeline.json.example` 提交到仓库，作为规范参考。它同时也是 fallback：如果你还没有创建 `pipeline.json`，工具会直接读取 example，开箱即用。
+
+**首次使用**（`install.sh` 会自动完成）：
+
+```bash
+cp configs/pipeline.json.example configs/pipeline.json
+# 然后编辑 pipeline.json，设置你的提供商、模型和其他偏好
+```
+
 主要配置区块：
 
 | 区块 | 控制内容 |
