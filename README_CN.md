@@ -98,36 +98,7 @@ bash install.sh --no-python   # 跳过 Python/conda 配置
 
 如果未安装 conda，脚本会自动退回到在当前 Python 环境中安装（需要 Python 3.10+）。
 
-### 第二步（手动方式）：逐步配置
-
-<details>
-<summary>展开查看手动步骤</summary>
-
-**创建并激活 conda 环境：**
-
-```bash
-conda create -n latex2word python=3.11
-conda activate latex2word
-```
-
-**安装 Python 依赖：**
-
-```bash
-pip install -e .
-```
-
-**安装 pandoc**（渲染数学公式必需）：
-
-| 平台 | 命令 |
-|------|------|
-| macOS | `brew install pandoc` |
-| Ubuntu / Debian | `sudo apt-get install pandoc` |
-| Fedora | `sudo dnf install pandoc` |
-| Windows / 其他 | [pandoc.org/installing.html](https://pandoc.org/installing.html) |
-
-</details>
-
-### 第三步：填入 API Key
+### 第二步：填入 API Key
 
 打开安装脚本生成的 `secrets.env`（如果手动安装，自己创建该文件），填入你的 API Key：
 
