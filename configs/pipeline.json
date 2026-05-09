@@ -17,13 +17,13 @@
     "chunk_strict": true
   },
   "translate": {
-    "provider": "deepseek",
-    "model": "deepseek-chat",
+    "provider": "anthropic",
+    "model": "claude-opus-4-6",
     "concurrency": 8,
     "max_batch_tokens": 1500,
     "api_key": null,
-    "api_key_env": "DEEPSEEK_API_KEY",
-    "base_url": "https://api.deepseek.com",
+    "api_key_env": "ANTHROPIC_API_KEY",
+    "base_url": "",
     "checkpoint": null,
     "terms": "configs/terms.json",
     "auto_terms": true,
