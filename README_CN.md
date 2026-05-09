@@ -170,6 +170,28 @@ python main.py --inputs-dir inputs --outputs-dir outputs
 python main.py --print-config
 ```
 
+## 术语表
+
+你可以为每个章节提供专属术语表，确保翻译对特定词汇的处理始终一致。创建 `configs/terms.json`（已被 gitignore，不会提交到仓库）：
+
+```json
+{
+  "1": {
+    "LoRA": "LoRA",
+    "fine-tuning": "微调",
+    "rank decomposition": "秩分解"
+  },
+  "2": {
+    "quantization": "量化",
+    "QLoRA": "QLoRA"
+  }
+}
+```
+
+每个键是**章节编号**（对应 `inputs/` 下的子目录名），值是 `"源语言术语" → "目标语言术语"` 的映射。术语表仅对对应章节的翻译生效。
+
+如需关闭自动术语注入，在 `pipeline.json` 中设置 `"auto_terms": false`，或传入 `--no-auto-terms`。如需指定其他文件路径，使用 `"terms": "path/to/your/terms.json"` 或 `--terms`。
+
 ## 配置说明
 
 流水线行为通过 `configs/pipeline.json` 配置。

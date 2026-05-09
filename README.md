@@ -199,6 +199,28 @@ python main.py --inputs-dir inputs --outputs-dir outputs
 python main.py --print-config
 ```
 
+## Terminology
+
+You can supply a per-chapter glossary so the translator always renders specific terms consistently. Create `configs/terms.json` (gitignored, never committed):
+
+```json
+{
+  "1": {
+    "LoRA": "LoRA",
+    "fine-tuning": "微调",
+    "rank decomposition": "秩分解"
+  },
+  "2": {
+    "quantization": "量化",
+    "QLoRA": "QLoRA"
+  }
+}
+```
+
+Each key is a **chapter number** (matching the folder name under `inputs/`). Each value is a `"source term" → "target term"` mapping. Terms are injected into the translation prompt for the relevant chapter only.
+
+To disable automatic term injection, set `"auto_terms": false` in `pipeline.json` or pass `--no-auto-terms`. To point to a different file, use `"terms": "path/to/your/terms.json"` or `--terms`.
+
 ## Configuration
 
 Pipeline behavior is configured in `configs/pipeline.json`.
