@@ -67,6 +67,15 @@ if [ "$SKIP_PANDOC" -eq 0 ]; then
   fi
 fi
 
+# ── pipeline.json ─────────────────────────────────────────────────────────────
+if [ ! -f configs/pipeline.json ]; then
+  echo "[latex2word] Creating configs/pipeline.json from example..."
+  cp configs/pipeline.json.example configs/pipeline.json
+  echo "[latex2word] configs/pipeline.json created. Edit it to set your provider and model."
+else
+  echo "[latex2word] configs/pipeline.json already exists, skipping."
+fi
+
 # ── secrets.env ───────────────────────────────────────────────────────────────
 if [ ! -f secrets.env ]; then
   echo "[latex2word] Creating secrets.env from template..."

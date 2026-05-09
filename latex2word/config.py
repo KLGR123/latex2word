@@ -111,11 +111,13 @@ def _load_json_file(path: Path) -> Dict[str, Any]:
 
 def load_pipeline_config(project_root: Path, config_path: Optional[Path] = None) -> PipelineConfig:
     config = _default_config(project_root)
-    # If no explicit config path, auto-load configs/pipeline.json when present.
     if config_path is None:
-        default_cfg = project_root / "configs" / "pipeline.json"
-        if default_cfg.exists():
-            config_path = default_cfg
+        configs_dir = project_root / "configs"
+        for candidate in ("pipeline.json", "pipeline.json.example"):
+            path = configs_dir / candidate
+            if path.exists():
+                config_path = path
+                break
     if config_path is None:
         return config
     raw = _load_json_file(config_path)

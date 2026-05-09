@@ -9,6 +9,7 @@ source/
 source/*
 
 secrets.env
+configs/pipeline.json
 configs/terms.json
 
 # Runtime data
